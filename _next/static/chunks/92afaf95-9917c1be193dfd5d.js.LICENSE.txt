@@ -1,0 +1,1575 @@
+/*
+ * The purpose of the Batcher is to observe when React batches end so that
+ * Recoil state changes can be batched. Whenever Recoil state changes, we call
+ * setState on the batcher. Then we wait for that change to be committed, which
+ * signifies the end of the batch. That's when we respond to the Recoil change.
+ */
+
+/*
+ ******************************************************************************/
+
+/*
+A function which returns an atom based on the input parameter.
+
+Each unique parameter returns a unique atom. E.g.,
+
+  const f = atomFamily(...);
+  f({a: 1}) => an atom
+  f({a: 2}) => a different atom
+
+This allows components to persist local, private state using atoms.  Each
+instance of the component may have a different key, which it uses as the
+parameter for a family of atoms; in this way, each component will have
+its own atom not shared by other instances.  These state keys may be composed
+into children's state keys as well.
+*/
+
+/* $FlowFixMe[incompatible-return] (>=0.66.0 site=www,mobile) This comment
+   * suppresses an error found when Flow v0.66 was deployed. To see the error
+   * delete this comment and run Flow. */
+
+/* Aggregate
+ ******************************************************************************/
+
+/* Export
+ ******************************************************************************/
+
+/* Fold
+ ******************************************************************************/
+
+/* Mutation
+ ******************************************************************************/
+
+/* Queries
+ ******************************************************************************/
+
+/* Traversal
+ ******************************************************************************/
+
+/* Updates
+ ******************************************************************************/
+
+/* binding */
+
+/* eslint-disable no-redeclare */
+
+/* eslint-enable no-redeclare */
+
+/* harmony export */
+
+/* harmony import */
+
+/* unused harmony exports RecoilLoadable, atomFamily, constSelector, errorSelector, isRecoilValue, noWait, readOnlySelector, retentionZone, selectorFamily, snapshot_UNSTABLE, useGetRecoilValueInfo_UNSTABLE, useGotoRecoilSnapshot, useRecoilBridgeAcrossReactRoots_UNSTABLE, useRecoilCallback, useRecoilRefresher_UNSTABLE, useRecoilSnapshot, useRecoilStateLoadable, useRecoilState_TRANSITION_SUPPORT_UNSTABLE, useRecoilStoreID, useRecoilTransactionObserver_UNSTABLE, useRecoilTransaction_UNSTABLE, useRecoilValue, useRecoilValueLoadable_TRANSITION_SUPPORT_UNSTABLE, useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useResetRecoilState, useRetain, waitForAll, waitForAllSettled, waitForAny, waitForNone */
+
+/*#__PURE__*/
+
+/**
+           * Returning promise here without wrapping as the wrapper logic was
+           * already done upstream when this promise was generated.
+           */
+
+/**
+         * If resolvedDepKey is not defined, the promise was a user-thrown
+         * promise. User-thrown promises are an advanced feature and they
+         * should be avoided in almost all cases. Using `loadable.map()` inside
+         * of selectors for loading loadables and then throwing that mapped
+         * loadable's promise is an example of a user-thrown promise.
+         *
+         * When we hit a user-thrown promise, we have to bail out of an optimization
+         * where we bypass calculating selector cache keys for selectors that
+         * have been previously seen for a given state (these selectors are saved in
+         * state.atomValues) to avoid stale state as we have no way of knowing
+         * what state changes happened (if any) in result to the promise resolving.
+         *
+         * Ideally we would only bail out selectors that are in the chain of
+         * dependencies for this selector, but there's currently no way to get
+         * a full list of a selector's downstream nodes because the state that
+         * is executing may be a discarded tree (so store.getGraph(state.version)
+         * will be empty), and the full dep tree may not be in the selector
+         * caches in the case where the selector's cache was cleared. To solve
+         * for this we would have to keep track of all running selector
+         * executions and their downstream deps. Because this only covers edge
+         * cases, that complexity might not be justifyable.
+         */
+
+/**
+         * Note for async atoms, this means we are changing the atom's value
+         * in the store for the given version. This should be alright because
+         * the version of state is now stale and a new version will have
+         * already been triggered by the atom being resolved (see this logic
+         * in Recoil_atom.js)
+         */
+
+/**
+         * This has to notify stores of a resolved async, even if there is no
+         * current pending execution for the following case:
+         * 1) A component renders with this pending loadable.
+         * 2) The upstream dependency resolves.
+         * 3) While processing some other selector it reads this one, such as
+         *    while traversing its dependencies.  At this point it gets the
+         *    new resolved value synchronously and clears the current
+         *    execution ID.  The component wasn't getting the value itself,
+         *    though, so it still has the pending loadable.
+         * 4) When this code executes the current execution id was cleared
+         *    and it wouldn't notify the component of the new value.
+         *
+         * I think this is only an issue with "early" rendering since the
+         * components got their value using the in-progress execution.
+         * We don't have a unit test for this case yet.  I'm not sure it is
+         * necessary with recoil_concurrent_support mode.
+         */
+
+/**
+       * If this execution is stale, let's check to see if there is some in
+       * progress execution with a matching state. If we find a match, then
+       * we can take the value from that in-progress execution. Note this may
+       * sound like an edge case, but may be very common in cases where a
+       * loading dependency resolves from loading to having a value (thus
+       * possibly triggering a re-render), and React re-renders before the
+       * chained .then() functions run, thus starting a new execution as the
+       * dep has changed value. Without this check we will run the selector
+       * twice (once in the new execution and once again in this .then(), so
+       * this check is necessary to keep unnecessary re-executions to a
+       * minimum).
+       *
+       * Also note this code does not check across all executions that may be
+       * running. It only optimizes for the _latest_ execution per store as
+       * we currently do not maintain a list of all currently running executions.
+       * This means in some cases we may run selectors more than strictly
+       * necessary when there are multiple executions running for the same
+       * selector. This may be a valid tradeoff as checking for dep changes
+       * across all in-progress executions may take longer than just
+       * re-running the selector. This will be app-dependent, and maybe in the
+       * future we can make the behavior configurable. An ideal fix may be
+       * to extend the tree cache to support caching loading states.
+       */
+
+/**
+       * Optimization: Now that the dependency has resolved, let's try hitting
+       * the cache in case the dep resolved to a value we have previously seen.
+       *
+       * TODO:
+       * Note this optimization is not perfect because it only prevents re-executions
+       * _after_ the point where an async dependency is found. Any code leading
+       * up to the async dependency may have run unnecessarily. The ideal case
+       * would be to wait for the async dependency to resolve first, check the
+       * cache, and prevent _any_ execution of the selector if the resulting
+       * value of the dependency leads to a path that is found in the cache.
+       * The ideal case is more difficult to implement as it would require that
+       * we capture and wait for the the async dependency right after checking
+       * the cache. The current approach takes advantage of the fact that running
+       * the selector already has a code path that lets us exit early when
+       * an async dep resolves.
+       */
+
+/**
+     * Conditionally updates the cache with a given loadable.
+     *
+     * We only cache loadables that are not loading because our cache keys are
+     * based on dep values, which are in an unfinished state for loadables that
+     * have a 'loading' state (new deps may be discovered while the selector
+     * runs its async code). We never want to cache partial dependencies b/c it
+     * could lead to errors, such as prematurely returning the result based on a
+     * partial list of deps-- we need the full list of deps to ensure that we
+     * are returning the correct result from cache.
+     */
+
+/**
+     * Ensure store contains correct dependencies if we hit the cache so that
+     * the store deps and cache are in sync for a given state. This is important
+     * because store deps are normally updated when new executions are created,
+     * but cache hits don't trigger new executions but they still _may_ signifiy
+     * a change in deps in the store if the store deps for this state are empty
+     * or stale.
+     */
+
+/**
+     * It's important that we don't bypass calling getNodeLoadable for atoms
+     * as getNodeLoadable has side effects in state
+     */
+
+/**
+     * Since we're subscribing in an effect we need to update to the latest
+     * value of the atom since it may have changed since we rendered. We can
+     * go ahead and do that now, unless we're in the middle of a batch --
+     * in which case we should do it at the end of the batch, due to the
+     * following edge case: Suppose an atom is updated in another useEffect
+     * of this same component. Then the following sequence of events occur:
+     * 1. Atom is updated and subs fired (but we may not be subscribed
+     *    yet depending on order of effects, so we miss this) Updated value
+     *    is now in nextTree, but not currentTree.
+     * 2. This effect happens. We subscribe and update.
+     * 3. From the update we re-render and read currentTree, with old value.
+     * 4. Batcher's effect sets currentTree to nextTree.
+     * In this sequence we miss the update. To avoid that, add the update
+     * to queuedComponentCallback if a batch is in progress.
+     */
+
+/**
+    @fileOverview Hash Array Mapped Trie.
+
+    Code based on: https://github.com/exclipy/pdata
+*/
+
+/**
+    Alter the value stored for `key` in `map` using function `f` using
+    custom hash.
+
+    `f` is invoked with the current value for `k` if it exists,
+    or no arguments if no such value exists. `modify` will always either
+    update or insert a value into the map.
+
+    Returns a map with the modified value. Does not alter `map`.
+*/
+
+/**
+    Alter the value stored for `key` in `map` using function `f` using
+    internal hash function.
+
+    @see `modifyHash`
+*/
+
+/**
+    Apply a continuation.
+*/
+
+/**
+    Create an empty map.
+
+    @param config Configuration.
+*/
+
+/**
+    Does `map` contain any elements?
+*/
+
+/**
+    Does an entry exist for `key` in `map`? Uses custom `hash`.
+*/
+
+/**
+    Does an entry exist for `key` in `map`? Uses internal hash function.
+*/
+
+/**
+    Empty map.
+*/
+
+/**
+    Get a Javascsript iterator of `map`.
+
+    Iterates over `[key, value]` arrays.
+*/
+
+/**
+    Get array of all keys in `map`.
+
+    Order is not guaranteed.
+*/
+
+/**
+    Get array of all values in `map`.
+
+    Order is not guaranteed, duplicates are preserved.
+*/
+
+/**
+    Get the number of entries in `map`.
+*/
+
+/**
+    Javascript iterator over a map.
+*/
+
+/**
+    Lazily visit each value in map with function `f`.
+*/
+
+/**
+    Lookup the value for `key` in `map` using a custom `hash`.
+
+    Returns the value or `alt` if none.
+*/
+
+/**
+    Lookup the value for `key` in `map` using a custom `hash`.
+
+    Returns the value or `undefined` if none.
+*/
+
+/**
+    Lookup the value for `key` in `map` using internal hash function.
+
+    @see `tryGetHash`
+*/
+
+/**
+    Mark `map` as immutable.
+ */
+
+/**
+    Mark `map` as mutable.
+ */
+
+/**
+    Mutate `map` within the context of `f`.
+    @param f
+    @param map HAMT
+*/
+
+/**
+    Recursively visit all values stored in an array of nodes lazily.
+*/
+
+/**
+    Remove the entry for `key` in `map` using internal hash function.
+
+    @see `removeHash`
+*/
+
+/**
+    Remove the entry for `key` in `map`.
+
+    Returns a map with the value removed. Does not alter `map`.
+*/
+
+/**
+    Store `value` for `key` in `map` using custom `hash`.
+
+    Returns a map with the modified value. Does not alter `map`.
+*/
+
+/**
+    Store `value` for `key` in `map` using internal hash function.
+
+    @see `setHash`
+*/
+
+/**
+    Visit every entry in the map, aggregating data.
+
+    Order of nodes is not guaranteed.
+
+    @param f Function invoked with value and key
+    @param map HAMT
+*/
+
+/**
+    Visit every entry in the map, aggregating data.
+
+    Order of nodes is not guaranteed.
+
+    @param f Function mapping accumulated value, value, and key to new value.
+    @param z Starting value.
+    @param m HAMT
+*/
+
+/**
+   * FIXME: dep keys should take into account the state of the loadable to
+   * prevent the edge case where a loadable with an error and a loadable with
+   * an error as a value are treated as the same thing incorrectly. For example
+   * these two should be treated differently:
+   *
+   * selector({key: '', get: () => new Error('hi')});
+   * selector({key: '', get () => {throw new Error('hi')}});
+   *
+   * With current implementation they are treated the same
+   */
+
+/**
+   * Given a tree state, this function returns the "selector result", which is
+   * defined as a size-2 tuple of [DependencyMap, Loadable<T>].
+   *
+   * The selector's get() function will only be re-evaluated if _both_ of the
+   * following statements are true:
+   *
+   * 1. The current dep values from the given state produced a cache key that
+   *    was not found in the cache.
+   * 2. There is no currently running async execution OR there is an
+   *    async execution that is running, but after comparing the dep values in
+   *    the given state with the dep values that the execution has discovered so
+   *    far we find that at least one dep value has changed, in which case we
+   *    start a new execution (the previously running execution will continue to
+   *    run to completion, but only the new execution will be deemed the
+   *    'latest' execution, meaning it will be the only execution that will
+   *    update global state when it is finished. Any non-latest executions will
+   *    run to completion and update the selector cache but not global state).
+   */
+
+/**
+   * Release the snapshot on the next tick.  This means the snapshot is retained
+   * during the execution of the current function using it.
+   */
+
+/**
+   * Searches execution info across all stores to see if there is an in-progress
+   * execution whose dependency values match the values of the requesting store.
+   */
+
+/**
+   * This function attaches a then() and a catch() to a promise that was
+   * returned from a selector's get() (either explicitly or implicitly by
+   * running a function that uses the "async" keyword). If a selector's get()
+   * returns a promise, we have two possibilities:
+   *
+   * 1. The promise will resolve, in which case it will have completely finished
+   *    executing without any remaining pending dependencies. No more retries
+   *    are needed and we can proceed with updating the cache and notifying
+   *    subscribers (if it is the latest execution, otherwise only the cache
+   *    will be updated and subscriptions will not be fired). This is the case
+   *    handled by the attached then() handler.
+   *
+   * 2. The promise will throw because it either has an error or it came across
+   *    an async dependency that has not yet resolved, in which case we will
+   *    call wrapDepdencyPromise(), whose responsibility is to handle dependency
+   *    promises. This case is handled by the attached catch() handler.
+   *
+   * Both branches will eventually resolve to the final result of the selector
+   * (or an error if a real error occurred).
+   *
+   * The execution will run to completion even if it is stale, and its value
+   * will be cached. But stale executions will not update global state or update
+   * executionInfo as that is the responsibility of the 'latest' execution.
+   *
+   * Note this function should not be passed a promise that was thrown--AKA a
+   * dependency promise. Dependency promises should be passed to
+   * wrapPendingDependencyPromise()).
+   */
+
+/**
+   * This function attaches a then() and a catch() to a promise that was
+   * thrown from a selector's get(). If a selector's get() throws a promise,
+   * we have two possibilities:
+   *
+   * 1. The promise will resolve, meaning one of our selector's dependencies is
+   *    now available and we should "retry" our get() by running it again. This
+   *    is the case handled by the attached then() handler.
+   *
+   * 2. The promise will throw because something went wrong with the dependency
+   *    promise (in other words a real error occurred). This case is handled by
+   *    the attached catch() handler. If the dependency promise throws, it is
+   *    _always_ a real error and not another dependency promise (any dependency
+   *    promises would have been handled upstream).
+   *
+   * The then() branch will eventually resolve to the final result of the
+   * selector (or an error if a real error occurs), and the catch() will always
+   * resolve to an error because the dependency promise is a promise that was
+   * wrapped upstream, meaning it will only resolve to its real value or to a
+   * real error.
+   *
+   * The execution will run to completion even if it is stale, and its value
+   * will be cached. But stale executions will not update global state or update
+   * executionInfo as that is the responsibility of the 'latest' execution.
+   *
+   * Note this function should not be passed a promise that was returned from
+   * get(). The intention is that this function is only passed promises that
+   * were thrown due to a pending dependency. Promises returned by get() should
+   * be passed to wrapPendingPromise() instead.
+   */
+
+/**
+   * This function will update the selector's execution info when the selector
+   * has either finished running an execution or has started a new execution. If
+   * the given loadable is in a 'loading' state, the intention is that a new
+   * execution has started. Otherwise, the intention is that an execution has
+   * just finished.
+   */
+
+/**
+   * it's important we use === undefined as opposed to == null, because the
+   * resolved value of the async promise could be `null`, in which case we
+   * don't want to use syncResults[idx], which would be undefined. If async
+   * promise resolves to `undefined`, that's ok because `syncResults[idx]`
+   * will also be `undefined`. That's a little hacky, but it works.
+   */
+
+/**
+  Calls the given callback after any atoms have been modified and the consequent
+  component re-renders have been committed. This is intended for persisting
+  the values of the atoms to storage. The stored values can then be restored
+  using the useSetUnvalidatedAtomValues hook.
+
+  The callback receives the following info:
+
+  atomValues: The current value of every atom that is both persistable (persistence
+              type not set to 'none') and whose value is available (not in an
+              error or loading state).
+
+  previousAtomValues: The value of every persistable and available atom before
+               the transaction began.
+
+  atomInfo: A map containing the persistence settings for each atom. Every key
+            that exists in atomValues will also exist in atomInfo.
+
+  modifiedAtoms: The set of atoms that were written to during the transaction.
+
+  transactionMetadata: Arbitrary information that was added via the
+          useSetUnvalidatedAtomValues hook. Useful for ignoring the useSetUnvalidatedAtomValues
+          transaction, to avoid loops.
+*/
+
+/**
+  Equivalent to useState(). Allows the value of the RecoilState to be read and written.
+  Subsequent updates to the RecoilState will cause the component to re-render. If the
+  RecoilState is pending, this will suspend the component and initiate the
+  retrieval of the value. If evaluating the RecoilState resulted in an error, this will
+  throw the error so that the nearest React error boundary can catch it.
+*/
+
+/**
+  Like useRecoilState(), but does not cause Suspense or React error handling. Returns
+  an object that indicates whether the RecoilState is available, pending, or
+  unavailable due to an error.
+*/
+
+/**
+  Like useRecoilValue(), but either returns the value if available or
+  just undefined if not available for any reason, such as pending or error.
+*/
+
+/**
+  Returns a function that allows the value of a RecoilState to be updated, but does
+  not subscribe the component to changes to that RecoilState.
+*/
+
+/**
+  Returns a function that will reset the value of a RecoilState to its default
+*/
+
+/**
+  Returns the value represented by the RecoilValue.
+  If the value is pending, it will throw a Promise to suspend the component,
+  if the value is an error it will throw it for the nearest React error boundary.
+  This will also subscribe the component for any updates in the value.
+  */
+
+/**
+ * An ExecutionId is an arbitrary ID that lets us distinguish executions from
+ * each other. This is necessary as we need a way of solving this problem:
+ * "given 3 async executions, only update state for the 'latest' execution when
+ * it finishes running regardless of when the other 2 finish". ExecutionIds
+ * provide a convenient way of identifying executions so that we can track and
+ * manage them over time.
+ */
+
+/**
+ * Caches a function's results based on a comparison of the arguments.
+ * Only caches the last return of the function.
+ * Defaults to reference equality
+ */
+
+/**
+ * Caches a function's results based on the key returned by the passed
+ * hashFunction.
+ */
+
+/**
+ * Calls the current batcher function and passes the
+ * provided callback function.
+ */
+
+/**
+ * Combines multiple Iterables into a single Iterable.
+ * Traverses the input Iterables in the order provided and maintains the order
+ * of their elements.
+ *
+ * Example:
+ * ```
+ * const r = Array.from(concatIterables(['a', 'b'], ['c'], ['d', 'e', 'f']));
+ * r == ['a', 'b', 'c', 'd', 'e', 'f'];
+ * ```
+ */
+
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * MIT License
+ *
+ * Copyright (c) 2014-2019 Georg Tavonius
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *
+ * @emails oncall+recoil
+ * 
+ * @format
+ */
+
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @emails oncall+recoil
+ * 
+ * @format
+ *
+ * This is a stub for some integration into FB internal stuff
+ */
+
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @emails oncall+recoil
+ * 
+ * @format
+ *
+ * This is to export esstiential functions from react-dom
+ * for our web build
+ */
+
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @emails oncall+recoil
+ * 
+ * @format
+ */
+
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * Utilities for working with built-in Maps and Sets without mutating them.
+ *
+ * @emails oncall+recoil
+ * 
+ * @format
+ */
+
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * Wraps another recoil value and prevents writing to it.
+ *
+ * @emails oncall+recoil
+ * 
+ * @format
+ */
+
+/**
+ * Creates a new iterable whose output is generated by passing the input
+ * iterable's values through the filter function.
+ */
+
+/**
+ * Creates a new iterable whose output is generated by passing the input
+ * iterable's values through the mapper function.
+ */
+
+/**
+ * Experimental variants of hooks with support for useTransition()
+ */
+
+/**
+ * Return a proxy object based on the provided base and factories objects.
+ * The proxy will include all properties of the base object as-is.
+ * The factories object contains callbacks to obtain the values of the properies
+ * for its keys.
+ *
+ * This is useful for providing users an object where some properties may be
+ * lazily computed only on first access.
+ */
+
+/**
+ * Returns a map containing all of the keys + values from the original map where
+ * the given callback returned true.
+ */
+
+/**
+ * Returns a new Map object with the same keys as the original, but with the
+ * values replaced with the output of the given callback function.
+ */
+
+/**
+ * Returns a set containing all of the values from the first set that are not
+ * present in any of the subsequent sets.
+ *
+ * Note: this is written procedurally (i.e., without filterSet) for performant
+ * use in tight loops.
+ */
+
+/**
+ * Returns a set containing all of the values from the original set where
+ * the given callback returned true.
+ */
+
+/**
+ * Sets the provided batcher function as the batcher function used by Recoil.
+ *
+ * Set the batcher to a custom batcher for your renderer,
+ * if you use a renderer other than React DOM or React Native.
+ */
+
+/**
+ * The same as `useRef()` except that if a function is specified then it will
+ * call that function to get the value to initialize the reference with.
+ * This is similar to how `useState()` behaves when given a function.  It allows
+ * the user to avoid generating the initial value for subsequent renders.
+ * The tradeoff is that to set the reference to a function itself you need to
+ * nest it: useRefInitOnce(() => () => {...});
+ */
+
+/**
+ * The someSet() method tests whether some elements in the given Set pass the
+ * test implemented by the provided function.
+ */
+
+/**
+ * Various things are broken with useRecoilInterface, particularly concurrent
+ * mode, React strict mode, and memory management. They will not be fixed.
+ * */
+
+/**
+ * mode: The React API and approach to use for syncing state with React
+ * early: Re-renders from Recoil updates occur:
+ *    1) earlier
+ *    2) in sync with React updates in the same batch
+ *    3) before transaction observers instead of after.
+ * concurrent: Is the current mode compatible with Concurrent Mode and useTransition()
+ */
+
+/***/
+
+//
+
+//    This overrides their default insertion order.
+
+//   updateRetainCountToZero(this._store, k);
+
+//  TRUTH TABLE
+
+//  [error, error]      [Error, Error]      [Error, Error]    Error           [error, error]
+
+//  [error, loading]    [Error, Promise]    [Error, Promise]  Error           Promise
+
+//  [loading, loading]  [Promise, Promise]  Promise           Promise         Promise
+
+//  [value, error]      [value, Error]      [value, Error]    Error           [value, error]
+
+//  [value, loading]    [value, Promise]    [value, Promise]  Promise         Promise
+
+//  [value, value]      [value, value]      [value, value]    [value, value]  [value, value]
+
+// $FlowExpectedError[incompatible-call]
+
+// $FlowExpectedError[incompatible-use]
+
+// $FlowFixMe Flow(prop-missing) for integrating with tools that inspect thrown promises @fb-only
+
+// $FlowFixMe[escaped-generic]
+
+// $FlowFixMe[incompatible-call]
+
+// $FlowFixMe[incompatible-call] - map/iterator knows nothing about flow types
+
+// $FlowFixMe[incompatible-return]
+
+// $FlowFixMe[method-unbinding]
+
+// $FlowFixMe[prop-missing]
+
+// $FlowIssue
+
+// $FlowIssue[incompatible-call]
+
+// $FlowIssue[incompatible-return]
+
+// $FlowIssue[unclear-type]
+
+// * Serialize built-in Maps as an Object.  Supports non-string keys.
+
+// * Serialize built-in Sets as an Array
+
+// * Serialize other iterables as arrays
+
+// * Sort the keys of Objects and Maps to have a stable order based on string conversion.
+
+// * Still uses toJSON() of any object to override serialization
+
+// * Support Symbols (though don't guarantee uniqueness)
+
+// * We could support BigInt, but Flow doesn't seem to like it.
+
+// @fb-only: 'Error when logging Recoil Usage event',
+
+// @fb-only: 'recoil',
+
+// @fb-only: ): ScopeRules | void {
+
+// @fb-only: );
+
+// @fb-only: : rule,
+
+// @fb-only: ? rule.map(entry => (typeof entry === 'function' ? entry(param) : entry))
+
+// @fb-only: Array.isArray(rule)
+
+// @fb-only: RecoilUsageLogFalcoEvent.log(() => ({
+
+// @fb-only: const RecoilUsageLogFalcoEvent = require('RecoilUsageLogFalcoEvent');
+
+// @fb-only: const RecoilusagelogEvent = require('RecoilusagelogEvent');
+
+// @fb-only: const URI = require('URI');
+
+// @fb-only: const isAcceptingUpdate = require('__debug').isAcceptingUpdate;
+
+// @fb-only: const {scopedAtom} = require('Recoil_ScopedAtom');
+
+// @fb-only: const {unstable_batchedUpdates} = require('ReactDOMComet');
+
+// @fb-only: expectationViolation(message, 'recoil');
+
+// @fb-only: function mapScopeRules<P>(
+
+// @fb-only: if (__DEV__) {
+
+// @fb-only: if (gkx('recoil_usage_logging')) {
+
+// @fb-only: if (typeof isAcceptingUpdate !== 'function' || !isAcceptingUpdate()) {
+
+// @fb-only: import type {ScopeRules} from 'Recoil_ScopedAtom';
+
+// @fb-only: param: P,
+
+// @fb-only: path: URI.getRequestURI().getPath(),
+
+// @fb-only: promise.displayName = `Recoil State: ${recoilValue.key}`;
+
+// @fb-only: recoverableViolation(
+
+// @fb-only: recoverableViolation(message, 'recoil');
+
+// @fb-only: return "<component name only available when both in dev mode and when passing GK 'recoil_infer_component_names'>";
+
+// @fb-only: return scopeRules?.map(rule =>
+
+// @fb-only: scopeRules?: ParameterizedScopeRules<P>,
+
+// @fb-only: scopeRules_APPEND_ONLY_READ_THE_DOCS,
+
+// @fb-only: try {
+
+// @fb-only: type: RecoilusagelogEvent.RECOIL_ROOT_MOUNTED,
+
+// @fb-only: useEffect(() => {
+
+// @fb-only: }
+
+// @fb-only: } catch {
+
+// @fb-only: } else {
+
+// @fb-only: }));
+
+// @fb-only: }, []);
+
+// @oss-only
+
+// A "Snapshot" is "read-only" and captures a specific set of values of atoms.
+
+// A optimization to avoid the more expensive JSON.stringify() for simple strings
+
+// API affords us no better option. If we suspend and never commit after some
+
+// Add a unique index to each selector in case the cache implementation allows
+
+// Add surrounding quotes and escape internal quotes
+
+// Allow destructing
+
+// Already performed a temporary retain on render, simply cancel the release
+
+// Always return the current status of the results; never block.
+
+// Any atom effects will be run before initialization, but then cleaned up,
+
+// Anything else that is iterable serialize as an Array.
+
+// Append index in case values serialize to the same key string
+
+// Arrays handle recursive stringification
+
+// Atom effect initialization takes precedence over this prop.
+
+// Atom effects, in-closure caches, etc.:
+
+// Atom value is stored but needs validation before use.
+
+// Atom value is stored in state:
+
+// Atoms/Selectors
+
+// Avoid calling onSet() when setSelf() initializes with a Promise
+
+// Bail out if we're being set to the existing value, or if we're being
+
+// Because hamt.empty is not a function there is no way to introduce type
+
+// But an invariant would require deleting nodes in topological order.
+
+// But for our own value we need to check if there is a pending
+
+// By default, the selectors are distinguished by distinct values of the
+
+// Cast T to S
+
+// Check if we are handling a pending Recoil dependency or if the user
+
+// Children before parents
+
+// Cleanup any effects run during initialization and clear the handlers so
+
+// Cleanup handlers for this atom
+
+// Cleanup when the <RecoilRoot> is unmounted
+
+// Clone the snapshot lazily to avoid overhead if the callback does not use it.
+
+// Compute and cache lazy property if not already done.
+
+// Concurrency Helpers for Atoms/Selectors
+
+// Continue to retain the new snapshot for the user, but auto-release it
+
+// Convenience Atoms/Selectors
+
+// Counteract the snapshot auto-release
+
+// Create blank cleanup handlers for atoms so snapshots don't re-run
+
+// Deal with all promises as equivalent for now.
+
+// Default may be a static value, promise, or RecoilValue
+
+// Delete from TreeState and dep graph:
+
+// Delete from store state:
+
+// Dependencies        waitForNone         waitForAny        waitForAll       waitForAllSettled
+
+// E.g.,
+
+// Effect to add/remove subscriptions as nodes are used
+
+// Effect to unsubscribe from all when unmounting
+
+// Exceptions can either be Promises of pending results or real errors
+
+// Execute Node-specific subscribers before global subscribers
+
+// FIXME delete queuedComponentCallbacks_DEPRECATED when deleting useInterface.
+
+// FIXME here's a copy
+
+// FIXME replace this with a mutative loop
+
+// FIXME: this won't work with custom caching b/c it uses separate cache
+
+// Factory to build a fresh snapshot
+
+// Factory to clone a snapahot state
+
+// Fallback case for unknown types
+
+// Find all of the recursively dependent nodes
+
+// Find which of the downstream nodes are releasable and which are not:
+
+// Flow doesn't know that T isn't a function, so we need to case to any
+
+// For built-in Maps, sort the keys in a stable order instead of the
+
+// For built-in Sets, sort the keys in a stable order instead of the
+
+// For use with React "context bridging"
+
+// Function that returns a selector which always produces the
+
+// Function that returns a selector which always throws an error
+
+// Get the current state
+
+// Get the current value loadable of a node and update the state.
+
+// Global transaction subscriptions
+
+// Handle primitive types
+
+// Handle the case that, during the same tick that we are subscribing, an atom
+
+// Hooks for Atoms/Selectors
+
+// Hooks for complex operations
+
+// However, the data-flow-graph and selector values may evolve as selector
+
+// I don't see a way to avoid the any type here because we want to accept readable
+
+// IE sets the stack only if error is thrown
+
+// If all results are available, return the results
+
+// If an object defines a toJSON() method, then use that to override the
+
+// If any results are available, value or error, return the current status
+
+// If olderGraph is given then we will not overwrite changes made to the given
+
+// If the component is suspended then the effect setting prevLoadableRef
+
+// If there is a pending transaction, then also mutate the next state tree.
+
+// If this version is not the latest version, also write these dependencies
+
+// If we "suspended", then try again.
+
+// If we changed keys, then return the state for the new key.
+
+// If we found any releasable nodes, we need to walk UP from those nodes to
+
+// If we have any errors, throw the first error
+
+// Ignore atom value changes that were set via setSelf() in the same effect.
+
+// Ignore commits that are not because of Recoil transactions -- namely,
+
+// Immutable.js collections define this method to allow us to serialize them.
+
+// In V8, Error objects keep the closure scope chain alive until the
+
+// Inform any nodes that were changed or downstream of changes so that they
+
+// Initialize a snapshot and get its store
+
+// Initialize any nodes that are live in the parent store (primarily so that
+
+// Initialize atom and run effects if not initialized yet
+
+// Initialize state snapshot for <RecoilRoot> for the initializeState prop.
+
+// Issue parallel requests for all dependencies and return the current
+
+// Issue requests for all dependencies in parallel.
+
+// It is possible to use functions in parameters if the user uses
+
+// JSON.stringify(undefined) returns undefined, but we always want to return a string
+
+// Keep in mind the parameter needs to be serializable as a cahche key
+
+// Memory Management
+
+// Merge in nonvalidated atoms; we may not have defs for them but they will
+
+// Merge the dependencies discovered into the store's dependency map
+
+// Mutable set is destroyed in place
+
+// Mutate initial state in place since we know there are no other subscribers
+
+// NB: PLEASE un-export applyAtomValueWrites when deleting this code
+
+// NOTE: This mode is currently broken with some Suspense cases
+
+// No need to delete sub's deps as there should be no subs at this point.
+
+// Node config (for family members only as their configs can be recreated, and
+
+// Node-specific transaction subscriptions:
+
+// Normally we can just get the current value of another atom.
+
+// Not releasable if configured to be retained forever:
+
+// Not releasable if it has a non-releasable child (which will already be in
+
+// Not releasable if retained by a zone:
+
+// Not releasable if retained directly by a component:
+
+// Note that this means the snapshot may represent later state from when
+
+// Note that this overwrites the deps of existing nodes, rather than unioning
+
+// Note that we DO NOT delete from nodeToComponentSubscriptions because this
+
+// Notifying components is needed to wake from suspense, even when using
+
+// Object.getOwnPropertyNames() has consistent key ordering with ES6
+
+// Only re-render if the value has changed.
+
+// Otherwise, return a promise that will resolve when all results are available
+
+// Otherwise, return a promise that will resolve when the next result is
+
+// Pass the key for compatibility.
+
+// Peek at the current value loadable for a node without any evaluation or state change
+
+// Process scopeRules to handle any entries which are functions taking parameters
+
+// React is free to call effect cleanup handlers and effects at will, the
+
+// Reading from an older tree can cause bugs because the dependencies that we
+
+// Recoil Root
+
+// RecoilState<SomeT> is not a subtype of RecoilState<mixed>.
+
+// Release after a threshold in case component is suspended.
+
+// Release the previous snapshot
+
+// Release the retain from the rendering call
+
+// Rely on stable reference equality of the store to use it as a key per <RecoilRoot>
+
+// Remove removed deps from nodeToNodeSubscriptions:
+
+// Report current dependencies.  If the node hasn't been evaluated, then
+
+// Reports all "current" subscribers.  Evaluating other nodes or
+
+// Restore subscriptions that were cleared due to StrictMode running this effect twice
+
+// Retain new snapshot during async mapper
+
+// Retain snapshot for duration component is mounted
+
+// Retain snapshot until above effect is run.
+
+// Retry the selector evaluation now that the dependency has resolved
+
+// Return a function that returns members of a family of selectors of the same type
+
+// Return a snapshot of the current state and subscribe to all state changes
+
+// Return the discovered dependencies and values to be written by setting
+
+// Run Atom Effects
+
+// Save changes to nextTree and schedule a React update:
+
+// See Recoil_stableStringify-test.js for examples
+
+// See note at `set` about batched updates.
+
+// Selector that requests all dependencies in parallel and immediately returns
+
+// Setup async defaults to notify subscribers when they resolve
+
+// Simple atomFamily implementation to cache individual atoms based
+
+// Snapshots
+
+// Special behavior ONLY invoked by useInterface.
+
+// Split declaration and implementation to allow this function to pretend to
+
+// Stringify will escape any nested quotes
+
+// Subscribe to Recoil state changes
+
+// T itself may be a function, so our refinement is not sufficient:
+
+// TODO Deal with modified selectors
+
+// TODO Hack for now.
+
+// TODO Need to figure out if there is a standard/open-source equivalent to see if hot module replacement is happening:
+
+// TODO OPTIMIZATION Only wake up related downstream components
+
+// TODO Optimize this when cloning snapshots for callbacks
+
+// TODO Remove export when deprecating initialStoreState_DEPRECATED in RecoilRoot
+
+// TODO Restore optimization to memoize lookup
+
+// TODO T63965866: use execution ID here
+
+// TODO This isn't actually valid, use as a placeholder for now.
+
+// TODO Why?
+
+// TODO snapshots shouldn't really have versions because a new version number
+
+// TODO: nodeCount(): number
+
+// Temporarily nerfing this to allow us to find broken call sites without
+
+// The default was parameterized
+
+// The default will change from 'recoilRoot' to 'components' in the future.
+
+// The selector was released since the request began; ignore the response.
+
+// This batchUpdates ensures this `set` is applied immediately and you can
+
+// This could happen if the atom was first initialized in an action that
+
+// This is important in case the old key would cause the component to suspend.
+
+// This may lose protection for u2028 and u2029, though.
+
+// This method allows user to iterate keys as normal
+
+// This state is scoped by Store, since this is in the initAtom() closure
+
+// This will evaluate the atom/selector now as well as when the
+
+// Track the RecoilValues used just during this render
+
+// Types
+
+// Update dependencies and subscriptions for selectors.
+
+// Update nodeDeps:
+
+// Update saved value validation for atoms.
+
+// Update state in case we are using a different key
+
+// Updater form: pass in the current value. Throw if the current value
+
+// Use generator to create iterable/iterator
+
+// Use replacer to get the next state:
+
+// Utility similar to JSON.stringify() except:
+
+// Wait for all results to settle
+
+// Wake all suspended components so the right one(s) can try to re-render.
+
+// We can't just throw the promise we are waiting on to Suspense.  If the
+
+// We don't have to set the new state here since the subscribing effect above
+
+// We might have already validated it and have a cached validated value:
+
+// We need to wake up components not just when some asynchronous selector
+
+// We want to retain if the component suspends. This is terrible but the Suspense
+
+// We will still properly call the handler if there was a subsequent
+
+// When removing this deprecated function, remove stateBySettingRecoilValue
+
+// Write value directly to state bypassing the Node interface as the node
+
+// a cache with reference equality thanks to the incrementing index.
+
+// a node value. (Multiple values may be written due to selectors getting to
+
+// a selector to change from asynchronous to synchronous, in which case there
+
+// a transaction begins, in startNextTreeIfNeeded:
+
+// actually breaking anybody yet.
+
+// add
+
+// after the next tick, the same as a new synchronous snapshot.
+
+// all have persistence on or they wouldn't be there in the first place.
+
+// already happens when the last component that was retaining the node unmounts,
+
+// also updated some other atom's state.
+
+// and this could happen either before or after that.
+
+// and writable values with any type parameter, but normally with writable ones
+
+// atom effects.
+
+// atom to the exact same value as the `setSelf()`.   But, in that
+
+// available, whichever one happens to be next.  But, if all pending
+
+// because something above RecoilRoot re-rendered:
+
+// behavior and only batch in `Snapshot.map`, but this would be a breaking
+
+// but state initialization only happens once the first time.
+
+// cacheImplementationForParams option.
+
+// call useEffect in an unpredictable order sometimes.
+
+// can be released now if it was previously in use
+
+// can clear out any caches as needed due to the update:
+
+// can render, but it would still be suspended on a Promise that may never resolve.
+
+// cancels this.
+
+// case 'bigint': // BigInt is not supported in www
+
+// case, it was kind of a noop, so the semantics are debatable..
+
+// cast to any because we can't restrict T from being a function without losing support for opaque types
+
+// cast to any because we can't restrict type S from being a function itself without losing support for opaque types
+
+// change potentially.
+
+// check for actual instance of Promise instead of something with a `then`
+
+// collapse
+
+// compatible with React StrictMode where effects may be re-run multiple times
+
+// component renders, but that may help with prefetching.
+
+// const s = selectorFamily(...);
+
+// current results without waiting.
+
+// default insertion order.
+
+// default insertion order.  Support non-string keys.
+
+// definitions may not have been loaded yet when processing the initial snapshot.
+
+// dependencies end up with errors, then reject the promise.
+
+// dependencies may be missing based on the current state.
+
+// deps array is only an optimization.  For example, React strict mode
+
+// discover during the read are lost.
+
+// don't descend into these
+
+// duplicate cache entries.  This behavior may be overridden with the
+
+// duplicate keys based on equivalent stringified parameters
+
+// early rendering.
+
+// enqueueExecution runs this function immediately; it is only used to
+
+// err.stack property is accessed.
+
+// errors and subsequent retries will be handled in 'loading' case
+
+// eslint-disable-line fb-www/no-unused-catch-bindings, no-empty
+
+// eslint-disable-line fb-www/typeof-undefined
+
+// eslint-disable-line prefer-const
+
+// eslint-disable-next-line fb-www/extra-arrow-initializer
+
+// eslint-disable-next-line fb-www/no-uninitialized-properties
+
+// eslint-disable-next-line fb-www/react-hooks
+
+// eslint-disable-next-line fb-www/react-hooks-deps
+
+// eslint-disable-next-line no-redeclare
+
+// eslint-disable-next-line no-shadow
+
+// eslint-disable-next-line no-unused-vars
+
+// eslint-disable-next-line prefer-const
+
+// evaluation functions are executed and async selectors resolve.
+
+// exceptions can either be Promises of pending results or real errors
+
+// find whether their parents can now be released as well:
+
+// flowlint-line unclear-type: off
+
+// flowlint-line unclear-type:off
+
+// flowlint-next-line unclear-type: off
+
+// flowlint-next-line unclear-type:off
+
+// for (const k of this._store.getState().knownAtoms) {
+
+// for a pending Recoil dependency from `getRecoilValue()` and threw
+
+// for the version that was read:
+
+// getSnapshot()
+
+// graph compared with olderGraph:
+
+// has been updated by some effect handler. Otherwise we will miss the update.
+
+// if removing batchUpdates from `set` add it here
+
+// ignored
+
+// initialization to take precedence over initializeState and be compatible
+
+// initialized value or get the fallback default value.
+
+// into later versions if they don't already have their own:
+
+// is always assigned when the snapshot is gone to.
+
+// is fired to wake it up.  We can't just rely on this, though, because
+
+// is unavailable (namely when updating an async selector that's
+
+// leak memory rather than erase something that's about to be used.
+
+// manipulate the order of useEffects during tests, since React seems to
+
+// method.
+
+// modify
+
+// nextTree is now committed -- note that copying and reset occurs when
+
+// no batching so nextTree is never active
+
+// nonReleasableNodes because we are going in topological order):
+
+// object literals or other equivalent objects at callsites to not create
+
+// of that temporary retain.
+
+// on the parameter value equality.
+
+// only if they are not retained within any other Stores):
+
+// parameter based on value equality, not reference equality.  This allows using
+
+// parameters on it, so empty is typed as HAMTPlusMap<string, mixed>.
+
+// passed to the hook can dynamically change.
+
+// pending or errored):
+
+// prettier-ignore
+
+// previous in-progress async evaluations may introduce new subscribers.
+
+// read the written value after calling `set`. I would like to remove this
+
+// remove
+
+// reset but have no stored value (validated or unvalidated) to reset from:
+
+// resolved, but also when changing synchronous values because this may cause
+
+// s({a: 1}) => a selector
+
+// s({a: 2}) => a different selector
+
+// same constant value.  It may be called multiple times with the
+
+// same selector.
+
+// same value, based on reference equality, and will provide the
+
+// seconds, then release. The 'actual' retain/release in the effect above
+
+// see Recoil_selector-test.js
+
+// serialization.  This matches the behavior of JSON.stringify().
+
+// set from something other than an atom effect which was batched
+
+// set should be a void method, but if the user makes it `async`, then it
+
+// set upstreams; deps may be discovered because of reads in updater functions.)
+
+// since we are the ones initializing on first use.
+
+// so flow doesn't lose the above refinement.
+
+// status if they have results, have some error, or are still pending.
+
+// the callback was called if it first accesses the snapshot asynchronously.
+
+// the handler if the subsequent batched call happens to set the
+
+// the new deps with the old deps.
+
+// their own promise instead.
+
+// they are then re-run when used as part of rendering.  These semantics are
+
+// they will re-initialize if used during rendering.  This allows atom effect
+
+// this only executes when an atom/selector is dirty and the atom/selector
+
+// this snapshot gets counted towards the node's live stores count).
+
+// threw their own Promise to "suspend" a selector evaluation.  We need
+
+// to check that the loadingDepPromise actually matches the promise that
+
+// to re-initialize all known atoms after they were cleaned up.
+
+// upstream dependencies change it may produce a state in which the component
+
+// using Recoil_stableStringify
+
+// we caught in case the selector happened to catch the promise we threw
+
+// we were "suspended," try again
+
+// which will no longer be needed.
+
+// will do that.
+
+// will execute each effect twice for testing.  Therefore, we need symmetry
+
+// will not run.  So, set the previous value here when its subscription
+
+// will return a Promise, which we don't currently support.
+
+// with StrictMode semantics.
+
+// with the `setSelf()` call.  However, we may incorrectly ignore
+
+// with the provided message.
+
+// would be no follow-up asynchronous resolution to wake us up.
+
+// }
+
+/////////////////
+
+///////////////////

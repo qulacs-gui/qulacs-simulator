@@ -1,0 +1,913 @@
+/*
+
+Based off glamor's StyleSheet, thanks Sunil ❤️
+
+high performance StyleSheet for css-in-js systems
+
+- uses multiple style tags behind the scenes for millions of rules
+- uses `insertRule` for appending in production for *much* faster performance
+
+// usage
+
+import { StyleSheet } from '@emotion/sheet'
+
+let styleSheet = new StyleSheet({ key: '', container: document.head })
+
+styleSheet.insert('#box { border: 1px solid red; }')
+- appends a css rule into the stylesheet
+
+styleSheet.flush()
+- empties the stylesheet of all its contents
+
+*/
+
+/* #__PURE__ */
+
+/* .handleBreakpoints */
+
+/* Math.imul(h, m): */
+
+/* Math.imul(k, m): */
+
+/* ["default"] */
+
+/* binding */
+
+/* colon */
+
+/* createUnarySpacing */
+
+/* darken */
+
+/* default */
+
+/* default.Provider */
+
+/* eslint-disable */
+
+/* eslint-disable prefer-template */
+
+/* eslint-enable prefer-template */
+
+/* getContrastRatio */
+
+/* getPath */
+
+/* handleBreakpoints */
+
+/* harmony default export */
+
+/* harmony export */
+
+/* harmony import */
+
+/* istanbul ignore next */
+
+/* k >>> r: */
+
+/* lighten */
+
+/* tslint:enable:unified-signatures */
+
+/* unused harmony export systemDefaultTheme */
+
+/* unused harmony exports E, _, a, b, c, h, u */
+
+/* unused harmony exports hexToRgb, decomposeColor, recomposeColor, rgbToHex, hslToRgb, getLuminance */
+
+/* unused harmony exports mergeBreakpointsInOrder, computeBreakpointsBase, resolveBreakpointValues */
+
+/*#__PURE__*/
+
+/**
+ * @param {any[]} value
+ * @return {number}
+ */
+
+/**
+ * @param {any} value
+ * @param {any[]} array
+ * @return {any}
+ */
+
+/**
+ * @param {any} value
+ * @return {any}
+ */
+
+/**
+ * @param {number}
+ * @return {string}
+ */
+
+/**
+ * @param {number} begin
+ * @param {number} end
+ * @return {string}
+ */
+
+/**
+ * @param {number} index
+ * @param {number} count
+ * @return {string}
+ */
+
+/**
+ * @param {number} index
+ * @return {string}
+ */
+
+/**
+ * @param {number} type
+ * @param {number} index
+ * @return {number}
+ */
+
+/**
+ * @param {number} type
+ * @return {number}
+ */
+
+/**
+ * @param {number} type
+ * @return {string}
+ */
+
+/**
+ * @param {number} value
+ * @param {object} root
+ * @param {object?} parent
+ * @return {object}
+ */
+
+/**
+ * @param {object[]} children
+ * @param {function} callback
+ * @return {string}
+ */
+
+/**
+ * @param {object}
+ * @return {object}
+ */
+
+/**
+ * @param {object} element
+ * @param {number} index
+ * @param {object[]} children
+ * @param {function} callback
+ * @return {string}
+ */
+
+/**
+ * @param {object} element
+ * @param {number} index
+ * @param {object[]} children
+ * @param {function} callback
+ */
+
+/**
+ * @param {object} element
+ * @param {number} index
+ * @param {object[]} children
+ */
+
+/**
+ * @param {object} root
+ * @param {object} props
+ * @return {object}
+ */
+
+/**
+ * @param {string[]} array
+ * @param {function} callback
+ * @return {string}
+ */
+
+/**
+ * @param {string[]} children
+ * @return {string[]}
+ */
+
+/**
+ * @param {string} value
+ * @param {(string|RegExp)} pattern
+ * @param {string} replacement
+ * @return {string}
+ */
+
+/**
+ * @param {string} value
+ * @param {RegExp} pattern
+ * @return {string?}
+ */
+
+/**
+ * @param {string} value
+ * @param {number} begin
+ * @param {number} end
+ * @return {string}
+ */
+
+/**
+ * @param {string} value
+ * @param {number} index
+ * @return {number}
+ */
+
+/**
+ * @param {string} value
+ * @param {number} length
+ * @return {number}
+ */
+
+/**
+ * @param {string} value
+ * @param {number} length
+ * @return {string}
+ */
+
+/**
+ * @param {string} value
+ * @param {object | null} root
+ * @param {object | null} parent
+ * @param {string} type
+ * @param {string[] | string} props
+ * @param {object[] | string} children
+ * @param {number} length
+ */
+
+/**
+ * @param {string} value
+ * @param {object} root
+ * @param {object?} parent
+ * @param {number} index
+ * @param {number} offset
+ * @param {string[]} rules
+ * @param {number[]} points
+ * @param {string} type
+ * @param {string[]} props
+ * @param {string[]} children
+ * @param {number} length
+ * @return {object}
+ */
+
+/**
+ * @param {string} value
+ * @param {object} root
+ * @param {object?} parent
+ * @param {number} length
+ * @return {object}
+ */
+
+/**
+ * @param {string} value
+ * @param {object} root
+ * @param {object?} parent
+ * @param {string[]} rule
+ * @param {string[]} rules
+ * @param {string[]} rulesets
+ * @param {number[]} pseudo
+ * @param {number[]} points
+ * @param {string[]} declarations
+ * @return {object}
+ */
+
+/**
+ * @param {string} value
+ * @param {string} search
+ * @return {number}
+ */
+
+/**
+ * @param {string} value
+ * @return {any[]}
+ */
+
+/**
+ * @param {string} value
+ * @return {number}
+ */
+
+/**
+ * @param {string} value
+ * @return {object[]}
+ */
+
+/**
+ * @param {string} value
+ * @return {string[]}
+ */
+
+/**
+ * @param {string} value
+ * @return {string}
+ */
+
+/**
+ * @return {number}
+ */
+
+/**
+ * @see @link{https://material.io/design/typography/the-type-system.html}
+ * @see @link{https://material.io/design/typography/understanding-typography.html}
+ */
+
+/**
+ * Calculates the contrast ratio between two colors.
+ *
+ * Formula: https://www.w3.org/TR/WCAG20-TECHS/G17.html#G17-tests
+ * @param {string} foreground - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla()
+ * @param {string} background - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla()
+ * @returns {number} A contrast ratio value in the range 0 - 21.
+ */
+
+/**
+ * Converts a color from CSS hex format to CSS rgb format.
+ * @param {string} color - Hex color, i.e. #nnn or #nnnnnn
+ * @returns {string} A CSS rgb color string
+ */
+
+/**
+ * Converts a color from CSS rgb format to CSS hex format.
+ * @param {string} color - RGB color, i.e. rgb(n, n, n)
+ * @returns {string} A CSS rgb color string, i.e. #nnnnnn
+ */
+
+/**
+ * Converts a color from hsl format to rgb format.
+ * @param {string} color - HSL color values
+ * @returns {string} rgb color values
+ */
+
+/**
+ * Converts a color object with type and values to a string.
+ * @param {object} color - Decomposed color
+ * @param {string} color.type - One of: 'rgb', 'rgba', 'hsl', 'hsla'
+ * @param {array} color.values - [n,n,n] or [n,n,n,n]
+ * @returns {string} A CSS color string
+ */
+
+/**
+ * Darken or lighten a color, depending on its luminance.
+ * Light colors are darkened, dark colors are lightened.
+ * @param {string} color - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla(), color()
+ * @param {number} coefficient=0.15 - multiplier in the range 0 - 1
+ * @returns {string} A CSS color string. Hex input values are returned as rgb
+ */
+
+/**
+ * Darkens a color.
+ * @param {string} color - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla(), color()
+ * @param {number} coefficient - multiplier in the range 0 - 1
+ * @returns {string} A CSS color string. Hex input values are returned as rgb
+ */
+
+/**
+ * Lightens a color.
+ * @param {string} color - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla(), color()
+ * @param {number} coefficient - multiplier in the range 0 - 1
+ * @returns {string} A CSS color string. Hex input values are returned as rgb
+ */
+
+/**
+ * Returns a number whose value is limited to the given range.
+ * @param {number} value The value to be clamped
+ * @param {number} min The lower boundary of the output range
+ * @param {number} max The upper boundary of the output range
+ * @returns {number} A number in the range [min, max]
+ */
+
+/**
+ * Returns an object with the type and values of a color.
+ *
+ * Note: Does not support rgb % values.
+ * @param {string} color - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla()
+ * @returns {object} - A MUI color object: {type: string, values: number[]}
+ */
+
+/**
+ * Sets the absolute transparency of a color.
+ * Any existing alpha values are overwritten.
+ * @param {string} color - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla(), color()
+ * @param {number} value - value to set the alpha channel to in the range 0 - 1
+ * @returns {string} A CSS color string. Hex input values are returned as rgb
+ */
+
+/**
+ * The relative brightness of any point in a color space,
+ * normalized to 0 for darkest black and 1 for lightest white.
+ *
+ * Formula: https://www.w3.org/TR/WCAG20-TECHS/G17.html#G17-tests
+ * @param {string} color - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla(), color()
+ * @returns {number} The relative brightness of the color in the range 0 - 1
+ */
+
+/**
+ * This component makes the `theme` available down the React tree.
+ * It should preferably be used at **the root of your component tree**.
+ */
+
+/**
+ * This component takes a `theme` prop.
+ * It makes the `theme` available down the React tree thanks to React context.
+ * This component should preferably be used at **the root of your component tree**.
+ */
+
+/**
+ * WARNING: Don't import this directly.
+ * Use `MuiError` from `@mui/utils/macros/MuiError.macro` instead.
+ * @param {number} code
+ */
+
+/******/
+
+/***/
+
+//
+
+// ! + , / > @ ~ isolate token
+
+// " '
+
+// " ' ( [ opening delimit token
+
+// " ' [
+
+// $FlowFixMe
+
+// $FlowFixMe we know it's not null
+
+// &
+
+// &\f
+
+// 'm' and 'r' are mixing constants generated offline.
+
+// (
+
+// (f)ill-available, (f)it-content
+
+// (inline-)?fl(e)x
+
+// (m)ax-content, (m)in-content
+
+// (margin|padding)-inline-(start|end)
+
+// (min|max)?(width|height|inline-size|block-size)
+
+// (s)ticky?
+
+// (s)tretch
+
+// ) ] closing delimit token
+
+// ,
+
+// -
+
+// /
+
+// 16px is the default font-size used by browsers.
+
+// :
+
+// : accompanied token
+
+// :placeholder
+
+// :read-(only|write)
+
+// ;
+
+// ; { } breakpoint token
+
+// @
+
+// @ ;
+
+// A collection of common colors.
+
+// A strict capitalization should uppercase the first letter of each word in the sentence.
+
+// Already transformed.
+
+// Apply babel-plugin-transform-template-literals in loose mode
+
+// Apply the CSS properties to all the variants.
+
+// Avoid prototype pollution
+
+// Bootstrap: https://github.com/twbs/bootstrap/blob/1d6e3710dd447de1a200f29e8fa521f8a0908f70/scss/_functions.scss#L59
+
+// CONCATENATED MODULE: ../../node_modules/@emotion/cache/dist/emotion-cache.browser.esm.js
+
+// CONCATENATED MODULE: ../../node_modules/@emotion/cache/node_modules/@emotion/sheet/dist/emotion-sheet.browser.esm.js
+
+// CONCATENATED MODULE: ../../node_modules/@mui/material/styles/createMixins.js
+
+// CONCATENATED MODULE: ../../node_modules/@mui/material/styles/createPalette.js
+
+// CONCATENATED MODULE: ../../node_modules/@mui/material/styles/createTheme.js
+
+// CONCATENATED MODULE: ../../node_modules/@mui/material/styles/createTypography.js
+
+// CONCATENATED MODULE: ../../node_modules/@mui/private-theming/ThemeProvider/ThemeProvider.js
+
+// CONCATENATED MODULE: ../../node_modules/@mui/system/esm/ThemeProvider/ThemeProvider.js
+
+// CONCATENATED MODULE: ../../node_modules/@mui/system/esm/createTheme/createBreakpoints.js
+
+// CONCATENATED MODULE: ../../node_modules/@mui/system/esm/createTheme/createSpacing.js
+
+// CONCATENATED MODULE: ../../node_modules/@mui/system/esm/createTheme/createTheme.js
+
+// CONCATENATED MODULE: ../../node_modules/@mui/system/esm/memoize.js
+
+// CONCATENATED MODULE: ../../node_modules/@mui/system/esm/spacing.js
+
+// CONCATENATED MODULE: ../../node_modules/stylis/src/Enum.js
+
+// CONCATENATED MODULE: ../../node_modules/stylis/src/Parser.js
+
+// CONCATENATED MODULE: ../../node_modules/stylis/src/Prefixer.js
+
+// CONCATENATED MODULE: ../../node_modules/stylis/src/Serializer.js
+
+// CONCATENATED MODULE: ../../node_modules/stylis/src/Tokenizer.js
+
+// CONCATENATED MODULE: ./pages/_app.tsx
+
+// Consistency between these values is important.
+
+// Disabled text have even lower visual prominence.
+
+// Do a few final mixes of the hash to ensure the last few
+
+// Don't use [...shadows] until you've verified its transpiled code is not invoking the iterator protocol.
+
+// E.g., shift from Red 500 to Red 300 or Red 700.
+
+// ESM COMPAT FLAG
+
+// EXPORTS
+
+// EXTERNAL MODULE: ../../node_modules/@babel/runtime/helpers/esm/extends.js
+
+// EXTERNAL MODULE: ../../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
+
+// EXTERNAL MODULE: ../../node_modules/@emotion/react/dist/emotion-element-699e6908.browser.esm.js
+
+// EXTERNAL MODULE: ../../node_modules/@mui/material/styles/createTheme.js + 13 modules
+
+// EXTERNAL MODULE: ../../node_modules/@mui/material/styles/createTransitions.js
+
+// EXTERNAL MODULE: ../../node_modules/@mui/system/esm/breakpoints.js
+
+// EXTERNAL MODULE: ../../node_modules/@mui/system/esm/colorManipulator.js
+
+// EXTERNAL MODULE: ../../node_modules/@mui/system/esm/spacing.js + 1 modules
+
+// EXTERNAL MODULE: ../../node_modules/@mui/system/esm/style.js
+
+// EXTERNAL MODULE: ../../node_modules/@mui/system/esm/useTheme.js
+
+// EXTERNAL MODULE: ../../node_modules/@mui/utils/esm/formatMuiErrorMessage.js
+
+// EXTERNAL MODULE: ../../node_modules/react/jsx-runtime.js
+
+// Follow https://material.google.com/motion/duration-easing.html#duration-easing-natural-easing-curves
+
+// For instance with the first breakpoint xs: [xs, sm).
+
+// For instance with the first breakpoint xs: [xs, sm[.
+
+// Generate a rich color object.
+
+// Handle the last few bytes of the input array
+
+// Haven't found value
+
+// Idempotent
+
+// Initialize the hash
+
+// Inject component definitions.
+
+// Inspired by https://github.com/garycourt/murmurhash-js
+
+// It can't be configured as it's used statically for propTypes.
+
+// It should to be noted that this function isn't equivalent to `text-transform: capitalize`.
+
+// It's not a shorthand notation.
+
+// Keep in mind that @media is inclusive by the CSS specification.
+
+// Material Design layouts are visually balanced. Most measurements align to an 8dp grid, which aligns both spacing and the overall layout.
+
+// Mix 4 bytes at a time into the hash
+
+// Objects enter the screen at full velocity from off-screen and
+
+// Objects leave the screen at full velocity. They do not decelerate when off-screen.
+
+// Only convert the first 3 values to int (i.e. not alpha)
+
+// Ported from https://github.com/aappleby/smhasher/blob/61a0530f28277f2e850bfc39600ce61d02b518de/src/MurmurHash2.cpp#L37-L86
+
+// SVG-related properties
+
+// Secondary text.
+
+// Since `output` is a clone of `target` and we have narrowed `target` in this block we can cast to the same type.
+
+// Smaller components, such as icons, can align to a 4dp grid.
+
+// Sorted ASC by size. That's important.
+
+// Takes a background color and returns the text color that maximizes the contrast.
+
+// Tell MUI what's the font-size on the html element.
+
+// The background color of a disabled action.
+
+// The background colors used to style the surfaces.
+
+// The breakpoint **start** at this value.
+
+// The color of a disabled action.
+
+// The color of a selected action.
+
+// The color of an active action like an icon button.
+
+// The color of an hovered action.
+
+// The color used to divide different elements.
+
+// The colors used to indicate the successful completion of an action that user triggered.
+
+// The colors used to present information to the user that is neutral and not necessarily important.
+
+// The colors used to represent interface elements that the user should be made aware of.
+
+// The colors used to represent potentially dangerous actions or important messages.
+
+// The colors used to represent primary interface elements for a user.
+
+// The colors used to represent secondary interface elements for a user.
+
+// The colors used to style the action elements.
+
+// The colors used to style the text.
+
+// The default font size of the Material Specification.
+
+// The grey colors.
+
+// The most important text.
+
+// The palette mode, can be light or dark.
+
+// The sharp curve is used by objects that may return to the screen at any time.
+
+// They're not really 'magic', they just happen to work well.
+
+// This is the most common easing curve.
+
+// To support composition of theme.
+
+// Truncate at 3 digits
+
+// UNUSED EXPORTS: createMuiTheme
+
+// UNUSED EXPORTS: getStyleFromPropValue, margin, padding
+
+// Unitless following https://meyerweb.com/eric/thoughts/2006/02/08/unitless-line-heights/
+
+// Use the same logic as
+
+// Used by `getContrastText()` to maximize the contrast between
+
+// Used by the functions below to shift a color's luminance by approximately
+
+// Using a hash computation over an array iteration could be faster, but with only 28 items,
+
+// Values from https://github.com/material-components/material-components-web/blob/be8747f94574669cb5e7add1a7c54fa41a89cec7/packages/mdc-elevation/_variables.scss
+
+// We only handle the first word.
+
+// \
+
+// \0 \t \n \r \s whitespace token
+
+// \0 }
+
+// \t \n \r \s
+
+// ] ) " '
+
+// align-content
+
+// align-items
+
+// align-self
+
+// and material-components-web https://github.com/material-components/material-components-web/blob/ac46b8863c4dab9fc22c4c662dc6bd1b65dd652f/packages/mdc-theme/_functions.scss#L54
+
+// and there will be very few iterations of this generally
+
+// and we could have a special build just for that
+
+// and when it should just concatenate the outer and inner selectors
+
+// and you can only have one source map per style tag
+
+// animation, animation-(delay|direction|duration|fill-mode|iteration-count|name|play-state|timing-function)
+
+// appearance, user-select, transform, hyphens, text-size-adjust
+
+// background, background-image
+
+// background-clip, columns, column-(count|fill|gap|rule|rule-color|rule-style|rule-width|span|width)
+
+// based on https://github.com/thysultan/stylis.js/blob/e6843c373ebcbbfade25ebcc23f540ed8508da0a/src/Tokenizer.js#L239-L244
+
+// because this module is primarily intended for the browser and node
+
+// but it's also required in react native and similar environments sometimes
+
+// but this is much easier and the native packages
+
+// bytes are well-incorporated.
+
+// charcode for b
+
+// charcode for l
+
+// closest to orange[800] that pass 3:1.
+
+// colon
+
+// color-adjust
+
+// comma
+
+// const m = 0x5bd1e995;
+
+// const r = 24;
+
+// cursor
+
+// d m s
+
+// desktop
+
+// display: (flex|inline-flex)
+
+// document.head is a safe place to move them to(though note document.head is not necessarily the last place they will be)
+
+// eslint-disable-next-line prefer-rest-params
+
+// extracted by mini-css-extract-plugin
+
+// fallthrough
+
+// finalize string values (regular strings and functions interpolated into css calls)
+
+// flex, flex-direction
+
+// flex-basis
+
+// flex-grow
+
+// flex-shrink
+
+// get SSRed styles out of the way of React's hydration
+
+// handle first and last key separately, for better readability
+
+// horizontal(-)tb
+
+// https://esbench.com/bench/5b809c2cf2949800a0f61fb5
+
+// https://material.io/design/layout/understanding-layout.html#usage
+
+// https://www.wolframalpha.com/input/?i=(4+%2B+15+*+(x+%2F+36+)+**+0.25+%2B+(x+%2F+36)+%2F+5)+*+10
+
+// if this is an implicitly inserted rule (the one eagerly inserted at the each new nested level)
+
+// it's 1 in dev because we insert source maps that map a single rule to a location
+
+// it's doesn't worth the bundle size.
+
+// it's very unlikely for this sequence to actually appear in a different context, so we just leverage this fact here
+
+// justify-content
+
+// key is breakpoint
+
+// key is the value of the data-emotion attribute, it's used to identify different sheets
+
+// loose mode is safe iff we're concatenating primitives
+
+// mask, mask-image, mask-(mode|clip|size), mask-(repeat|origin), mask-position, mask-composite,
+
+// means that the style elements we're looking at are only Emotion 11 server-rendered style elements
+
+// might use a different theme context in the future anyway
+
+// most basic recommended timing
+
+// negative .length indicates that this rule has been already prefixed
+
+// not the most efficient thing ever but this is a pretty rare case
+
+// note this very very intentionally targets all style elements regardless of the key to ensure
+
+// order
+
+// phone
+
+// position: sticky
+
+// positive .length indicates that this rule contains pseudo
+
+// pretend we've started with a comma
+
+// px
+
+// recommended when something is entering screen
+
+// recommended when something is leaving screen
+
+// rest params over-transpile for this case
+
+// see https://babeljs.io/docs/en/babel-plugin-transform-template-literals#loose
+
+// short-circuit for the simplest case
+
+// slowly decelerate to a resting point.
+
+// small laptop
+
+// stic(k)y
+
+// stretch, max-content, min-content, fill-available
+
+// stylis inserts \f after & to know when & where it should replace this sequence with the context selector
+
+// tablet
+
+// text-decoration, filter, clip-path, backface-visibility, column, box-decoration-break
+
+// that creating a cache works inside of render of a React component
+
+// the background and the text.
+
+// the big drawback is that the css won't be editable in devtools
+
+// the cache will never be null in the browser
+
+// the max length is how many rules we have per style tag, it's 65000 in speedy mode
+
+// then the props has already been manipulated beforehand as they that array is shared between it and its "rule parent"
+
+// this ignores label
+
+// this is not 100% correct, we don't account for literal sequences here - like for example quoted strings
+
+// this is the ultrafast version, works across browsers
+
+// this is to be used in complex animations
+
+// this means we will ignore elements which don't have a space in them which
+
+// this weirdness brought to you by firefox
+
+// to learn the context in which each easing should be used.
+
+// transition
+
+// two indexes within its tonal palette.
+
+// using a global regex with .exec is stateful so lastIndex has to be reset each time
+
+// vertical-l(r)
+
+// vertical-r(l)
+
+// we start at 1 since we've already handled the first arg
+
+// we're doing this to avoid preconstruct's dead code elimination in this one case
+
+// webpackRuntimeModules
+
+// writing-mode
+
+// {
+
+// { rule/at-rule
+
+// } ; \0
