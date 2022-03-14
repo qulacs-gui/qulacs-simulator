@@ -152,7 +152,11 @@
 
 // NOTE: MultiGateとControllQubitの間には置けない
 
+// NOTE: ciruict側の量子ビット数を合わせる（減算はuseEffectで行われる）
+
 // NOTE: controllQubitの始点から終点までを消す
+
+// NOTE: observable側の量子ビット数を合わせる（減算はuseEffectで行われる）
 
 // NOTE: qubitを消す場合、再帰的にmultigateを消す
 
