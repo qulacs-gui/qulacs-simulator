@@ -24,9 +24,12 @@ its own atom not shared by other instances.  These state keys may be composed
 into children's state keys as well.
 */
 
-/* $FlowFixMe[incompatible-return] (>=0.66.0 site=www,mobile) This comment
-   * suppresses an error found when Flow v0.66 was deployed. To see the error
-   * delete this comment and run Flow. */
+/* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
+ * LTI update could not be added via codemod */
+
+/* $FlowFixMe[prop-missing] This workaround was approved as a safer mechanism
+   * to detect if the current renderer supports useSyncExternalStore()
+   * https://fb.workplace.com/groups/reactjs/posts/9558682330846963/ */
 
 /* Aggregate
  ******************************************************************************/
@@ -51,7 +54,11 @@ into children's state keys as well.
 
 /* binding */
 
+/* eslint-disable fb-www/typeof-undefined */
+
 /* eslint-disable no-redeclare */
+
+/* eslint-enable fb-www/typeof-undefined */
 
 /* eslint-enable no-redeclare */
 
@@ -59,7 +66,7 @@ into children's state keys as well.
 
 /* harmony import */
 
-/* unused harmony exports RecoilLoadable, atomFamily, constSelector, errorSelector, isRecoilValue, noWait, readOnlySelector, retentionZone, selectorFamily, snapshot_UNSTABLE, useGetRecoilValueInfo_UNSTABLE, useGotoRecoilSnapshot, useRecoilBridgeAcrossReactRoots_UNSTABLE, useRecoilCallback, useRecoilRefresher_UNSTABLE, useRecoilSnapshot, useRecoilStateLoadable, useRecoilState_TRANSITION_SUPPORT_UNSTABLE, useRecoilStoreID, useRecoilTransactionObserver_UNSTABLE, useRecoilTransaction_UNSTABLE, useRecoilValue, useRecoilValueLoadable_TRANSITION_SUPPORT_UNSTABLE, useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useResetRecoilState, useRetain, waitForAll, waitForAllSettled, waitForAny, waitForNone */
+/* unused harmony exports RecoilEnv, RecoilLoadable, atomFamily, constSelector, errorSelector, isRecoilValue, noWait, readOnlySelector, retentionZone, selectorFamily, snapshot_UNSTABLE, useGetRecoilValueInfo_UNSTABLE, useGotoRecoilSnapshot, useRecoilBridgeAcrossReactRoots_UNSTABLE, useRecoilCallback, useRecoilRefresher_UNSTABLE, useRecoilSnapshot, useRecoilStateLoadable, useRecoilState_TRANSITION_SUPPORT_UNSTABLE, useRecoilStoreID, useRecoilTransactionObserver_UNSTABLE, useRecoilTransaction_UNSTABLE, useRecoilValue, useRecoilValueLoadable_TRANSITION_SUPPORT_UNSTABLE, useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useResetRecoilState, useRetain, waitForAll, waitForAllSettled, waitForAny, waitForNone */
 
 /*#__PURE__*/
 
@@ -116,8 +123,17 @@ into children's state keys as well.
          * I think this is only an issue with "early" rendering since the
          * components got their value using the in-progress execution.
          * We don't have a unit test for this case yet.  I'm not sure it is
-         * necessary with recoil_concurrent_support mode.
+         * necessary with recoil_transition_support mode.
          */
+
+/**
+       * Ensure store contains correct dependencies if we hit the cache so that
+       * the store deps and cache are in sync for a given state. This is important
+       * because store deps are normally updated when new executions are created,
+       * but cache hits don't trigger new executions but they still _may_ signify
+       * a change in deps in the store if the store deps for this state are empty
+       * or stale.
+       */
 
 /**
        * If this execution is stale, let's check to see if there is some in
@@ -175,20 +191,6 @@ into children's state keys as well.
      */
 
 /**
-     * Ensure store contains correct dependencies if we hit the cache so that
-     * the store deps and cache are in sync for a given state. This is important
-     * because store deps are normally updated when new executions are created,
-     * but cache hits don't trigger new executions but they still _may_ signifiy
-     * a change in deps in the store if the store deps for this state are empty
-     * or stale.
-     */
-
-/**
-     * It's important that we don't bypass calling getNodeLoadable for atoms
-     * as getNodeLoadable has side effects in state
-     */
-
-/**
      * Since we're subscribing in an effect we need to update to the latest
      * value of the atom since it may have changed since we rendered. We can
      * go ahead and do that now, unless we're in the middle of a batch --
@@ -203,6 +205,17 @@ into children's state keys as well.
      * 4. Batcher's effect sets currentTree to nextTree.
      * In this sequence we miss the update. To avoid that, add the update
      * to queuedComponentCallback if a batch is in progress.
+     */
+
+/**
+     * Starting a fresh set of deps that we'll be using to update state. We're
+     * starting a new set versus adding it in existing state deps because
+     * the version of state that we update deps for may be a more recent version
+     * than the version the selector was called with. This is because the latest
+     * execution will update the deps of the current/latest version of state
+     * (This is safe to do because the fact that the selector is the latest
+     * execution means the deps we discover below are our best guess at the
+     * deps for the current/latest state in the store)
      */
 
 /**
@@ -377,8 +390,7 @@ into children's state keys as well.
    */
 
 /**
-   * Given a tree state, this function returns the "selector result", which is
-   * defined as a size-2 tuple of [DependencyMap, Loadable<T>].
+   * Given a tree state, this function returns a Loadable of the current state.
    *
    * The selector's get() function will only be re-evaluated if _both_ of the
    * following statements are true:
@@ -394,6 +406,17 @@ into children's state keys as well.
    *    'latest' execution, meaning it will be the only execution that will
    *    update global state when it is finished. Any non-latest executions will
    *    run to completion and update the selector cache but not global state).
+   */
+
+/**
+   * Notify stores to pull the selector again if a new async dep was discovered.
+   * 1) Async selector adds a new dep but doesn't resolve yet.
+   *    Note that deps for an async selector are based on the state when the
+   *    evaluation started, in order to provide a consistent picture of state.
+   * 2) But, new value of dep based on the current state might cause the selector
+   *    to resolve or resolve differently.
+   * 3) Therefore, this notification will pull the selector based on the current
+   *    state for the components
    */
 
 /**
@@ -464,7 +487,7 @@ into children's state keys as well.
    * Note this function should not be passed a promise that was returned from
    * get(). The intention is that this function is only passed promises that
    * were thrown due to a pending dependency. Promises returned by get() should
-   * be passed to wrapPendingPromise() instead.
+   * be passed to wrapResultPromise() instead.
    */
 
 /**
@@ -544,10 +567,17 @@ into children's state keys as well.
   */
 
 /**
- * An ExecutionId is an arbitrary ID that lets us distinguish executions from
+ * Allow NodeJS/NextJS/etc to set the initial state through process.env variable
+ * Note:  we don't assume 'process' is available in all runtime environments
+ *
+ * @see https://github.com/facebookexperimental/Recoil/issues/733
+ */
+
+/**
+ * An ExecutionID is an arbitrary ID that lets us distinguish executions from
  * each other. This is necessary as we need a way of solving this problem:
  * "given 3 async executions, only update state for the 'latest' execution when
- * it finishes running regardless of when the other 2 finish". ExecutionIds
+ * it finishes running regardless of when the other 2 finish". ExecutionIDs
  * provide a convenient way of identifying executions so that we can track and
  * manage them over time.
  */
@@ -583,31 +613,12 @@ into children's state keys as well.
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * MIT License
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
- * Copyright (c) 2014-2019 Georg Tavonius
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- *
- * @emails oncall+recoil
  * 
  * @format
+ * @oncall recoil
  */
 
 /**
@@ -615,12 +626,12 @@ into children's state keys as well.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
- *
- * @emails oncall+recoil
- * 
- * @format
  *
  * This is a stub for some integration into FB internal stuff
+ *
+ * 
+ * @format
+ * @oncall recoil
  */
 
 /**
@@ -628,24 +639,13 @@ into children's state keys as well.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
- *
- * @emails oncall+recoil
- * 
- * @format
  *
  * This is to export esstiential functions from react-dom
  * for our web build
- */
-
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * @emails oncall+recoil
  * 
  * @format
+ * @oncall recoil
  */
 
 /**
@@ -656,9 +656,9 @@ into children's state keys as well.
  *
  * Utilities for working with built-in Maps and Sets without mutating them.
  *
- * @emails oncall+recoil
  * 
  * @format
+ * @oncall recoil
  */
 
 /**
@@ -669,9 +669,34 @@ into children's state keys as well.
  *
  * Wraps another recoil value and prevents writing to it.
  *
- * @emails oncall+recoil
  * 
  * @format
+ * @oncall recoil
+ */
+
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * 
+ * @format
+ * @oncall recoil
+ */
+
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * This is to export esstiential functions from react-dom
+ * for our web build
+ *
+ * 
+ * @format
+ * @oncall recoil
  */
 
 /**
@@ -729,6 +754,17 @@ into children's state keys as well.
  */
 
 /**
+ * THIS CODE HAS BEEN COMMENTED OUT INTENTIONALLY
+ *
+ * This technique of getting the component name is imperfect, since it both only
+ * works in a non-minified code base, and more importantly introduces performance
+ * problems since it relies in throwing errors which is an expensive operation.
+ *
+ * At some point we may want to reevaluate this technique hence why we have commented
+ * this code out, rather than delete it all together.
+ */
+
+/**
  * The same as `useRef()` except that if a function is specified then it will
  * call that function to get the value to initialize the reference with.
  * This is similar to how `useState()` behaves when given a function.  It allows
@@ -760,9 +796,53 @@ into children's state keys as well.
 
 //
 
+//           return (nameRef.current = methodName);
+
+//         // I observed cases where the frame was of the form 'Object.useXXX'
+
+//         // hence why I'm searching for hooks following a word boundary
+
+//         if (!methodName.match(/\buse[^\b]+$/)) {
+
+//         }
+
+//       // There is no blessed way to determine the calling React component from
+
+//       // and that hooks are either called by React Components or other hooks. It
+
+//       // codebase is minified, the naming assumptions no longer hold true.
+
+//       // eslint-disable-next-line fb-www/no-new-error
+
+//       // follows therefore, that to find the calling component, you simply need
+
+//       // to look down the stack and find the first function which doesn't start
+
+//       // with 'use'. We are only enabling this in dev for now, since once the
+
+//       // within a hook. This hack uses the fact that hooks must start with 'use'
+
+//       const frames = stackTraceParser(new Error().stack);
+
+//       for (const {methodName} of frames) {
+
+//       nameRef.current = null;
+
+//       }
+
+//     if (nameRef.current === undefined) {
+
+//     return nameRef.current ?? '<unable to determine component name>';
+
+//     }
+
 //    This overrides their default insertion order.
 
+//   if (gkx('recoil_infer_component_names')) {
+
 //   updateRetainCountToZero(this._store, k);
+
+//   }
 
 //  TRUTH TABLE
 
@@ -778,21 +858,19 @@ into children's state keys as well.
 
 //  [value, value]      [value, value]      [value, value]    [value, value]  [value, value]
 
+// $FlowExpectedError Flow(prop-missing) for integrating with tools that inspect thrown promises @fb-only
+
 // $FlowExpectedError[incompatible-call]
 
 // $FlowExpectedError[incompatible-use]
 
-// $FlowFixMe Flow(prop-missing) for integrating with tools that inspect thrown promises @fb-only
+// $FlowFixMe(site=recoil) Window does not have a FlowType definition https://github.com/facebook/flow/issues/6709
 
-// $FlowFixMe[escaped-generic]
+// $FlowFixMe[incompatible-type]
 
-// $FlowFixMe[incompatible-call]
+// $FlowFixMe[incompatible-use]
 
-// $FlowFixMe[incompatible-call] - map/iterator knows nothing about flow types
-
-// $FlowFixMe[incompatible-return]
-
-// $FlowFixMe[method-unbinding]
+// $FlowFixMe[missing-local-annot]
 
 // $FlowFixMe[prop-missing]
 
@@ -800,7 +878,13 @@ into children's state keys as well.
 
 // $FlowIssue[incompatible-call]
 
+// $FlowIssue[incompatible-call] - map/iterator knows nothing about flow types
+
 // $FlowIssue[incompatible-return]
+
+// $FlowIssue[incompatible-type] No way to refine in Flow that property is not defined
+
+// $FlowIssue[incompatible-use]
 
 // $FlowIssue[unclear-type]
 
@@ -840,21 +924,15 @@ into children's state keys as well.
 
 // @fb-only: const URI = require('URI');
 
-// @fb-only: const isAcceptingUpdate = require('__debug').isAcceptingUpdate;
+// @fb-only: const {isAcceptingUpdate} = require('__debug');
 
 // @fb-only: const {scopedAtom} = require('Recoil_ScopedAtom');
 
 // @fb-only: const {unstable_batchedUpdates} = require('ReactDOMComet');
 
-// @fb-only: expectationViolation(message, 'recoil');
-
 // @fb-only: function mapScopeRules<P>(
 
-// @fb-only: if (__DEV__) {
-
 // @fb-only: if (gkx('recoil_usage_logging')) {
-
-// @fb-only: if (typeof isAcceptingUpdate !== 'function' || !isAcceptingUpdate()) {
 
 // @fb-only: import type {ScopeRules} from 'Recoil_ScopedAtom';
 
@@ -866,11 +944,11 @@ into children's state keys as well.
 
 // @fb-only: recoverableViolation(
 
-// @fb-only: recoverableViolation(message, 'recoil');
-
 // @fb-only: return "<component name only available when both in dev mode and when passing GK 'recoil_infer_component_names'>";
 
 // @fb-only: return scopeRules?.map(rule =>
+
+// @fb-only: return typeof isAcceptingUpdate === 'function' && isAcceptingUpdate();
 
 // @fb-only: scopeRules?: ParameterizedScopeRules<P>,
 
@@ -886,8 +964,6 @@ into children's state keys as well.
 
 // @fb-only: } catch {
 
-// @fb-only: } else {
-
 // @fb-only: }));
 
 // @fb-only: }, []);
@@ -902,11 +978,17 @@ into children's state keys as well.
 
 // Add a unique index to each selector in case the cache implementation allows
 
+// Add new deps to nodeToNodeSubscriptions:
+
 // Add surrounding quotes and escape internal quotes
+
+// Add the branch node to the tree
 
 // Allow destructing
 
 // Already performed a temporary retain on render, simply cancel the release
+
+// Always clone the TreeState to isolate stores from accidental mutations.
 
 // Always return the current status of the results; never block.
 
@@ -930,6 +1012,8 @@ into children's state keys as well.
 
 // Avoid calling onSet() when setSelf() initializes with a Promise
 
+// Avoid circular dependencies
+
 // Bail out if we're being set to the existing value, or if we're being
 
 // Because hamt.empty is not a function there is no way to introduce type
@@ -940,7 +1024,11 @@ into children's state keys as well.
 
 // By default, the selectors are distinguished by distinct values of the
 
+// Cache the results in the state to allow for cheaper lookup than
+
 // Cast T to S
+
+// Check if the current renderer supports `useSyncExternalStore()`.
 
 // Check if we are handling a pending Recoil dependency or if the user
 
@@ -958,17 +1046,23 @@ into children's state keys as well.
 
 // Concurrency Helpers for Atoms/Selectors
 
+// Confirm that the leaf we are deleting is actually attached to our tree
+
 // Continue to retain the new snapshot for the user, but auto-release it
 
 // Convenience Atoms/Selectors
 
 // Counteract the snapshot auto-release
 
+// Create a new or replacement leaf.
+
 // Create blank cleanup handlers for atoms so snapshots don't re-run
 
 // Deal with all promises as equivalent for now.
 
 // Default may be a static value, promise, or RecoilValue
+
+// Defer the release.  If "Fast Refresh"" is used then the component may
 
 // Delete from TreeState and dep graph:
 
@@ -992,23 +1086,33 @@ into children's state keys as well.
 
 // FIXME replace this with a mutative loop
 
-// FIXME: this won't work with custom caching b/c it uses separate cache
+// FIXME: check after the fact to see if we made the right choice by waiting
 
 // Factory to build a fresh snapshot
 
-// Factory to clone a snapahot state
+// Factory to clone a snapshot state
 
 // Fallback case for unknown types
+
+// Fast Refresh, then clear it and rebuild with the new values.
 
 // Find all of the recursively dependent nodes
 
 // Find which of the downstream nodes are releasable and which are not:
+
+// First, look up in the state cache
+
+// First, see if our current state is cached
+
+// First, setup the branch nodes for the route:
 
 // Flow doesn't know that T isn't a function, so we need to case to any
 
 // For built-in Maps, sort the keys in a stable order instead of the
 
 // For built-in Sets, sort the keys in a stable order instead of the
+
+// For example, reading a selector from a cloned snapshot shouldn't cache
 
 // For use with React "context bridging"
 
@@ -1019,6 +1123,8 @@ into children's state keys as well.
 // Get the current state
 
 // Get the current value loadable of a node and update the state.
+
+// Global Recoil environment settiongs
 
 // Global transaction subscriptions
 
@@ -1042,17 +1148,31 @@ into children's state keys as well.
 
 // If any results are available, value or error, return the current status
 
+// If it's here, then the deps in the store should already be valid.
+
 // If olderGraph is given then we will not overwrite changes made to the given
+
+// If the cache was stale or observed inconsistent values, such as with
 
 // If the component is suspended then the effect setting prevLoadableRef
 
+// If the deps for the execution match our current state, then it's valid
+
+// If the previous root was a leaf, while we not have a get(), it means
+
 // If there is a pending transaction, then also mutate the next state tree.
+
+// If there is an existing leaf for this route confirm it is consistent
+
+// If this execution was already checked to be valid with this version
 
 // If this version is not the latest version, also write these dependencies
 
 // If we "suspended", then try again.
 
 // If we changed keys, then return the state for the new key.
+
+// If we found an existing node, confirm it has a consistent value
 
 // If we found any releasable nodes, we need to walk UP from those nodes to
 
@@ -1076,11 +1196,21 @@ into children's state keys as well.
 
 // Initialize state snapshot for <RecoilRoot> for the initializeState prop.
 
+// Install the leaf and call handlers
+
 // Issue parallel requests for all dependencies and return the current
 
 // Issue requests for all dependencies in parallel.
 
 // It is possible to use functions in parameters if the user uses
+
+// Iterate down the tree based on the current node values until we hit a leaf
+
+// Iterate down the tree to find or add branch nodes following the route
+
+// Iterate up from the leaf deleteing it from it's parent's branches.
+
+// Iterate up to our parent
 
 // JSON.stringify(undefined) returns undefined, but we always want to return a string
 
@@ -1136,6 +1266,8 @@ into children's state keys as well.
 
 // Peek at the current value loadable for a node without any evaluation or state change
 
+// Prepare for next iteration and install root if it is new.
+
 // Process scopeRules to handle any entries which are functions taking parameters
 
 // React is free to call effect cleanup handlers and effects at will, the
@@ -1143,6 +1275,8 @@ into children's state keys as well.
 // Reading from an older tree can cause bugs because the dependencies that we
 
 // Recoil Root
+
+// Recoil will attemp to detect if `useSyncExternalStore()` is supported with
 
 // RecoilState<SomeT> is not a subtype of RecoilState<mixed>.
 
@@ -1176,9 +1310,17 @@ into children's state keys as well.
 
 // Return the discovered dependencies and values to be written by setting
 
+// Returns true if leaf was actually deleted from the tree
+
 // Run Atom Effects
 
 // Save changes to nextTree and schedule a React update:
+
+// Second, check if there is already an ongoing execution based on the current state
+
+// Second, look up in the selector cache and update the deps in the store
+
+// Second, setup the leaf node:
 
 // See Recoil_stableStringify-test.js for examples
 
@@ -1190,11 +1332,19 @@ into children's state keys as well.
 
 // Simple atomFamily implementation to cache individual atoms based
 
+// Since React goes through a proxy dispatcher and the current renderer can
+
 // Snapshots
+
+// Sort the pending executions so that our current store is checked first.
 
 // Special behavior ONLY invoked by useInterface.
 
 // Split declaration and implementation to allow this function to pretend to
+
+// Stop iterating if there are other branches since we don't need to
+
+// Stop iterating if we hit the root.
 
 // Stringify will escape any nested quotes
 
@@ -1224,8 +1374,6 @@ into children's state keys as well.
 
 // TODO snapshots shouldn't really have versions because a new version number
 
-// TODO: nodeCount(): number
-
 // Temporarily nerfing this to allow us to find broken call sites without
 
 // The default was parameterized
@@ -1234,9 +1382,13 @@ into children's state keys as well.
 
 // The selector was released since the request began; ignore the response.
 
+// Third, start a new evaluation of the selector
+
 // This batchUpdates ensures this `set` is applied immediately and you can
 
 // This could happen if the atom was first initialized in an action that
+
+// This is every discovered dependency across all executions
 
 // This is important in case the old key would cause the component to suspend.
 
@@ -1244,9 +1396,13 @@ into children's state keys as well.
 
 // This method allows user to iterate keys as normal
 
+// This selector does not need to cache as it is a wrapper selector
+
 // This state is scoped by Store, since this is in the initAtom() closure
 
 // This will evaluate the atom/selector now as well as when the
+
+// Throw an error with selector key so that it is clear which
 
 // Track the RecoilValues used just during this render
 
@@ -1266,6 +1422,8 @@ into children's state keys as well.
 
 // Use replacer to get the next state:
 
+// Use timeout of 10 to workaround Firefox issue: https://github.com/facebookexperimental/Recoil/issues/1936
+
 // Utility similar to JSON.stringify() except:
 
 // Wait for all results to settle
@@ -1278,7 +1436,11 @@ into children's state keys as well.
 
 // We might have already validated it and have a cached validated value:
 
+// We need to update asynchronous dependencies as we go so the selector
+
 // We need to wake up components not just when some asynchronous selector
+
+// We only need to bother updating the deps for the latest execution because
 
 // We want to retain if the component suspends. This is terrible but the Suspense
 
@@ -1287,6 +1449,10 @@ into children's state keys as well.
 // When removing this deprecated function, remove stateBySettingRecoilValue
 
 // Write value directly to state bypassing the Node interface as the node
+
+// `react-three-fiber`) which do not.  While this is technically a user issue
+
+// `reactMode()` before calling it.  However, sometimes the host React
 
 // a cache with reference equality thanks to the incrementing index.
 
@@ -1308,6 +1474,8 @@ into children's state keys as well.
 
 // also updated some other atom's state.
 
+// and the selector within the wrapper selector will have a cache
+
 // and this could happen either before or after that.
 
 // and writable values with any type parameter, but normally with writable ones
@@ -1323,6 +1491,10 @@ into children's state keys as well.
 // behavior and only batch in `Snapshot.map`, but this would be a breaking
 
 // but state initialization only happens once the first time.
+
+// by that cleanup before the new effect has a chance to retain it again.
+
+// by using a renderer with React 18+ that doesn't fully support React 18 we
 
 // cacheImplementationForParams option.
 
@@ -1344,7 +1516,11 @@ into children's state keys as well.
 
 // cast to any because we can't restrict type S from being a function itself without losing support for opaque types
 
+// change at runtime, we need to dynamically check and fallback if necessary.
+
 // change potentially.
+
+// change we can't simply check if `React.useSyncExternalStore()` is defined.
 
 // check for actual instance of Promise instead of something with a `then`
 
@@ -1354,7 +1530,15 @@ into children's state keys as well.
 
 // component renders, but that may help with prefetching.
 
+// const gkx = require('recoil-shared/util/Recoil_gkx');
+
+// const nameRef = useRef();
+
 // const s = selectorFamily(...);
+
+// const stackTraceParser = require('recoil-shared/util/Recoil_stackTraceParser');
+
+// const {useRef} = require('react');
 
 // current results without waiting.
 
@@ -1374,6 +1558,8 @@ into children's state keys as well.
 
 // don't descend into these
 
+// don't want to break users if it can be avoided. As the current renderer can
+
 // duplicate cache entries.  This behavior may be overridden with the
 
 // duplicate keys based on equivalent stringified parameters
@@ -1381,6 +1567,8 @@ into children's state keys as well.
 // early rendering.
 
 // enqueueExecution runs this function immediately; it is only used to
+
+// environment supports it but uses additional React renderers (such as with
 
 // err.stack property is accessed.
 
@@ -1399,6 +1587,10 @@ into children's state keys as well.
 // eslint-disable-next-line fb-www/react-hooks
 
 // eslint-disable-next-line fb-www/react-hooks-deps
+
+// eslint-disable-next-line fb-www/react-no-unused-state-hook
+
+// eslint-disable-next-line fb-www/typeof-undefined
 
 // eslint-disable-next-line no-redeclare
 
@@ -1434,9 +1626,13 @@ into children's state keys as well.
 
 // has been updated by some effect handler. Otherwise we will miss the update.
 
+// if (__DEV__) {
+
 // if removing batchUpdates from `set` add it here
 
-// ignored
+// in the original treestate which may cause the original to skip
+
+// initialization of upstream atoms.
 
 // initialization to take precedence over initializeState and be compatible
 
@@ -1450,6 +1646,10 @@ into children's state keys as well.
 
 // is unavailable (namely when updating an async selector that's
 
+// iterating the tree cache of dependencies.
+
+// knows if it has to restart evaluation if one of them is updated before
+
 // leak memory rather than erase something that's about to be used.
 
 // manipulate the order of useEffects during tests, since React seems to
@@ -1460,17 +1660,25 @@ into children's state keys as well.
 
 // nextTree is now committed -- note that copying and reset occurs when
 
-// no batching so nextTree is never active
+// no batching, so nextTree is never active
+
+// node now refers to the next node down in the tree
 
 // nonReleasableNodes because we are going in topological order):
 
+// note: this check is needed in addition to the check below, runtime error will occur without it!
+
 // object literals or other equivalent objects at callsites to not create
+
+// of state, then let's use it!
 
 // of that temporary retain.
 
 // on the parameter value equality.
 
 // only if they are not retained within any other Stores):
+
+// option by default
 
 // parameter based on value equality, not reference equality.  This allows using
 
@@ -1484,9 +1692,13 @@ into children's state keys as well.
 
 // previous in-progress async evaluations may introduce new subscribers.
 
+// re-render with the same state.  The previous cleanup will then run and
+
 // read the written value after calling `set`. I would like to remove this
 
 // remove
+
+// remove any more nodes.
 
 // reset but have no stored value (validated or unvalidated) to reset from:
 
@@ -1506,6 +1718,8 @@ into children's state keys as well.
 
 // see Recoil_selector-test.js
 
+// selector is causing an error
+
 // serialization.  This matches the behavior of JSON.stringify().
 
 // set from something other than an atom effect which was batched
@@ -1520,13 +1734,21 @@ into children's state keys as well.
 
 // status if they have results, have some error, or are still pending.
 
+// that's all getInProgressExecutionInfo() will be looking for.
+
+// the asynchronous selector completely resolves.
+
 // the callback was called if it first accesses the snapshot asynchronously.
 
 // the handler if the subsequent batched call happens to set the
 
 // the new deps with the old deps.
 
+// the selector has inconsistent values or implementation changed.
+
 // their own promise instead.
+
+// then the new effect will run. We don't want the snapshot to be released
 
 // they are then re-run when used as part of rendering.  These semantics are
 

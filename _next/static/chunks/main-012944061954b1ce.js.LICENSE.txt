@@ -6,19 +6,45 @@
 
 /* (ignored) */
 
-/* .initScriptLoader */
+/* ["default"] */
 
 /*#__PURE__*/
 
 /**
-   * @param {string} href the route href (file-system path)
-   * @param {string} asPath the URL as shown in browser (virtual path); used for dynamic routes
-   * @returns {string}
-   */
+             * We should only trigger a server-side transition if this was
+             * caused on a client-side transition. Otherwise, we'd get into
+             * an infinite loop.
+             */
 
 /**
-   * @param {string} route - the route (file-system path)
-   */
+             * When the data response is a redirect because of a middleware
+             * we do not consider it an error. The headers must bring the
+             * mapped location.
+             * TODO: Change the status code in the handler.
+             */
+
+/**
+     * If there is a redirect to an external destination then we don't have
+     * to prefetch content as it will be unused.
+     */
+
+/**
+     * If there was a rewrite we apply the effects of the rewrite on the
+     * current parameters for the prefetch.
+     */
+
+/**
+     * TODO: Revisit this in the future.
+     * For now we will not consider middleware data errors to be fatal.
+     * maybe we should revisit in the future.
+     */
+
+/**
+     * This `route` binding can change if there's a rewrite
+     * so we keep a reference to the original requested route
+     * so we can store the cache for it and avoid re-requesting every time
+     * for shallow routing purposes.
+     */
 
 /**
    * Callback to execute before replacing router state
@@ -27,6 +53,10 @@
 
 /**
    * Go back in history
+   */
+
+/**
+   * Go forward in history
    */
 
 /**
@@ -51,21 +81,63 @@
    */
 
 /**
+   * this used to be previously:
+   *
+   * `return prototype === null || prototype === Object.prototype`
+   *
+   * but Edge Runtime expose Object from vm, being that kind of type-checking wrongly fail.
+   *
+   * It was changed to the current implementation since it's resilient to serialization.
+   */
+
+/**
  *
- * @param headElements List of multiple <Head> instances
+ * @param headChildrenElements List of children of <Head>
  */
 
 /**
- * Copyright (c) 2014-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * Builds a function to generate a minimal routeKey using only a-z and minimal
+ * number of characters.
+ */
+
+/**
+ * Getter for the Trusted Types Policy. If it is undefined, it is instantiated
+ * here or set to null if Trusted Types is not supported in the browser.
+ */
+
+/**
+ * Parses a given parameter from a route to a data structure that can be used
+ * to generate the parametrized route. Examples:
+ *   - `[...slug]` -> `{ name: 'slug', repeat: true, optional: true }`
+ *   - `[foo]` -> `{ name: 'foo', repeat: false, optional: true }`
+ *   - `bar` -> `{ name: 'bar', repeat: false, optional: false }`
+ */
+
+/**
+ * Stores the Trusted Types Policy. Starts as undefined and can be set to null
+ * if Trusted Types is not supported in the browser.
  */
 
 /**
  * This component injects elements to `<head>` of your page.
  * To avoid duplicated `tags` in `<head>` you can use the `key` property, which will make sure every tag is only rendered once.
  */
+
+/**
+ * `App` component is used for initialize of pages. It allows for overwriting and full control of the `page` initialization.
+ * This allows for keeping state between navigation, custom error handling, injecting additional data.
+ */
+
+/**
+ * transforms the ParsedUrlQuery into a URLSearchParams.
+ *
+ * @param query the query to transform
+ * @returns URLSearchParams
+ */
+
+/** Execute after the script first loaded */
+
+/** the route (file-system path) */
 
 /******/
 
@@ -89,27 +161,19 @@
 
 //  3. Internal error while loading the page
 
-// "consumed" by the delegate iterator. If context.method was
-
-// "return" to "throw", let that override the TypeError below.
-
-// "return", allow the original .return call to continue in the
-
 // (as it's already changed)
 
 // (not location.reload() but reload getInitialProps and other Next.js stuffs)
 
 // - if it is a client-side skeleton (fallback render)
 
+// - if middleware matches the current page (may have rewrite params)
+
+// - if rewrites in next.config.js match (may have rewrite params)
+
 // - it was auto exported and is a dynamic route (to provide params)
 
 // - the page was (auto) exported and has a query string or search (hash)
-
-// .constructor.prototype properties for functions that return Generator
-
-// .throw, and .return (see defineIteratorMethods).
-
-// .throw, and .return methods.
 
 // 1. Setup success/failure hooks in case the browser synchronously
 
@@ -131,13 +195,11 @@
 
 // > receiving cookies, always supply the `credentials: 'same-origin'`
 
-// @@iterator function is called on it. Some browsers' implementations of the
-
 // @ts-ignore
 
-// A .throw or .return when the delegate iterator has no .throw
+// @ts-ignore internal value not exposed on types
 
-// A Generator should always return itself as the iterator object when the
+// Absolute URL: https://tools.ietf.org/html/rfc3986#section-4.3
 
 // Actually, for (1) we don't need to nothing. But it's hard to detect that event.
 
@@ -147,31 +209,27 @@
 
 // And since your PR passed through `slugName` as an array basically it'd including it in too many possibilities
 
-// Assign the result of the finished delegate to the temporary
-
-// AsyncIterator objects; they just return a Promise for the value of
-
-// Avoid propagating failures to Promises returned by later
-
 // Backwards compat for Router.router.events
 
-// Be forgiving, per 25.3.3.3.3 of the spec:
+// Before interactive scripts need to be loaded by Next.js' runtime instead
 
 // Both are fine because `pages/[post]` and `pages/blog` are on the same level
 
 // But we can simply replace the state with the new changes.
 
-// CSP to forbid Function, and you're not willing to fix either of those
-
-// Call delegate.iterator[context.method](context.arg) and handle the
-
 // Changing the URL doesn't block executing the current code path.
 
+// Check again the cache with the new destination.
+
 // Check if the segment matches `[something]`
+
+// Check only path match on client. Matching "has" should be done on server
 
 // Combines timestamp with random number for unique ID
 
 // Contents of this script are already loading/loaded
+
+// Context is available only during SSR
 
 // Cookies are required to be present for Next.js' SSG "Preview Mode".
 
@@ -179,33 +237,23 @@
 
 // Create public properties and methods of the router in the singletonRouter
 
+// Decode hash to make non-latin anchor works.
+
 // Defer page registration for another tick. This will increase the overall
-
-// Define Generator.prototype.{next,throw,return} in terms of the
-
-// Define the unified helper method that is used to implement .next,
-
-// Deliberately forget the last sent value so that we don't
-
-// Dispatch the exception by looping back around to the
 
 // Do not cache RSC flight response since it's not a static resource
 
-// Don't assign the context value to a variable to save bytes
-
 // Dummy component that we render as a child of Root so that we can
 
-// Dummy constructor functions that we use as the .constructor and
-
 // Eg you can't have pages/[post]/abc.js and pages/[hello]/something-else.js
+
+// Ensure this render was not canceled
 
 // Events is a static property on the router, the router doesn't have to be initialized to use it
 
 // Every time the path changes, announce the new page’s title following this
 
-// Exception thrown outside of any try block that could handle
-
-// Execute onLoad since the script loading has begun
+// Fall back to reading the values from the href
 
 // Fallback pages must trigger the data fetch, so the transition is
 
@@ -215,13 +263,11 @@
 
 // First we check if the element by id is found
 
-// Flush calculated metrics
+// For inlined scripts, we put the content in `children`.
 
-// For the native GeneratorFunction constructor, the best we can
+// For non-SSG prefetches that bailed before sending data
 
-// GenStateExecuting and loop back for another invocation.
-
-// Helper for defining the .next, .throw, and .return methods of the
+// For the app directory, we need React Float to preload these scripts.
 
 // Here the `root` gets injected multiple paths, and insert will break them up into sublevels
 
@@ -229,27 +275,15 @@
 
 // Identify /[param]/ in route string
 
-// If a rejected Promise was yielded, throw the rejection back
-
-// If an exception is thrown from innerFn, we leave state ===
-
 // If asked to change the current URL we should reload the current page
-
-// If context.method was "throw" but the delegate handled the
-
-// If enqueue has been called before, then we want to wait until
-
-// If maybeInvokeDelegate(context) changed context.method from
-
-// If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
-
-// If the delegate iterator has a return method, give it a
-
-// If the dispatched exception was caught by a catch block,
 
 // If the downstream application returns falsy, return.
 
 // If the path hasn't change, we do nothing.
+
+// If the routeInfo brings a redirect we simply apply it.
+
+// If the url change is only related to a hash change
 
 // If the urls are change, there's more than a hash change
 
@@ -265,9 +299,11 @@
 
 // If we fail to resolve the page list or client-build manifest, we must
 
+// If we have a match with the current route due to rewrite,
+
 // If we've gotten here upon initial render, we can use the props from the server.
 
-// Ignore the finally entry if control is not jumping to a
+// In Chrome-based browsers we need to force reflow before calling `scrollTo`.
 
 // In development runtime errors are caught by our overlay
 
@@ -277,17 +313,15 @@
 
 // In the both cases, we don't need to proceed and change the route.
 
-// In-flight Server Data Requests, for deduping
-
-// In-flight middleware preflight requests
-
 // Initialize next/config with the environment configuration
 
 // Instead what has to be passed through is the upwards path's dynamic names
 
-// It may change at any time without notice.
+// Interpolate group into data URL if present
 
-// Iterator interface in terms of a single ._invoke method.
+// It is possible that multiple `next/script` components all have same "src", but has different "onLoad"
+
+// It may change at any time without notice.
 
 // JavaScript bundle unless explicitly enabled in your application.
 
@@ -301,21 +335,23 @@
 
 // Merge params into `query`, overwriting any specified in search
 
-// Not sure about the optimal order of these conditions:
+// More info here: https://github.com/vercel/next.js/issues/40719#issuecomment-1336248042
 
-// Note that simple async functions are implemented on top of
-
-// Note: ["return"] must be used for ES3 parsing compatibility.
+// No prefetches for bots that render the link since they are typically navigating
 
 // On initial render a hydrate should always happen
 
 // Only 1 dynamic segment per nesting level
+
+// Only bust the data cache for SSP routes although
 
 // Only register listeners once:
 
 // Only strip the nonce if `oldTag` has had it stripped. An element's nonce attribute will not
 
 // Other pages (strictly updating query) happens shallowly, as data
+
+// Otherwise it will not pickup the change in scrollBehavior
 
 // Otherwise, this cause issues when when going back and
 
@@ -325,33 +361,35 @@
 
 // Promise. It should remain synchronous.
 
-// Rather than returning an object with a next method, we keep
-
 // React children can be "string" or "number" in this case we ignore them for backwards compat
 
-// Regardless of whether this script is executing as a CommonJS module
-
 // Reorder styles into intended order:
-
-// Resetting context._sent for legacy support of Babel's
 
 // Resolve a promise that times out after given amount of milliseconds.
 
 // Resolved, cancel the timeout
 
-// Resume execution at the desired location (see delegateYield).
-
-// Return an iterator with no values.
-
 // Return because it cannot be routed by the Next.js router
+
+// Run onReady for the first time after load event
+
+// Run onReady if script has loaded before but component is re-mounted
+
+// Safari fires popstateevent when reopening the browser.
+
+// Scheme: https://tools.ietf.org/html/rfc3986#section-3.1
 
 // Script has already loaded
 
+// Script has already loaded during SSR
+
 // Scroll to top if the hash is just `#` with no value or `#top`
 
-// See https://github.com/facebook/regenerator/issues/274 for more details.
+// Server Background Cache (HEAD requests)
 
-// Setting context._sent for legacy support of Babel's
+// Server Data Cache (full data requests)
+
+// Skip certain custom errors which are not expected to be reported on client
 
 // Skip executing script if it's already in the DOM:
 
@@ -369,13 +407,15 @@
 
 // So, this is how we do it in the client side at runtime
 
-// Static Data Cache
-
 // Strip `...`, leaving only `something`
 
 // Strip `[` and `]`, leaving only `something`
 
 // Strip optional `[` and `]`, leaving only `something`
+
+// TODO(prateekbh@): Replace this with const from `constants` when the tree shaking works.
+
+// TODO: Remove shouldHydrate variable when React 18 is stable as it can depend on `reactRoot` existing
 
 // TODO: Should be remove the following major version as it was never documented
 
@@ -383,15 +423,11 @@
 
 // TODO: do we need the resolved href when only a hash change?
 
+// TODO: more robust handling for user-error (passing `/`)
+
 // TODO: should this take priority; also need to change in the router.
 
-// The ._invoke method unifies the implementations of the .next,
-
-// The check for `.hydrate` is there to support React alternatives like preact
-
-// The context.catch method must only be called with a location
-
-// The delegate iterator is finished, so forget it and continue with
+// The `router.asPath` contains the pathname seen by the browser (including
 
 // The next segment in the urlPaths list
 
@@ -399,9 +435,9 @@
 
 // The order of property assignment here is intentional:
 
-// The root entry object (effectively a try statement without a catch
-
 // The value might get changed as we change routes and this is the
+
+// Then, we return the information along with the matched route.
 
 // They will then be responsible for handling the event.
 
@@ -409,33 +445,41 @@
 
 // This code is not shipped, executed, or present in the client-side
 
-// This environment has a native %IteratorPrototype%; use it instead
-
 // This function has a return type to ensure it doesn't start returning a
 
-// This is a polyfill for %IteratorPrototype% for environments that
+// This is ensured by keeping the last unflushed `updateHead` in the `_pendingUpdate`
+
+// This is to make sure the same remote script will only load once, but "onLoad" are executed in order
 
 // This method handles all runtime and debug errors.
-
-// This module should not be running in strict mode, so the above
-
-// To avoid creating an additional object, we just hang the .value
 
 // To mirror browsers
 
 // Toggle `<style>` tags on or off depending on if they're needed:
 
-// Try/catch helper to minimize deoptimizations. Returns a completion
+// URL as this can end up with an infinite refresh
+
+// Unlike with createRoot, you don't need a separate root.render() call here
 
 // Update function if it changes:
 
+// Use the destination from redirect without adding locale
+
+// Using default react onRecoverableError
+
 // WARNING: `_h` is an internal option for handing Next.js
 
+// WARNING: `_h` is an internal option for handing Next.js client-side
+
 // We also need to set the method = replaceState always
+
+// We can skip this during hydration. Running it wont cause any harm, but
 
 // We catch runtime errors using componentDidCatch which will trigger renderError
 
 // We get state as undefined for two reasons.
+
+// We need to call `updateHead` method whenever the `SideEffect` is trigger in all
 
 // We need to replace the router state if:
 
@@ -445,7 +489,7 @@
 
 // We should not keep the cache, if there's an error
 
-// We should only trigger a server-side transition if this was caused
+// We should not proceed. We should only change the state.
 
 // We use `useLayoutEffect` to guarantee the callback is executed
 
@@ -453,39 +497,35 @@
 
 // We wait for pages to be built in dev before we start the route transition
 
-// When a yielded Promise is resolved, its final value becomes
+// When `isAutoExport` is true, meaning this is a page page has been
+
+// When the page being rendered is the 404 page, we should only update the
+
+// When the route is a dynamic route, we need to do more processing to
+
+// When the router is rendering the fallback page, it can't possibly know
 
 // When this feature is enabled, we'll make it very clear by printing a
 
 // With dynamic assetPrefix it's no longer possible to set assetPrefix at the build time
 
-// Within the body of any async function, `await x` is transformed to
+// __NA is used to identify if the history entry can be handled by the app-router.
 
-// `hasOwn.call(value, "__await")` to determine if the yielded value is
+// `asPath` option over at:
 
 // `href` should always be last:
 
-// `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
-
 // absolute urls can be local if they are on the same origin
 
-// accidentally pass it on to the delegate.
-
-// all previous Promises have been resolved before calling invoke,
-
-// allow the correct page chunk to be loaded
-
-// already have an existing method we want to call, so there's no need
-
-// also ensures that the minifier will not anonymize the function.
-
-// and .done properties off the next function object itself. This
+// add cacheKey to LoadCache when load successfully
 
 // and they are still handle via the main render method.
 
-// any necessary setup in a predictable way. This predictability
+// any query strings), so it should have that stripped. Read more about the
 
-// argument that corresponds to a known catch block.
+// any time without notice.
+
+// as it's un-necessary and doesn't need to be fatal
 
 // as soon as React flushes the update
 
@@ -493,77 +533,81 @@
 
 // as this should not go into the history (That's how browsers work)
 
-// assignment should always work unless something is misconfigured. Just
+// at:
 
-// async functions in terms of async generators, it is especially
+// automatically statically optimized, and the router is not ready, then
 
 // back from external site
 
 // basePath from the pathname to match the pages dir 1-to-1
 
+// be loaded
+
 // be stripped if there is no content security policy response header that includes a nonce.
+
+// being rendered, we only trigger the method from the last one.
+
+// below `changeState` call which updates the browser's history (changing
+
+// bubble up cancelation errors
 
 // bubble up cancellation errors
 
-// call invoke immediately, without waiting on a callback to fire,
+// cacheKey will be added to LoadCache when it is actually loaded (see loadPromise above)
 
 // can be caused by navigating back from an external site
 
-// can only use non-initial route info
+// can be returned and this should trigger a hard navigation
 
-// cannot reuse route info in development since it can change after HMR
+// check if destination is internal (resolves to a page) and attempt
 
-// chance to clean up.
+// check if the key is still invalid and fallback to using a known
+
+// client-navigation if it is falling back to hard navigation if
 
 // client-side hydration. Your app should _never_ use this property.
+
+// client-transition a redirect that doesn't match a page
 
 // come again to the errored page.
 
 // considers as "Good" time-to-interactive. We must assume something went
 
-// context.dispatchException(context.arg) call above.
+// copied to prevent pulling in un-necessary utils
 
-// context.method was "next", forget context.arg since it has been
-
-// current iteration.
-
-// delegate iterator, or by modifying context.method and context.arg,
+// determine if we need to stop showing the pathname.
 
 // do a server-side transition:
 
-// do is to check its .name property.
+// do not add cacheKey into LoadCache for remote script here
 
 // don't cause any hydration delay:
 
-// don't natively support it.
-
-// enqueue has not been called before, then it is important to
+// during query updating the page must match although during
 
 // ensure statusCode is still correct for static 500 page
+
+// ensure we don't trigger a hard navigation to the same
+
+// eslint-disable-next-line @typescript-eslint/no-use-before-define
 
 // eslint-disable-next-line array-callback-return
 
 // eslint-disable-next-line default-case
 
-// exception, let the outer generator proceed normally. If
-
-// execute code before the first await. Since we implement simple
-
-// executor callback, and why async functions synchronously
-
 // fallback to / for invalid asPath values e.g. //
+
+// firefox
 
 // first item will be empty string from splitting at first char
 
 // for static pages with query params in the URL we delay
 
-// function.sent implementation.
+// handle SSG data 404
+
+// handle redirect on client-transition
 
 // handle resolving href for dynamic routes
-
-// has a stable shape and so hopefully should be cheap to allocate.
-
-// have been (and was previously) designed to take a closure to be
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 
@@ -575,11 +619,17 @@
 
 // https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe
 
-// https://people.mozilla.org/~jorendorff/es6-draft.html#sec-generatorresume
+// https://nextjs.org/docs/advanced-features/automatic-static-optimization
+
+// https://nextjs.org/docs/api-reference/data-fetching/get-static-paths#fallback-pages
+
+// https://nextjs.org/docs/api-reference/next/router#router-object
 
 // https://www.gatsbyjs.com/blog/2019-07-11-user-testing-accessible-client-routing/
 
-// if a Content Security Policy forbids using Function, but in that case
+// hydration. Your app should _never_ use this property. It may change at
+
+// if a route transition is already in progress before
 
 // if auto prerendered and dynamic route wait to update asPath
 
@@ -587,51 +637,35 @@
 
 // if the origin didn't change, it means we received a relative href
 
-// if this directly matches a page we need to update the href to
-
-// important to get this right, even though it requires care.
-
-// in case runtime.js accidentally runs in strict mode, we can escape
-
-// in every case, so we don't have to touch the arguments object. The
-
 // in order for `e.state` to work on the `onpopstate` event
 
-// information can be found here:
+// inflight cache until successful data response
 
-// injected easily by `bin/regenerator --include-runtime script.js`.
+// information can be found here:
 
 // inspired by Marcy Sutton’s accessible client routing user testing. More
 
 // into the URL and we expect URL encoded segments
 
-// into the async generator function so it can be handled there.
+// invalid and will never match a Next.js page/file
 
-// invocations of the iterator.
-
-// invoked without arguments, but in all the cases we care about we
-
-// is why the Promise constructor synchronously invokes its
-
-// it wasn't originally present
+// isAutoExport is only ever `true` on the first render from the server,
 
 // it won't be inlined. In this case revert to the original behavior
 
 // it won't scroll properly.
 
-// it, so set the completion value of the entire function to
-
-// iterator prototype chain incorrectly implement this, causing the Generator
+// it's not
 
 // lastAppProps has to be set before ReactDom.render to account for ReactDom throwing an error.
 
 // latency in hydrating the page, but reduce the total blocking time.
 
-// location outside the try/catch block.
+// leverage x-matched-path to detect next.config.js rewrites
 
-// locations where there is no enclosing try statement.
+// life-cycles: mount, update, unmount. However, if there are multiple `SideEffect`s
 
-// loop.
+// links via the equivalent of a hard navigation and hence never utilize these
 
 // make sure "as" doesn't start with double slashes or else it can
 
@@ -647,13 +681,9 @@
 
 // marking the router ready until after the query is updated
 
-// meant to be awaited.
-
 // message during the build (`next build`).
 
-// method always terminates the yield* loop.
-
-// minifier not to mangle the names of these two functions.
+// middleware can skip cache per request with
 
 // nextSegment is overwritten to [...] so that it can later be sorted specifically
 
@@ -663,21 +693,13 @@
 
 // not shallow.
 
-// object to not be returned from this call. This ensures that doesn't happen.
+// of native <script> tags, because they no longer have `defer`.
 
-// objects. For full spec compliance, you may wish to configure your
+// optimization at:
 
-// of the polyfill.
+// or a navigation has occurred
 
-// on a client-side transition. Otherwise, we'd get into an infinite
-
-// only additional allocation required is the completion record, which
-
-// or a finally block) gives us a place to store values thrown from
-
-// or not, return the runtime object so that we can declare the variable
-
-// outer generator.
+// pages to allow building the data URL correctly
 
 // pages/[post]/comments.js
 
@@ -687,73 +709,73 @@
 
 // point by either next/link or router.push/replace so strip the
 
+// prefetches.
+
 // prevent a hydration mismatch on href for url with anchor refs
 
 // priority: first the document title (from head), otherwise the first h1, or
 
-// problems, please detail your unique predicament in a GitHub issue.
-
 // proper way to access it
 
-// record like context.tryEntries[i].completion. This interface could
+// query parameters. Route changes here might add the basePath when it
 
-// regeneratorRuntime in the outer scope, which allows this module to be
+// regexp is based on https://github.com/sindresorhus/escape-string-regexp
+
+// remove basePath first since path prefix has to be in the order of `/${basePath}/${locale}`
+
+// repeated slashes and backslashes in the URL are considered
+
+// replace any non-word characters since they can break
 
 // represents the current component key
 
 // requirements would already be present.
 
-// result, either by returning a { value, done } result from the
-
 // router is initialized later so it has to be live-binded
+
+// safari
+
+// safe key
+
+// see also: https://github.com/lodash/lodash/blob/2da024c3b4f9947a48517639de7560457cd4ec6c/escapeRegExp.js#L23
 
 // set up the component cache (by route keys)
 
-// setting context.delegate to null, and returning the ContinueSentinel.
+// shallow routing is only allowed for same page URL changes.
 
 // show the user something of value.
 
+// singleton in the layout effect pass, and actually trigger it in the effect pass.
+
 // slugName is kept as it can only be one particular slugName
 
-// so that results are always delivered in the correct order. If
+// so reset it to `false` after we read it for the first time as `true`. If
 
-// so that the async generator function has the opportunity to do
+// support single-level catch-all
 
-// strict mode using a global Function call. This could conceivably fail
+// the URL).
 
-// the .value of the Promise<{value,done}> result for the
+// the named regex
 
-// the asPath unexpectedly e.g. adding basePath when
-
-// the final result produced by the iterator.
-
-// the method takes exactly one argument, since that happens to be true
-
-// the outer generator.
-
-// the proper solution is to fix the accidental strict mode problem. If
+// the path, so return `null` here. Read more about fallback pages over
 
 // the property assigned to the actual router
 
+// the query updating is triggered ignore query updating
+
 // the route is outdated and we want to invalidate
 
-// then let that catch block handle the exception normally.
-
-// things simple and return the next function itself.
+// this allows racing click event with fetching newer data
 
 // this cache entry
 
 // throw an error as it's considered invalid
 
-// throw the exception.
-
 // timeout to prevent an un-necessary hard navigation in development.
-
-// to create a new function object. We can even get away with assuming
 
 // toggle the correct styles before the page is rendered.
 
-// unified ._invoke helper method.
+// unless it is a fallback route and the props can't
 
 // unless we're in production:
 
@@ -763,49 +785,93 @@
 
 // url and as should always be prefixed with basePath by this
 
-// variable specified by delegate.resultName (see delegateYield).
+// wasn't originally present. This is also why this block is before the
+
+// we can copy the existing information to the rewritten one.
+
+// we can't know the pathname yet. Read more about automatic static
+
+// we clear the cache to fetch full response
+
+// we don't hard error during query updating
 
 // we don't render undefined props to the DOM
+
+// we don't use the value, then we don't need it.
 
 // we don't want to cache errors during prefetch
 
 // we have to register the initial route upon initialization
 
+// we kick off a HEAD request in the background
+
 // we may as well save the CPU cycles:
 
-// we only add the basepath on relative urls
+// we need to resolve the as value using rewrites for dynamic SSG
 
 // we use a dummy base url for relative urls
 
 // we'll format them into the string version here.
 
+// when a non-prefetch request is made to signal revalidation
+
+// when called from _app `ctx` is nested in `ctx`
+
 // when parsing dynamic route params
+
+// when skipping client cache we wait to update
 
 // when this entrypoint has been resolved before
 
 // when updating query information
 
+// where we can access more info such as headers, HttpOnly cookie, etc.
+
+// which is valid for incremental migration
+
 // with relList.support
+
+// without blocking navigation when stale data is available
 
 // wrong beyond this point, and then fall-back to a full page transition to
 
-// you've misconfigured your bundler to force strict mode and applied a
+// x-middleware-cache: no-cache as well
 
-//# sourceMappingURL=_error.js.map
+// x-ref: https://github.com/facebook/react/blob/d4bc16a7d69eb2ea38a88c8ac0b461d5f72cdcab/packages/react-dom/src/client/ReactDOMRoot.js#L83
 
-//# sourceMappingURL=amp.js.map
+//# sourceMappingURL=adapters.js.map
+
+//# sourceMappingURL=add-base-path.js.map
+
+//# sourceMappingURL=add-locale.js.map
+
+//# sourceMappingURL=add-path-prefix.js.map
+
+//# sourceMappingURL=add-path-suffix.js.map
+
+//# sourceMappingURL=amp-mode.js.map
+
+//# sourceMappingURL=compare-states.js.map
 
 //# sourceMappingURL=denormalize-page-path.js.map
+
+//# sourceMappingURL=escape-regexp.js.map
+
+//# sourceMappingURL=format-next-pathname-info.js.map
 
 //# sourceMappingURL=format-url.js.map
 
 //# sourceMappingURL=get-asset-path-from-route.js.map
 
-//# sourceMappingURL=get-middleware-regex.js.map
+//# sourceMappingURL=get-next-pathname-info.js.map
 
-//# sourceMappingURL=head-manager.js.map
+//# sourceMappingURL=has-base-path.js.map
 
 //# sourceMappingURL=index.js.map
+
+//# sourceMappingURL=is-api-route.js.map
+
+//# sourceMappingURL=is-bot.js.map
 
 //# sourceMappingURL=is-dynamic.js.map
 
@@ -817,11 +883,25 @@
 
 //# sourceMappingURL=normalize-locale-path.js.map
 
+//# sourceMappingURL=normalize-path-sep.js.map
+
+//# sourceMappingURL=on-recoverable-error.js.map
+
+//# sourceMappingURL=parse-path.js.map
+
 //# sourceMappingURL=parse-relative-url.js.map
+
+//# sourceMappingURL=path-has-prefix.js.map
 
 //# sourceMappingURL=querystring.js.map
 
-//# sourceMappingURL=refresh.js.map
+//# sourceMappingURL=remove-base-path.js.map
+
+//# sourceMappingURL=remove-locale.js.map
+
+//# sourceMappingURL=remove-path-prefix.js.map
+
+//# sourceMappingURL=remove-trailing-slash.js.map
 
 //# sourceMappingURL=route-loader.js.map
 
@@ -829,14 +909,6 @@
 
 //# sourceMappingURL=route-regex.js.map
 
-//# sourceMappingURL=router.js.map
-
-//# sourceMappingURL=runtime-config.js.map
-
 //# sourceMappingURL=sorted-routes.js.map
 
-//# sourceMappingURL=vitals.js.map
-
 //# sourceMappingURL=with-router.js.map
-
-//eslint-disable-line

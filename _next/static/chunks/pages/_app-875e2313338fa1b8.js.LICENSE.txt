@@ -21,9 +21,23 @@ styleSheet.flush()
 
 */
 
+/*
+     * Receive `sxInput` as object or callback
+     * and then recursively check keys & values to create media query object styles.
+     * (the result will be used in `styled`)
+     */
+
 /* #__PURE__ */
 
+/* .createEmptyBreakpointObject */
+
+/* .getPath */
+
+/* .getStyleValue */
+
 /* .handleBreakpoints */
+
+/* .removeUnusedBreakpoints */
 
 /* Math.imul(h, m): */
 
@@ -37,6 +51,8 @@ styleSheet.flush()
 
 /* createUnarySpacing */
 
+/* createUnaryUnit */
+
 /* darken */
 
 /* default */
@@ -45,6 +61,8 @@ styleSheet.flush()
 
 /* eslint-disable */
 
+/* eslint-disable no-fallthrough */
+
 /* eslint-disable prefer-template */
 
 /* eslint-enable prefer-template */
@@ -52,6 +70,8 @@ styleSheet.flush()
 /* getContrastRatio */
 
 /* getPath */
+
+/* getValue */
 
 /* handleBreakpoints */
 
@@ -67,15 +87,25 @@ styleSheet.flush()
 
 /* lighten */
 
+/* margin */
+
+/* padding */
+
 /* tslint:enable:unified-signatures */
+
+/* unused harmony export easing */
 
 /* unused harmony export systemDefaultTheme */
 
+/* unused harmony export unstable_createStyleFunctionSx */
+
 /* unused harmony exports E, _, a, b, c, h, u */
 
-/* unused harmony exports hexToRgb, decomposeColor, recomposeColor, rgbToHex, hslToRgb, getLuminance */
+/* unused harmony exports hexToRgb, decomposeColor, colorChannel, private_safeColorChannel, recomposeColor, rgbToHex, hslToRgb, getLuminance, private_safeAlpha, private_safeDarken, private_safeLighten, private_safeEmphasize */
 
 /* unused harmony exports mergeBreakpointsInOrder, computeBreakpointsBase, resolveBreakpointValues */
+
+/* values */
 
 /*#__PURE__*/
 
@@ -160,19 +190,6 @@ styleSheet.flush()
  */
 
 /**
- * @param {object} element
- * @param {number} index
- * @param {object[]} children
- * @param {function} callback
- */
-
-/**
- * @param {object} element
- * @param {number} index
- * @param {object[]} children
- */
-
-/**
  * @param {object} root
  * @param {object} props
  * @return {object}
@@ -219,12 +236,6 @@ styleSheet.flush()
  * @param {string} value
  * @param {number} length
  * @return {number}
- */
-
-/**
- * @param {string} value
- * @param {number} length
- * @return {string}
  */
 
 /**
@@ -309,8 +320,8 @@ styleSheet.flush()
  */
 
 /**
- * @see @link{https://material.io/design/typography/the-type-system.html}
- * @see @link{https://material.io/design/typography/understanding-typography.html}
+ * @see @link{https://m2.material.io/design/typography/the-type-system.html}
+ * @see @link{https://m2.material.io/design/typography/understanding-typography.html}
  */
 
 /**
@@ -343,7 +354,7 @@ styleSheet.flush()
 /**
  * Converts a color object with type and values to a string.
  * @param {object} color - Decomposed color
- * @param {string} color.type - One of: 'rgb', 'rgba', 'hsl', 'hsla'
+ * @param {string} color.type - One of: 'rgb', 'rgba', 'hsl', 'hsla', 'color'
  * @param {array} color.values - [n,n,n] or [n,n,n,n]
  * @returns {string} A CSS color string
  */
@@ -371,6 +382,13 @@ styleSheet.flush()
  */
 
 /**
+ * Returns a channel created from the input color.
+ *
+ * @param {string} color - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla(), color()
+ * @returns {string} - The channel for the color, that can be used in rgba or hsla colors
+ */
+
+/**
  * Returns a number whose value is limited to the given range.
  * @param {number} value The value to be clamped
  * @param {number} min The lower boundary of the output range
@@ -382,7 +400,7 @@ styleSheet.flush()
  * Returns an object with the type and values of a color.
  *
  * Note: Does not support rgb % values.
- * @param {string} color - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla()
+ * @param {string} color - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla(), color()
  * @returns {object} - A MUI color object: {type: string, values: number[]}
  */
 
@@ -502,7 +520,9 @@ styleSheet.flush()
 
 // CONCATENATED MODULE: ../../node_modules/@emotion/cache/dist/emotion-cache.browser.esm.js
 
-// CONCATENATED MODULE: ../../node_modules/@emotion/cache/node_modules/@emotion/sheet/dist/emotion-sheet.browser.esm.js
+// CONCATENATED MODULE: ../../node_modules/@emotion/hash/dist/emotion-hash.esm.js
+
+// CONCATENATED MODULE: ../../node_modules/@emotion/sheet/dist/emotion-sheet.browser.esm.js
 
 // CONCATENATED MODULE: ../../node_modules/@mui/material/styles/createMixins.js
 
@@ -512,9 +532,15 @@ styleSheet.flush()
 
 // CONCATENATED MODULE: ../../node_modules/@mui/material/styles/createTypography.js
 
+// CONCATENATED MODULE: ../../node_modules/@mui/material/styles/shadows.js
+
 // CONCATENATED MODULE: ../../node_modules/@mui/private-theming/ThemeProvider/ThemeProvider.js
 
 // CONCATENATED MODULE: ../../node_modules/@mui/system/esm/ThemeProvider/ThemeProvider.js
+
+// CONCATENATED MODULE: ../../node_modules/@mui/system/esm/borders.js
+
+// CONCATENATED MODULE: ../../node_modules/@mui/system/esm/compose.js
 
 // CONCATENATED MODULE: ../../node_modules/@mui/system/esm/createTheme/createBreakpoints.js
 
@@ -522,7 +548,13 @@ styleSheet.flush()
 
 // CONCATENATED MODULE: ../../node_modules/@mui/system/esm/createTheme/createTheme.js
 
+// CONCATENATED MODULE: ../../node_modules/@mui/system/esm/cssGrid.js
+
 // CONCATENATED MODULE: ../../node_modules/@mui/system/esm/memoize.js
+
+// CONCATENATED MODULE: ../../node_modules/@mui/system/esm/palette.js
+
+// CONCATENATED MODULE: ../../node_modules/@mui/system/esm/sizing.js
 
 // CONCATENATED MODULE: ../../node_modules/@mui/system/esm/spacing.js
 
@@ -530,13 +562,15 @@ styleSheet.flush()
 
 // CONCATENATED MODULE: ../../node_modules/stylis/src/Parser.js
 
-// CONCATENATED MODULE: ../../node_modules/stylis/src/Prefixer.js
-
 // CONCATENATED MODULE: ../../node_modules/stylis/src/Serializer.js
 
 // CONCATENATED MODULE: ../../node_modules/stylis/src/Tokenizer.js
 
-// CONCATENATED MODULE: ./pages/_app.tsx
+// CONCATENATED MODULE: ./src/ts/shared/providers/MuiThemeProvider/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/utils/createEmotionCache.ts
+
+// Check if CSS variables are used
 
 // Consistency between these values is important.
 
@@ -556,7 +590,7 @@ styleSheet.flush()
 
 // EXTERNAL MODULE: ../../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
 
-// EXTERNAL MODULE: ../../node_modules/@emotion/react/dist/emotion-element-699e6908.browser.esm.js
+// EXTERNAL MODULE: ../../node_modules/@emotion/react/dist/emotion-element-6a883da9.browser.esm.js
 
 // EXTERNAL MODULE: ../../node_modules/@mui/material/styles/createTheme.js + 13 modules
 
@@ -570,11 +604,15 @@ styleSheet.flush()
 
 // EXTERNAL MODULE: ../../node_modules/@mui/system/esm/style.js
 
+// EXTERNAL MODULE: ../../node_modules/@mui/system/esm/styleFunctionSx/defaultSxConfig.js + 5 modules
+
+// EXTERNAL MODULE: ../../node_modules/@mui/system/esm/styleFunctionSx/styleFunctionSx.js
+
 // EXTERNAL MODULE: ../../node_modules/@mui/system/esm/useTheme.js
 
-// EXTERNAL MODULE: ../../node_modules/@mui/utils/esm/formatMuiErrorMessage.js
-
 // EXTERNAL MODULE: ../../node_modules/react/jsx-runtime.js
+
+// Emotion & styled-components will neglect null
 
 // Follow https://material.google.com/motion/duration-easing.html#duration-easing-natural-easing-curves
 
@@ -595,6 +633,8 @@ styleSheet.flush()
 // Inject component definitions.
 
 // Inspired by https://github.com/garycourt/murmurhash-js
+
+// It allows developers to easily override MUI styles with other styling solutions, like CSS modules.
 
 // It can't be configured as it's used statically for propTypes.
 
@@ -623,6 +663,8 @@ styleSheet.flush()
 // Since `output` is a clone of `target` and we have narrowed `target` in this block we can cast to the same type.
 
 // Smaller components, such as icons, can align to a 4dp grid.
+
+// Sort in ascending order
 
 // Sorted ASC by size. That's important.
 
@@ -682,7 +724,7 @@ styleSheet.flush()
 
 // UNUSED EXPORTS: createMuiTheme
 
-// UNUSED EXPORTS: getStyleFromPropValue, margin, padding
+// UNUSED EXPORTS: default, getStyleFromPropValue, marginKeys, paddingKeys
 
 // Unitless following https://meyerweb.com/eric/thoughts/2006/02/08/unitless-line-heights/
 
@@ -691,6 +733,8 @@ styleSheet.flush()
 // Used by `getContrastText()` to maximize the contrast between
 
 // Used by the functions below to shift a color's luminance by approximately
+
+// Using Node instead of HTMLElement since container may be a ShadowRoot
 
 // Using a hash computation over an array iteration could be faster, but with only 28 items,
 
@@ -732,9 +776,9 @@ styleSheet.flush()
 
 // background-clip, columns, column-(count|fill|gap|rule|rule-color|rule-style|rule-width|span|width)
 
-// based on https://github.com/thysultan/stylis.js/blob/e6843c373ebcbbfade25ebcc23f540ed8508da0a/src/Tokenizer.js#L239-L244
-
 // because this module is primarily intended for the browser and node
+
+// borders
 
 // but it's also required in react native and similar environments sometimes
 
@@ -764,15 +808,23 @@ styleSheet.flush()
 
 // desktop
 
+// display
+
 // display: (flex|inline-flex)
 
 // document.head is a safe place to move them to(though note document.head is not necessarily the last place they will be)
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
+
 // eslint-disable-next-line prefer-rest-params
+
+// eslint-disable-next-line react/function-component-definition
 
 // extracted by mini-css-extract-plugin
 
 // fallthrough
+
+// false positive
 
 // finalize string values (regular strings and functions interpolated into css calls)
 
@@ -784,7 +836,11 @@ styleSheet.flush()
 
 // flex-shrink
 
+// flexbox
+
 // get SSRed styles out of the way of React's hydration
+
+// grid
 
 // handle first and last key separately, for better readability
 
@@ -792,7 +848,7 @@ styleSheet.flush()
 
 // https://esbench.com/bench/5b809c2cf2949800a0f61fb5
 
-// https://material.io/design/layout/understanding-layout.html#usage
+// https://m2.material.io/design/layout/understanding-layout.html
 
 // https://www.wolframalpha.com/input/?i=(4+%2B+15+*+(x+%2F+36+)+**+0.25+%2B+(x+%2F+36)+%2F+5)+*+10
 
@@ -828,13 +884,21 @@ styleSheet.flush()
 
 // order
 
+// palette
+
 // phone
 
 // position: sticky
 
+// positions
+
 // positive .length indicates that this rule contains pseudo
 
+// prepend: true moves MUI styles to the top of the <head> so they're loaded first.
+
 // pretend we've started with a comma
+
+// prevent mutable object.
 
 // px
 
@@ -846,11 +910,17 @@ styleSheet.flush()
 
 // see https://babeljs.io/docs/en/babel-plugin-transform-template-literals#loose
 
+// shadows
+
 // short-circuit for the simplest case
+
+// sizing
 
 // slowly decelerate to a resting point.
 
 // small laptop
+
+// spacing
 
 // stic(k)y
 
@@ -892,7 +962,11 @@ styleSheet.flush()
 
 // two indexes within its tonal palette.
 
+// typography
+
 // using a global regex with .exec is stateful so lastIndex has to be reset each time
+
+// value
 
 // vertical-l(r)
 

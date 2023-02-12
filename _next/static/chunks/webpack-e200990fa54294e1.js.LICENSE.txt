@@ -6,6 +6,8 @@
 
 // Check if module is in cache
 
+// Create Trusted Type policy if Trusted Types are available and the policy doesn't exist yet.
+
 // Create a new module (and put it into the cache)
 
 // Execute the module function
@@ -34,6 +36,8 @@
 
 // avoid mem leaks in IE.
 
+// create a fake namespace object
+
 // create error before stack unwound to get useful stacktrace later
 
 // define __esModule on exports
@@ -47,6 +51,16 @@
 // install a JSONP callback for chunk loading
 
 // loadScript function to load a script via script tag
+
+// mode & 16: return value when it's Promise-like
+
+// mode & 1: value is a module id, require it
+
+// mode & 2: merge all properties of value into the ns
+
+// mode & 4: return value when already ns object
+
+// mode & 8|1: behave like require
 
 // no HMR
 

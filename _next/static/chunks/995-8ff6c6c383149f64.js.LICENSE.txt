@@ -1,32 +1,23 @@
 /*
-
-Based off glamor's StyleSheet, thanks Sunil ❤️
-
-high performance StyleSheet for css-in-js systems
-
-- uses multiple style tags behind the scenes for millions of rules
-- uses `insertRule` for appending in production for *much* faster performance
-
-// usage
-
-import { StyleSheet } from '@emotion/sheet'
-
-let styleSheet = new StyleSheet({ key: '', container: document.head })
-
-styleSheet.insert('#box { border: 1px solid red; }')
-- appends a css rule into the stylesheet
-
-styleSheet.flush()
-- empties the stylesheet of all its contents
-
-*/
-
-/*
      * The Decimal constructor and exported function.
      * Return a new Decimal instance.
      *
      * value {number|string|Decimal} A numeric value.
      *
+     */
+
+/*
+     * The `isNumber` check is needed because the user could also provide strings like "dataMin" via the domain props.
+     * In such case, we have to compute the domain from the data.
+     */
+
+/*
+     * This is a hack to short-circuit the domain creation here to enhance performance.
+     * Usually, the data is used to determine the domain, but when the user specifies
+     * a domain upfront (via props), there is no need to calculate the domain start and end,
+     * which is very expensive for a larger amount of data.
+     * The only thing that would prohibit short-circuiting is when the user doesn't allow data overflow,
+     * because the axis is supposed to ignore the specified domain that way.
      */
 
 /*
@@ -125,12 +116,6 @@ styleSheet.flush()
 
 /*
    * Parse the value of a new Decimal `x` from string `str`.
-   */
-
-/*
-   * Receive `sxInput` as object or callback
-   * and then recursively check keys & values to create media query object styles.
-   * (the result will be used in `styled`)
    */
 
 /*
@@ -411,6 +396,20 @@ styleSheet.flush()
 /*
    * Round `x` to `sd` significant digits, using rounding mode `rm` if present (truncate otherwise).
    */
+
+/*
+ * Create a new array of children excluding the ones matched the type
+ */
+
+/*
+ * Find and return all matched children by type.
+ * `type` must be a React.ComponentType
+ */
+
+/*
+ * Return the first matched child by type, return null otherwise.
+ * `type` must be a React.ComponentType
+ */
 
 /*
  * Returns a Lexer object of the following structure:
@@ -1004,6 +1003,18 @@ styleSheet.flush()
  */
 
 /*
+ * removed 'type' SVGElementPropKey because we do not currently use any SVG elements
+ * that can use it and it conflicts with the recharts prop 'type'
+ * https://github.com/recharts/recharts/pull/3327
+ * https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/type
+ */
+
+/*
+ TODO v6: remove
+ Conditionally apply a workaround for the CSS transition bug in Safari 15.4 / WebKit browsers.
+ */
+
+/*
 given a DOM element, return the list of all scroll parents, up the list of ancesors
 until we get to the top window object. This list is what we attach scroll listeners
 to, because if any of these parent elements scroll, we'll need to re-calculate the
@@ -1036,7 +1047,7 @@ reference element's position.
 
 /* .Bar */
 
-/* .Cell.displayName */
+/* .Cell */
 
 /* .Curve */
 
@@ -1044,7 +1055,11 @@ reference element's position.
 
 /* .Dot */
 
-/* .ErrorBar.displayName */
+/* .ErrorBar */
+
+/* .EventKeys.includes */
+
+/* .FilteredElementKeyMap */
 
 /* .Global.isSsr */
 
@@ -1059,6 +1074,8 @@ reference element's position.
 /* .Layer */
 
 /* .Rectangle */
+
+/* .SVGElementPropKeys.includes */
 
 /* .Symbols */
 
@@ -1077,10 +1094,6 @@ reference element's position.
 /* .checkDomainOfScale */
 
 /* .createLabeledScales */
-
-/* .duration.enteringScreen */
-
-/* .duration.leavingScreen */
 
 /* .filterProps */
 
@@ -1120,7 +1133,7 @@ reference element's position.
 
 /* .ifOverflowMatches */
 
-/* .initRange.apply */
+/* .insertStyles */
 
 /* .interpolateNumber */
 
@@ -1142,11 +1155,15 @@ reference element's position.
 
 /* .reflow */
 
+/* .serializeStyles */
+
 /* .shallowEqual */
 
 /* .truncateByDomain */
 
 /* .uniqueId */
+
+/* .useInsertionEffectWithLayoutFallback */
 
 /* .warn */
 
@@ -1228,6 +1245,8 @@ reference element's position.
 
 /* Dot */
 
+/* ErrorBar */
+
 /* From FvD 13.37, CSS Color Module Level 3 */
 
 /* Global */
@@ -1244,7 +1263,7 @@ reference element's position.
 
 /* Layer */
 
-/* Legend.displayName */
+/* Legend */
 
 /* Legend.getWithHeight */
 
@@ -1256,7 +1275,7 @@ reference element's position.
 
 /* Rectangle */
 
-/* ReferenceLine.displayName */
+/* ReferenceLine */
 
 /* Scatter */
 
@@ -1266,7 +1285,7 @@ reference element's position.
 
 /* Text */
 
-/* Tooltip.displayName */
+/* Tooltip */
 
 /* TouchRipple is only needed client-side, x2 boost on the server. */
 
@@ -1302,11 +1321,7 @@ reference element's position.
 
 /* combineEventHandlers */
 
-/* createEmptyBreakpointObject */
-
 /* createLabeledScales */
-
-/* createUnaryUnit */
 
 /* darken */
 
@@ -1314,19 +1329,15 @@ reference element's position.
 
 /* default.Provider */
 
-/* default.filterProps */
+/* default.configure */
+
+/* default.disabled */
+
+/* default.formControl */
 
 /* default.root */
 
-/* duration.enteringScreen */
-
-/* duration.leavingScreen */
-
 /* duration.standard */
-
-/* easing.easeOut */
-
-/* easing.sharp */
 
 /* emphasize */
 
@@ -1336,11 +1347,15 @@ reference element's position.
 
 /* eslint-disable  react/no-did-mount-set-state */
 
-/* eslint-disable @typescript-eslint/naming-convention, consistent-return, jsx-a11y/no-noninteractive-tabindex */
+/* eslint-disable consistent-return, jsx-a11y/no-noninteractive-tabindex */
 
 /* eslint-disable import/prefer-default-export */
 
+/* eslint-disable no-restricted-globals, @typescript-eslint/ban-ts-comment, @typescript-eslint/no-unused-vars, @typescript-eslint/no-non-null-assertion */
+
 /* eslint-disable no-restricted-syntax */
+
+/* eslint-disable no-underscore-dangle */
 
 /* eslint-disable no-unused-expressions */
 
@@ -1351,10 +1366,6 @@ reference element's position.
 /* eslint-disable react-hooks/rules-of-hooks, react-hooks/exhaustive-deps */
 
 /* eslint-disable react/forbid-foreign-prop-types */
-
-/* eslint-disable react/prop-types */
-
-/* eslint-disable require-jsdoc, valid-jsdoc */
 
 /* eslint-disable-next-line @typescript-eslint/no-this-alias */
 
@@ -1400,6 +1411,8 @@ reference element's position.
 
 /* getDomainOfStackGroups */
 
+/* getInputBaseUtilityClass */
+
 /* getLegendProps */
 
 /* getMainColorOfGraphicItem */
@@ -1409,6 +1422,8 @@ reference element's position.
 /* getPercentValue */
 
 /* getReactEventByType */
+
+/* getRegisteredStyles */
 
 /* getStackGroupsByAxisId */
 
@@ -1422,15 +1437,11 @@ reference element's position.
 
 /* getTransitionProps */
 
-/* getValue */
-
 /* getValueByDataKey */
 
 /* global define */
 
 /* globals self */
-
-/* handleBreakpoints */
 
 /* harmony default export */
 
@@ -1452,6 +1463,8 @@ reference element's position.
 
 /* inputOverridesResolver */
 
+/* insertStyles */
+
 /* interpolateNumber */
 
 /* invariant */
@@ -1468,11 +1481,11 @@ reference element's position.
 
 /* isNumber */
 
+/* isPercent */
+
 /* isPlainObject */
 
 /* isRef */
-
-/* istanbul ignore next */
 
 /* keyframes */
 
@@ -1506,8 +1519,6 @@ reference element's position.
 
 /* polarToCartesian */
 
-/* propToStyleFunction */
-
 /* provided dependency */
 
 /* rectWithPoints */
@@ -1518,9 +1529,9 @@ reference element's position.
 
 /* registerSource */
 
-/* registerTarget */
+/* registerStyles */
 
-/* removeUnusedBreakpoints */
+/* registerTarget */
 
 /* renderByOrder */
 
@@ -1542,17 +1553,23 @@ reference element's position.
 
 /* unused harmony export ScaleHelper */
 
+/* unused harmony export clsx */
+
 /* unused harmony export getStyleString */
 
 /* unused harmony export slice */
 
 /* unused harmony export teardown */
 
-/* unused harmony exports SCALE_TYPES, LEGEND_TYPES, TOOLTIP_TYPES, toArray, withoutType, filterSvgElements, isSingleChildEqual */
+/* unused harmony exports ClassNames, createElement, css, jsx */
+
+/* unused harmony exports SCALE_TYPES, LEGEND_TYPES, TOOLTIP_TYPES, toArray, withoutType, isValidSpreadableProp, filterSvgElements, isSingleChildEqual */
 
 /* unused harmony exports degreeToRadian, radianToDegree, getMaxRadius, formatAxisMap, distanceBetweenPoints, getAngleOfPoint, formatAngleOfSector */
 
 /* unused harmony exports hasValue, isAdornedStart */
+
+/* unused harmony exports random, customRandom, customAlphabet */
 
 /* unused reexport */
 
@@ -1560,22 +1577,24 @@ reference element's position.
 
 /* useDragDropManager */
 
+/* useInsertionEffectAlwaysWithSyncFallback */
+
 /* useIsomorphicLayoutEffect */
 
 /* useOptionalFactory */
 
 /* validateWidthHeight */
 
-/* values */
-
 /* warn */
+
+/* withPath */
 
 /* wrapConnectorHooks */
 
 /*!
-  Copyright (c) 2018 Jed Watson.
-  Licensed under the MIT License (MIT), see
-  http://jedwatson.github.io/classnames
+	Copyright (c) 2018 Jed Watson.
+	Licensed under the MIT License (MIT), see
+	http://jedwatson.github.io/classnames
 */
 
 /*! Conditions:: INITIAL */
@@ -1737,91 +1756,6 @@ reference element's position.
 	 */
 
 /**
-             * @returns {boolean}
-             */
-
-/**
-         * @param {*} key
-         * @param {*} value
-         * @returns {void}
-         */
-
-/**
-         * @param {*} key
-         * @returns {*}
-         */
-
-/**
-         * @param {*} key
-         * @returns {void}
-         */
-
-/**
-         * @param {Function} callback
-         * @param {*} [ctx=null]
-         * @returns {void}
-         */
-
-/**
-         * @returns {void}
-         */
-
-/**
-         * A list of connected observers.
-         *
-         * @private {Array<ResizeObserverSPI>}
-         */
-
-/**
-         * Broadcasted height of content rectangle.
-         *
-         * @type {number}
-         */
-
-/**
-         * Broadcasted width of content rectangle.
-         *
-         * @type {number}
-         */
-
-/**
-         * Collection of resize observations that have detected changes in dimensions
-         * of elements.
-         *
-         * @private {Array<ResizeObservation>}
-         */
-
-/**
-         * Indicates whether DOM listeners have been added.
-         *
-         * @private {boolean}
-         */
-
-/**
-         * Keeps reference to the instance of MutationObserver.
-         *
-         * @private {MutationObserver}
-         */
-
-/**
-         * Reference to the last observed content rectangle.
-         *
-         * @private {DOMRectInit}
-         */
-
-/**
-         * Registry of the ResizeObservation instances.
-         *
-         * @private {Map<Element, ResizeObservation>}
-         */
-
-/**
-         * Tells that controller has subscribed for Mutation Events.
-         *
-         * @private {boolean}
-         */
-
-/**
          * and make sure the error info doesn't stay due to potential
          * ref cycle via userland code manipulations.
          * These would otherwise all be memory leak opportunities!
@@ -1874,14 +1808,6 @@ reference element's position.
        */
 
 /**
-     * "Transitionend" event handler.
-     *
-     * @private
-     * @param {TransitionEvent} event
-     * @returns {void}
-     */
-
-/**
      * (internal) determine the lexer rule set which is active for the
      * currently active lexer condition state
      * 
@@ -1899,13 +1825,6 @@ reference element's position.
      */
 
 /**
-     * Adds observer to observers list.
-     *
-     * @param {ResizeObserverSPI} observer - Observer to be added.
-     * @returns {void}
-     */
-
-/**
      * Calculate the coordinates of endpoints in ticks
      * @param  {Object} data The data of a simple tick
      * @return {Object} (x1, y1): The coordinate of endpoint close to tick text
@@ -1918,65 +1837,7 @@ reference element's position.
      */
 
 /**
-     * Callback invoked after the specified delay. It will further postpone
-     * invocation of the original function delegating it to the
-     * requestAnimationFrame.
-     *
-     * @returns {void}
-     */
-
-/**
-     * Clears the collection of active observations.
-     *
-     * @returns {void}
-     */
-
-/**
      * Close snackbar with the given key
-     */
-
-/**
-     * Collects observation instances the associated element of which has changed
-     * it's content rectangle.
-     *
-     * @returns {void}
-     */
-
-/**
-     * Creates a new instance of ResizeObserver.
-     *
-     * @param {ResizeObserverCallback} callback - Callback function that is invoked
-     *      when one of the observed elements changes it's content dimensions.
-     * @param {ResizeObserverController} controller - Controller instance which
-     *      is responsible for the updates of observer.
-     * @param {ResizeObserver} callbackCtx - Reference to the public
-     *      ResizeObserver instance which will be passed to callback function.
-     */
-
-/**
-     * Creates a new instance of ResizeObserver.
-     *
-     * @param {ResizeObserverCallback} callback - Callback that is invoked when
-     *      dimensions of the observed elements change.
-     */
-
-/**
-     * Creates a new instance of ResizeObserverController.
-     *
-     * @private
-     */
-
-/**
-     * Creates an instance of ResizeObservation.
-     *
-     * @param {Element} target - Element to be observed.
-     */
-
-/**
-     * Creates an instance of ResizeObserverEntry.
-     *
-     * @param {Element} target - Element that is being observed.
-     * @param {DOMRectInit} rectInit - Data of the element's content rectangle.
      */
 
 /**
@@ -2021,44 +1882,10 @@ reference element's position.
      */
 
 /**
-     * Holds reference to the controller's instance.
-     *
-     * @private {ResizeObserverController}
-     */
-
-/**
      * INTERNAL USE: construct a suitable error info hash object instance for `parseError`.
      * 
      * @public
      * @this {RegExpLexer}
-     */
-
-/**
-     * Initializes DOM listeners.
-     *
-     * @private
-     * @returns {void}
-     */
-
-/**
-     * Invokes initial callback function with a list of ResizeObserverEntry
-     * instances collected from active resize observations.
-     *
-     * @returns {void}
-     */
-
-/**
-     * Invokes the original callback function and schedules new invocation if
-     * the "proxy" was called during current request.
-     *
-     * @returns {void}
-     */
-
-/**
-     * Invokes the update of observers. It will continue running updates insofar
-     * it detects changes.
-     *
-     * @returns {void}
      */
 
 /**
@@ -2080,96 +1907,13 @@ reference element's position.
      */
 
 /**
-     * Removes DOM listeners.
-     *
-     * @private
-     * @returns {void}
-     */
-
-/**
-     * Removes observer from observers list.
-     *
-     * @param {ResizeObserverSPI} observer - Observer to be removed.
-     * @returns {void}
-     */
-
-/**
      * Render the path of icon
      * @param {Object} data Data of each legend item
      * @return {String} Path element
      */
 
 /**
-     * Returns index in provided array that matches the specified key.
-     *
-     * @param {Array<Array>} arr
-     * @param {*} key
-     * @returns {number}
-     */
-
-/**
-     * Returns instance of the ResizeObserverController.
-     *
-     * @returns {ResizeObserverController}
-     */
-
-/**
-     * Schedules invocation of the original function.
-     *
-     * @returns {void}
-     */
-
-/**
      * Set the entered state of the snackbar with the given key.
-     */
-
-/**
-     * Starts observing provided element.
-     *
-     * @param {Element} target - Element to be observed.
-     * @returns {void}
-     */
-
-/**
-     * Stops observing all elements.
-     *
-     * @returns {void}
-     */
-
-/**
-     * Stops observing provided element.
-     *
-     * @param {Element} target - Element to stop observing.
-     * @returns {void}
-     */
-
-/**
-     * Tells whether observer has active observations.
-     *
-     * @returns {boolean}
-     */
-
-/**
-     * Updates 'broadcastWidth' and 'broadcastHeight' properties with a data
-     * from the corresponding properties of the last observed content rectangle.
-     *
-     * @returns {DOMRectInit} Last observed content rectangle.
-     */
-
-/**
-     * Updates content rectangle and tells whether it's width or height properties
-     * have changed since the last broadcast.
-     *
-     * @returns {boolean}
-     */
-
-/**
-     * Updates every observer from observers list and notifies them of queued
-     * entries.
-     *
-     * @private
-     * @returns {boolean} Returns "true" if any observer has detected changes in
-     *      dimensions of it's elements.
      */
 
 /**
@@ -2312,6 +2056,8 @@ reference element's position.
 /**
      * render the ticks
      * @param {Array} ticks The ticks to actually render (overrides what was passed in props)
+     * @param {string} fontSize Fontsize to consider for tick spacing
+     * @param {string} letterSpacing Letterspacing to consider for tick spacing
      * @return {ReactComponent} renderedTicks
      */
 
@@ -2702,6 +2448,12 @@ reference element's position.
    */
 
 /**
+   * If the svg element type is explicitly included, check against the filtered element key map
+   * to determine if there are attributes that should only exist on that element type.
+   * @todo Add an internal cjs version of https://github.com/wooorm/svg-element-attributes for full coverage.
+   */
+
+/**
    * Inject CSS string into element.
    */
 
@@ -2737,6 +2489,14 @@ reference element's position.
    * Prepares various options, applies plugins.
    * Should not be used twice on the same instance, because there is no plugins
    * deduplication logic.
+   */
+
+/**
+   * Props are blindly spread onto SVG elements. This loop filters out properties that we don't want to spread.
+   * Items filtered out are as follows:
+   *   - functions in properties that are SVG attributes (functions are included when includeEvents is true)
+   *   - props that are SVG attributes but don't matched the passed svgElementType
+   *   - any prop that is not in SVGElementPropKeys (or in EventKeys if includeEvents is true)
    */
 
 /**
@@ -2862,7 +2622,7 @@ reference element's position.
    */
 
 /**
-   * This will create a new function if the ref props change and are defined.
+   * This will create a new function if the refs passed to this hook change and are all defined.
    * This means react will call the old forkRef with `null` and the new forkRef
    * with the ref. Cleanup naturally emerges from this behavior.
    */
@@ -2989,6 +2749,13 @@ reference element's position.
 
 /**
  *
+ * @example <div id={useId()} />
+ * @param idOverride
+ * @returns {string}
+ */
+
+/**
+ *
  * @param monitor The monitor to collect state from
  * @param collect The collecting function
  * @param onUpdate A method to invoke when updates occur
@@ -3001,6 +2768,43 @@ reference element's position.
  * @private
  * @constructor
  * @param {Array} [values] The values to cache.
+ */
+
+/**
+ *
+ * Demos:
+ *
+ * - [Unstyled Slider](https://mui.com/base/react-slider/#hook)
+ *
+ * API:
+ *
+ * - [useSlider API](https://mui.com/base/api/use-slider/)
+ */
+
+/**
+ * @deprecated
+ *
+ * **We recommend using the `configureStore` method
+ * of the `@reduxjs/toolkit` package**, which replaces `createStore`.
+ *
+ * Redux Toolkit is our recommended approach for writing Redux logic today,
+ * including store setup, reducers, data fetching, and more.
+ *
+ * **For more details, please read this Redux docs page:**
+ * **https://redux.js.org/introduction/why-rtk-is-redux-today**
+ *
+ * `configureStore` from Redux Toolkit is an improved version of `createStore` that
+ * simplifies setup and helps avoid common bugs.
+ *
+ * You should not be using the `redux` core package by itself today, except for learning purposes.
+ * The `createStore` method from the core `redux` package will not be removed, but we encourage
+ * all users to migrate to using Redux Toolkit for all Redux code.
+ *
+ * If you want to use `createStore` without this visual deprecation warning, use
+ * the `legacy_createStore` import instead:
+ *
+ * `import { legacy_createStore as createStore} from 'redux'`
+ *
  */
 
 /**
@@ -3120,7 +2924,26 @@ reference element's position.
  */
 
 /**
+ * @ignore - do not document.
+ * Builds the props to be passed into the slot of an unstyled component.
+ * It merges the internal props of the component with the ones supplied by the user, allowing to customize the behavior.
+ * If the slot component is not a host component, it also merges in the `ownerState`.
+ *
+ * @param parameters.getSlotProps - A function that returns the props to be passed to the slot component.
+ */
+
+/**
  * @ignore - internal component.
+ */
+
+/**
+ * @license React
+ * react-is.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 /**
@@ -3129,6 +2952,14 @@ reference element's position.
 
 /**
  * @link https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/utils/useEventCallback.js
+ */
+
+/**
+ * @mui/styled-engine v5.11.8
+ *
+ * @license MIT
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 /**
@@ -3149,13 +2980,6 @@ reference element's position.
  */
 
 /**
- * A collection of shims that provide minimal functionality of the ES6 collections.
- *
- * These implementations are not meant to be used outside of the ResizeObserver
- * modules as they cover only a limited range of use cases.
- */
-
-/**
  * A faster alternative to `Function#apply`, this function invokes `func`
  * with the `this` binding of `thisArg` and the arguments of `args`.
  *
@@ -3171,8 +2995,8 @@ reference element's position.
  */
 
 /**
- * A permanently displayed menu following https://www.w3.org/TR/wai-aria-practices/#menubutton.
- * It's exposed to help customization of the [`Menu`](/api/menu/) component if you
+ * A permanently displayed menu following https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/.
+ * It's exposed to help customization of the [`Menu`](/material-ui/api/menu/) component if you
  * use it separately you need to move focus into the component manually. Once
  * the focus is placed inside the component it is fully keyboard accessible.
  */
@@ -3428,8 +3252,8 @@ reference element's position.
 /**
  * Appends the ownerState object to the props, merging with the existing one if necessary.
  *
- * @param elementType Type of the element that owns the `existingProps`. If the element is a DOM node, `ownerState` are not applied.
- * @param existingProps Props of the element.
+ * @param elementType Type of the element that owns the `existingProps`. If the element is a DOM node or undefined, `ownerState` is not applied.
+ * @param otherProps Props of the element.
  * @param ownerState
  */
 
@@ -3498,28 +3322,6 @@ reference element's position.
  * @param  {Integer} tickCount     The count of ticks
  * @param  {Boolean} allowDecimals Allow the ticks to be decimals or not
  * @return {Array}   ticks
- */
-
-/**
- * Calculates an appropriate content rectangle for provided html or svg element.
- *
- * @param {Element} target - Element content rectangle of which needs to be calculated.
- * @returns {DOMRectInit}
- */
-
-/**
- * Calculates content rectangle of provided HTMLElement.
- *
- * @param {HTMLElement} target - Element for which to calculate the content rectangle.
- * @returns {DOMRectInit}
- */
-
-/**
- * Calculates content rectangle of provided SVG element.
- *
- * @param {SVGGraphicsElement} target - Element content rectangle of which needs
- *      to be calculated.
- * @returns {DOMRectInit}
  */
 
 /**
@@ -4128,25 +3930,6 @@ reference element's position.
  */
 
 /**
- * Checks whether provided element is a document element (<html>).
- *
- * @param {Element} target - Element to be checked.
- * @returns {boolean}
- */
-
-/**
- * Checks whether provided element is an instance of the SVGGraphicsElement.
- *
- * @param {Element} target - Element to be checked.
- * @returns {boolean}
- */
-
-/**
- * Class that is responsible for computations of the content rectangle of
- * provided DOM element and for keeping track of it's changes.
- */
-
-/**
  * Clear event by name.
  *
  * @param {EventEmitter} emitter Reference to the `EventEmitter` instance.
@@ -4420,13 +4203,6 @@ reference element's position.
  */
 
 /**
- * Converts provided string to a number.
- *
- * @param {number|string} value
- * @returns {number}
- */
-
-/**
  * Converts the first character of `string` to upper case.
  *
  * @static
@@ -4477,18 +4253,12 @@ reference element's position.
  */
 
 /**
- * Creates DOMRectInit object based on the provided dimensions and the x/y coordinates.
- * Spec: https://drafts.fxtf.org/geometry/#dictdef-domrectinit
- *
- * @param {number} x - X coordinate.
- * @param {number} y - Y coordinate.
- * @param {number} width - Rectangle's width.
- * @param {number} height - Rectangle's height.
- * @returns {DOMRectInit}
- */
-
-/**
  * Creates a Redux store that holds the state tree.
+ *
+ * **We recommend using `configureStore` from the
+ * `@reduxjs/toolkit` package**, which replaces `createStore`:
+ * **https://redux.js.org/introduction/why-rtk-is-redux-today**
+ *
  * The only way to change the data in the store is to call `dispatch()` on it.
  *
  * There should only be a single store in your app. To specify how different
@@ -4808,15 +4578,6 @@ reference element's position.
  */
 
 /**
- * Creates a wrapper function which ensures that provided callback will be
- * invoked only once during the specified delay period.
- *
- * @param {Function} callback - Function to be invoked after the delay period.
- * @param {number} delay - Delay after which to invoke callback.
- * @returns {Function}
- */
-
-/**
  * Creates an array of elements, sorted in ascending order by the results of
  * running each element in a collection thru each iteratee. This method
  * performs a stable sort, that is, it preserves the original sort order of
@@ -5015,18 +4776,6 @@ reference element's position.
  */
 
 /**
- * Creates rectangle with an interface of the DOMRectReadOnly.
- * Spec: https://drafts.fxtf.org/geometry/#domrectreadonly
- *
- * @param {DOMRectInit} rectInit - Object with rectangle's x/y coordinates and dimensions.
- * @returns {DOMRectReadOnly}
- */
-
-/**
- * Detects whether window and document objects are available in current environment.
- */
-
-/**
  * Determine if two cartesian coordinate offsets are equal
  * @param offsetA
  * @param offsetB
@@ -5060,18 +4809,11 @@ reference element's position.
  */
 
 /**
- * Extracts borders size from provided styles.
+ * Extracts event handlers from a given object.
+ * A prop is considered an event handler if it is a function and its name starts with `on`.
  *
- * @param {CSSStyleDeclaration} styles
- * @param {...string} positions - Borders positions (top, right, ...)
- * @returns {number}
- */
-
-/**
- * Extracts paddings sizes from provided styles.
- *
- * @param {CSSStyleDeclaration} styles
- * @returns {Object} Paddings box.
+ * @param object An object to extract event handlers from.
+ * @param excludeKeys An array of keys to exclude from the returned object.
  */
 
 /**
@@ -5109,6 +4851,15 @@ reference element's position.
  * @param  {String}  type      The type of axis
  * @param  {Boolean} filterNil Whether or not filter nil values
  * @return {Array} Domain of data
+ */
+
+/**
+ * Get the content to be displayed in the tooltip
+ * @param  {Object} state          Current state
+ * @param  {Array}  chartData      The data defined in chart
+ * @param  {Number} activeIndex    Active index of data
+ * @param  {String} activeLabel    Active label of data
+ * @return {Array}                 The content of tooltip
  */
 
 /**
@@ -5267,6 +5018,11 @@ reference element's position.
  */
 
 /**
+ * If `componentProps` is a function, calls it with the provided `ownerState`.
+ * Otherwise, just returns `componentProps`.
+ */
+
+/**
  * If at any point a user clicks with a pointing device, ensure that we change
  * the modality away from keyboard.
  * This avoids the situation where a user presses a key on an already focused
@@ -5340,12 +5096,25 @@ reference element's position.
  *
  * Demos:
  *
- * - [Click Away Listener](https://mui.com/components/click-away-listener/)
- * - [Menus](https://mui.com/components/menus/)
+ * - [Click-Away Listener](https://mui.com/base/react-click-away-listener/)
  *
  * API:
  *
- * - [ClickAwayListener API](https://mui.com/api/click-away-listener/)
+ * - [ClickAwayListener API](https://mui.com/base/api/click-away-listener/)
+ */
+
+/**
+ * Merges the slot component internal props (usually coming from a hook)
+ * with the externally provided ones.
+ *
+ * The merge order is (the latter overrides the former):
+ * 1. The internal props (specified as a getter function to work with get*Props hook result)
+ * 2. Additional props (specified internally on an unstyled component)
+ * 3. External props specified on the owner component. These should only be used on a root slot.
+ * 4. External props specified in the `slotProps.*` prop.
+ * 5. The `className` prop - combined from all the above.
+ * @param parameters
+ * @returns
  */
 
 /**
@@ -5359,15 +5128,23 @@ reference element's position.
 /**
  * Modal is a lower-level construct that is leveraged by the following components:
  *
- * - [Dialog](/api/dialog/)
- * - [Drawer](/api/drawer/)
- * - [Menu](/api/menu/)
- * - [Popover](/api/popover/)
+ * *   [Dialog](https://mui.com/material-ui/api/dialog/)
+ * *   [Drawer](https://mui.com/material-ui/api/drawer/)
+ * *   [Menu](https://mui.com/material-ui/api/menu/)
+ * *   [Popover](https://mui.com/material-ui/api/popover/)
  *
- * If you are creating a modal dialog, you probably want to use the [Dialog](/api/dialog/) component
+ * If you are creating a modal dialog, you probably want to use the [Dialog](https://mui.com/material-ui/api/dialog/) component
  * rather than directly using Modal.
  *
  * This component shares many concepts with [react-overlays](https://react-bootstrap.github.io/react-overlays/#modals).
+ *
+ * Demos:
+ *
+ * - [Unstyled Modal](https://mui.com/base/react-modal/)
+ *
+ * API:
+ *
+ * - [ModalUnstyled API](https://mui.com/base/api/modal-unstyled/)
  */
 
 /**
@@ -5435,13 +5212,14 @@ reference element's position.
 /**
  * Portals provide a first-class way to render children into a DOM node
  * that exists outside the DOM hierarchy of the parent component.
- */
-
-/**
- * Prints a warning in the console if it exists.
  *
- * @param {String} message The warning message.
- * @returns {void}
+ * Demos:
+ *
+ * - [Portal](https://mui.com/base/react-portal/)
+ *
+ * API:
+ *
+ * - [Portal API](https://mui.com/base/api/portal/)
  */
 
 /**
@@ -5549,6 +5327,14 @@ reference element's position.
  */
 
 /**
+ * Removes event handlers from the given object.
+ * A field is considered an event handler if it is a function with a name beginning with `on`.
+ *
+ * @param object Object to remove event handlers from.
+ * @returns Object with event handlers removed.
+ */
+
+/**
  * Replaces the letter with the capital letter
  *
  * @param {String} match
@@ -5617,6 +5403,15 @@ reference element's position.
  * Returns null if no item is being dragged.
  *
  * @param state The offset state to compute from
+ */
+
+/**
+ * Returns tooltip data based on a mouse position (as a parameter or in state)
+ * @param  {Object} state     current state
+ * @param  {Array}  chartData the data defined in chart
+ * @param  {String} layout     The layout type of chart
+ * @param  {Object} rangeObj  { x, y } coordinates
+ * @return {Object}           Tooltip data data
  */
 
 /**
@@ -5690,11 +5485,19 @@ reference element's position.
  *
  * WARNING: Be sure to only call this inside a callback that is passed as a ref.
  * Otherwise, make sure to cleanup the previous {ref} if it changes. See
- * https://github.com/mui-org/material-ui/issues/13539
+ * https://github.com/mui/material-ui/issues/13539
  *
  * Useful if you want to expose the ref of an inner component to the public API
  * while still using it inside the component.
  * @param ref A ref callback or ref object. If anything falsy, this is a no-op.
+ */
+
+/**
+ * Takes a domain and user props to determine whether he provided the domain via props or if we need to calculate it.
+ * @param   {AxisDomain}  domain              The potential domain from props
+ * @param   {Boolean}     allowDataOverflow   from props
+ * @param   {String}      axisType            from props
+ * @returns {Boolean}                         `true` if domain is specified by user
  */
 
 /**
@@ -5716,8 +5519,7 @@ reference element's position.
  */
 
 /**
- * The Grow transition is used by the [Tooltip](/components/tooltips/) and
- * [Popover](/components/popover/) components.
+ * The Slide transition is used by the [Drawer](/material-ui/react-drawer/) component.
  * It uses [react-transition-group](https://github.com/reactjs/react-transition-group) internally.
  */
 
@@ -6368,6 +6170,12 @@ reference element's position.
  */
 
 /**
+ * Type of the ownerState based on the type of an element it applies to.
+ * This resolves to the provided OwnerState for React components and `undefined` for host components.
+ * Falls back to `OwnerState | undefined` when the exact type can't be determined in development time.
+ */
+
+/**
  * Use invariant() to assert state which your program assumes to be true.
  *
  * Provide sprintf-style format (only %s is supported) and arguments
@@ -6415,6 +6223,14 @@ reference element's position.
 
 /**
  * Utility component that locks focus inside the component.
+ *
+ * Demos:
+ *
+ * - [Focus Trap](https://mui.com/base/react-focus-trap/)
+ *
+ * API:
+ *
+ * - [FocusTrap API](https://mui.com/base/api/focus-trap/)
  */
 
 /**
@@ -6505,6 +6321,12 @@ reference element's position.
  */
 
 /**
+ * validate the width and height props of a chart element
+ * @param  {Object} el A chart element
+ * @return {Boolean}   true If the props width and height are number, and greater than 0
+ */
+
+/**
  * 对数值进行线性插值
  *
  * @param  {Number} a  定义域的极点
@@ -6546,12 +6368,6 @@ reference element's position.
 
 /** @constructor */
 
-/** @license MUI v5.3.0
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
 /** @license React v16.13.1
  * react-is.production.min.js
  *
@@ -6561,23 +6377,7 @@ reference element's position.
  * LICENSE file in the root directory of this source tree.
  */
 
-/** @license React v17.0.2
- * react-is.production.min.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-/** @license React vundefined
- * use-subscription.production.min.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
+/** @type LoadableSubscription */
 
 /** Built-in value references. */
 
@@ -6861,8 +6661,6 @@ reference element's position.
 
 // $FlowFixMe
 
-// $FlowFixMe we know it's not null
-
 // $FlowFixMe: coerce undefined to string
 
 // $FlowFixMe: we can ignore this because its exposed type is defined by the CreateStyled type
@@ -6875,8 +6673,6 @@ reference element's position.
 
 // $FlowFixMe[incompatible-call]: isBody tells us target will be an HTMLElement here
 
-// $FlowFixMe[incompatible-cast]: force type refinement, we compare offsetParent with window above, but Flow doesn't detect it
-
 // $FlowFixMe[incompatible-return]
 
 // $FlowFixMe[incompatible-return]: assume body is always available
@@ -6888,6 +6684,8 @@ reference element's position.
 // $FlowFixMe[prop-missing]
 
 // $FlowFixMe[prop-missing]: need a better way to handle this...
+
+// 'type',
 
 // (also account for a userdef function which does not return any value: keep the token as is)
 
@@ -6909,21 +6707,15 @@ reference element's position.
 
 // (value - something) - value => (value - value) - something
 
-// - Android 4-4.3
-
-// - Chrome 26-34
-
 // - DO NOT reset `this.matched`
 
-// - Firefox 14-29
+// - Firefox 3-13
 
-// - Internet Explorer 11
+// - Internet Explorer 6-9
 
-// - Safari 6-7
+// - Lynx 2.8.7
 
-// - iPad Safari 6-7.1
-
-// - iPhone Safari 7-7.1
+// - iPad Safari 4.3
 
 // --------- END OF REPORT -----------
 
@@ -6941,6 +6733,8 @@ reference element's position.
 
 // .mui-fixed is a global helper.
 
+// // its existence.
+
 // /finally
 
 // 0 + something => something
@@ -6955,8 +6749,6 @@ reference element's position.
 
 // 0 to MAX_E
 
-// 0.001
-
 // 1 to MAX_DIGITS
 
 // 1, 0.1, 0.01, 0.001, 0.0001 etc.
@@ -6964,6 +6756,8 @@ reference element's position.
 // 1. IE11 support, which trigger the handleClickAway even after the unbind
 
 // 10, 11, 12 or 13, recording the number of multiplications so the sum of the series can
+
+// 11-12, and in web workers in many engines.
 
 // 115 digits
 
@@ -6976,8 +6770,6 @@ reference element's position.
 // 23px
 
 // 3. Behave like a blur listener.
-
-// 314px. And it doesn't happen all the time. So just ignore this delta
 
 // 42px is the hit target
 
@@ -7027,8 +6819,6 @@ reference element's position.
 
 // A few bytes payload overhead when lodash/debounce is ~3 kB and debounce ~300 B.
 
-// A list of substrings of CSS properties used to find transition events that
-
 // A loading component is not required, so we default it
 
 // A medial value of ticks
@@ -7043,9 +6833,9 @@ reference element's position.
 
 // APIs which will be set up depending on user action code analysis:
 
-// According to https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Representations
+// ASAP was originally a nextTick shim included in Q. This was factored out
 
-// According to the specification following properties are not writable
+// According to https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Representations
 
 // ActiveX objects in IE.
 
@@ -7060,8 +6850,6 @@ reference element's position.
 // Add first word to line or word is too long to scaleToFit on existing line
 
 // Add iOS momentum scrolling for iOS < 13.0
-
-// Add listeners if they haven't been added yet.
 
 // Add methods to `Hash`.
 
@@ -7099,9 +6887,13 @@ reference element's position.
 
 // Allow empty style in this case, because properties will be added dynamically.
 
+// Also for backward compatible since next/dynamic allows to resolve a component directly with loader
+
 // Also note that JISON always adds this top-most `$accept` rule (with implicit,
 
-// Also, `html.clientHeight` adds the bottom bar height in Safari iOS, even
+// Although message channels yield to any queued rendering and IO tasks, they
+
+// Although setImmediate yields to the browser's renderer, it would be
 
 // An `NaN` primitive is the only value that is not equal to itself.
 
@@ -7161,8 +6953,6 @@ reference element's position.
 
 // Because they would work differently between older and newer (16.3+) versions of React.
 
-// Besides, it's as well not necessary as the <html> itself neither has
-
 // Binding "this" is important for shallow renderer support.
 
 // BlackBerry 5, iOS 3 (original iPhone)
@@ -7189,8 +6979,6 @@ reference element's position.
 
 // By explicitly using `prop-types` you are opting into new production behavior.
 
-// By this condition we can catch all non-replaced inline, hidden and
-
 // CONCATENATED MODULE: ../../node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js
 
 // CONCATENATED MODULE: ../../node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js
@@ -7207,15 +6995,17 @@ reference element's position.
 
 // CONCATENATED MODULE: ../../node_modules/@babel/runtime/helpers/esm/toConsumableArray.js
 
+// CONCATENATED MODULE: ../../node_modules/@babel/runtime/helpers/esm/toPrimitive.js
+
+// CONCATENATED MODULE: ../../node_modules/@babel/runtime/helpers/esm/toPropertyKey.js
+
+// CONCATENATED MODULE: ../../node_modules/@babel/runtime/helpers/esm/typeof.js
+
 // CONCATENATED MODULE: ../../node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js
 
-// CONCATENATED MODULE: ../../node_modules/@emotion/react/node_modules/@emotion/sheet/dist/emotion-sheet.browser.esm.js
-
-// CONCATENATED MODULE: ../../node_modules/@mui/base/BackdropUnstyled/BackdropUnstyled.js
-
-// CONCATENATED MODULE: ../../node_modules/@mui/base/BackdropUnstyled/backdropUnstyledClasses.js
-
 // CONCATENATED MODULE: ../../node_modules/@mui/base/ClickAwayListener/ClickAwayListener.js
+
+// CONCATENATED MODULE: ../../node_modules/@mui/base/FocusTrap/FocusTrap.js
 
 // CONCATENATED MODULE: ../../node_modules/@mui/base/ModalUnstyled/ModalManager.js
 
@@ -7225,19 +7015,27 @@ reference element's position.
 
 // CONCATENATED MODULE: ../../node_modules/@mui/base/PopperUnstyled/PopperUnstyled.js
 
-// CONCATENATED MODULE: ../../node_modules/@mui/base/SliderUnstyled/SliderUnstyled.js
+// CONCATENATED MODULE: ../../node_modules/@mui/base/PopperUnstyled/popperUnstyledClasses.js
 
-// CONCATENATED MODULE: ../../node_modules/@mui/base/SliderUnstyled/sliderUnstyledClasses.js
+// CONCATENATED MODULE: ../../node_modules/@mui/base/SliderUnstyled/useSlider.js
 
 // CONCATENATED MODULE: ../../node_modules/@mui/base/TextareaAutosize/TextareaAutosize.js
 
-// CONCATENATED MODULE: ../../node_modules/@mui/base/Unstable_TrapFocus/Unstable_TrapFocus.js
+// CONCATENATED MODULE: ../../node_modules/@mui/base/utils/extractEventHandlers.js
+
+// CONCATENATED MODULE: ../../node_modules/@mui/base/utils/mergeSlotProps.js
+
+// CONCATENATED MODULE: ../../node_modules/@mui/base/utils/omitEventHandlers.js
+
+// CONCATENATED MODULE: ../../node_modules/@mui/base/utils/useSlotProps.js
 
 // CONCATENATED MODULE: ../../node_modules/@mui/material/AppBar/AppBar.js
 
 // CONCATENATED MODULE: ../../node_modules/@mui/material/AppBar/appBarClasses.js
 
 // CONCATENATED MODULE: ../../node_modules/@mui/material/Backdrop/Backdrop.js
+
+// CONCATENATED MODULE: ../../node_modules/@mui/material/Backdrop/backdropClasses.js
 
 // CONCATENATED MODULE: ../../node_modules/@mui/material/Button/Button.js
 
@@ -7287,8 +7085,6 @@ reference element's position.
 
 // CONCATENATED MODULE: ../../node_modules/@mui/material/InputBase/InputBase.js
 
-// CONCATENATED MODULE: ../../node_modules/@mui/material/InputBase/inputBaseClasses.js
-
 // CONCATENATED MODULE: ../../node_modules/@mui/material/List/List.js
 
 // CONCATENATED MODULE: ../../node_modules/@mui/material/List/listClasses.js
@@ -7321,11 +7117,17 @@ reference element's position.
 
 // CONCATENATED MODULE: ../../node_modules/@mui/material/Popover/popoverClasses.js
 
+// CONCATENATED MODULE: ../../node_modules/@mui/material/Popper/Popper.js
+
 // CONCATENATED MODULE: ../../node_modules/@mui/material/Select/selectClasses.js
 
 // CONCATENATED MODULE: ../../node_modules/@mui/material/Slide/Slide.js
 
 // CONCATENATED MODULE: ../../node_modules/@mui/material/Slider/Slider.js
+
+// CONCATENATED MODULE: ../../node_modules/@mui/material/Slider/SliderValueLabel.js
+
+// CONCATENATED MODULE: ../../node_modules/@mui/material/Slider/sliderClasses.js
 
 // CONCATENATED MODULE: ../../node_modules/@mui/material/SvgIcon/SvgIcon.js
 
@@ -7359,6 +7161,8 @@ reference element's position.
 
 // CONCATENATED MODULE: ../../node_modules/@mui/material/utils/deprecatedPropType.js
 
+// CONCATENATED MODULE: ../../node_modules/@mui/material/utils/index.js
+
 // CONCATENATED MODULE: ../../node_modules/@mui/material/utils/isMuiElement.js
 
 // CONCATENATED MODULE: ../../node_modules/@mui/material/utils/requirePropFactory.js
@@ -7387,25 +7191,11 @@ reference element's position.
 
 // CONCATENATED MODULE: ../../node_modules/@mui/styles/styled/styled.js
 
-// CONCATENATED MODULE: ../../node_modules/@mui/system/esm/borders.js
-
-// CONCATENATED MODULE: ../../node_modules/@mui/system/esm/compose.js
-
 // CONCATENATED MODULE: ../../node_modules/@mui/system/esm/createStyled.js
-
-// CONCATENATED MODULE: ../../node_modules/@mui/system/esm/getThemeValue.js
-
-// CONCATENATED MODULE: ../../node_modules/@mui/system/esm/grid.js
 
 // CONCATENATED MODULE: ../../node_modules/@mui/system/esm/propsToClassKey.js
 
-// CONCATENATED MODULE: ../../node_modules/@mui/system/esm/sizing.js
-
 // CONCATENATED MODULE: ../../node_modules/@mui/system/esm/styleFunctionSx/extendSxProp.js
-
-// CONCATENATED MODULE: ../../node_modules/@mui/system/esm/styleFunctionSx/styleFunctionSx.js
-
-// CONCATENATED MODULE: ../../node_modules/@mui/system/esm/typography.js
 
 // CONCATENATED MODULE: ../../node_modules/@mui/system/esm/useThemeProps/getThemeProps.js
 
@@ -7455,6 +7245,8 @@ reference element's position.
 
 // CONCATENATED MODULE: ../../node_modules/@popperjs/core/lib/dom-utils/instanceOf.js
 
+// CONCATENATED MODULE: ../../node_modules/@popperjs/core/lib/dom-utils/isLayoutViewport.js
+
 // CONCATENATED MODULE: ../../node_modules/@popperjs/core/lib/dom-utils/isScrollParent.js
 
 // CONCATENATED MODULE: ../../node_modules/@popperjs/core/lib/dom-utils/isTableElement.js
@@ -7501,11 +7293,19 @@ reference element's position.
 
 // CONCATENATED MODULE: ../../node_modules/@popperjs/core/lib/utils/rectToClientRect.js
 
+// CONCATENATED MODULE: ../../node_modules/@popperjs/core/lib/utils/userAgent.js
+
 // CONCATENATED MODULE: ../../node_modules/@popperjs/core/lib/utils/within.js
 
-// CONCATENATED MODULE: ../../node_modules/@react-dnd/asap/dist/esm/browser/asap.js
+// CONCATENATED MODULE: ../../node_modules/@react-dnd/asap/dist/AsapQueue.js
 
-// CONCATENATED MODULE: ../../node_modules/@react-dnd/asap/dist/esm/browser/raw.js
+// CONCATENATED MODULE: ../../node_modules/@react-dnd/asap/dist/RawTask.js
+
+// CONCATENATED MODULE: ../../node_modules/@react-dnd/asap/dist/TaskFactory.js
+
+// CONCATENATED MODULE: ../../node_modules/@react-dnd/asap/dist/asap.js
+
+// CONCATENATED MODULE: ../../node_modules/@react-dnd/asap/dist/makeRequestCall.js
 
 // CONCATENATED MODULE: ../../node_modules/css-vendor/dist/css-vendor.esm.js
 
@@ -7514,6 +7314,8 @@ reference element's position.
 // CONCATENATED MODULE: ../../node_modules/d3-array/src/bisect.js
 
 // CONCATENATED MODULE: ../../node_modules/d3-array/src/bisector.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-array/src/descending.js
 
 // CONCATENATED MODULE: ../../node_modules/d3-array/src/max.js
 
@@ -7527,9 +7329,33 @@ reference element's position.
 
 // CONCATENATED MODULE: ../../node_modules/d3-array/src/range.js
 
+// CONCATENATED MODULE: ../../node_modules/d3-array/src/ticks.js
+
 // CONCATENATED MODULE: ../../node_modules/d3-color/src/color.js
 
 // CONCATENATED MODULE: ../../node_modules/d3-color/src/define.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-format/src/exponent.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-format/src/formatDecimal.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-format/src/formatNumerals.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-format/src/formatRounded.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-format/src/formatTrim.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-format/src/formatTypes.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-format/src/identity.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-format/src/locale.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-format/src/precisionFixed.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-format/src/precisionPrefix.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-format/src/precisionRound.js
 
 // CONCATENATED MODULE: ../../node_modules/d3-interpolate/src/basis.js
 
@@ -7557,6 +7383,50 @@ reference element's position.
 
 // CONCATENATED MODULE: ../../node_modules/d3-interpolate/src/value.js
 
+// CONCATENATED MODULE: ../../node_modules/d3-path/src/path.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-scale/src/band.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-scale/src/constant.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-scale/src/continuous.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-scale/src/diverging.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-scale/src/identity.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-scale/src/linear.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-scale/src/log.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-scale/src/nice.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-scale/src/number.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-scale/src/ordinal.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-scale/src/pow.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-scale/src/quantile.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-scale/src/quantize.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-scale/src/radial.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-scale/src/sequential.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-scale/src/sequentialQuantile.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-scale/src/symlog.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-scale/src/threshold.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-scale/src/tickFormat.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-scale/src/time.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-scale/src/utcTime.js
+
 // CONCATENATED MODULE: ../../node_modules/d3-shape/src/area.js
 
 // CONCATENATED MODULE: ../../node_modules/d3-shape/src/curve/basis.js
@@ -7577,6 +7447,8 @@ reference element's position.
 
 // CONCATENATED MODULE: ../../node_modules/d3-shape/src/line.js
 
+// CONCATENATED MODULE: ../../node_modules/d3-shape/src/math.js
+
 // CONCATENATED MODULE: ../../node_modules/d3-shape/src/noop.js
 
 // CONCATENATED MODULE: ../../node_modules/d3-shape/src/offset/expand.js
@@ -7589,77 +7461,91 @@ reference element's position.
 
 // CONCATENATED MODULE: ../../node_modules/d3-shape/src/order/none.js
 
+// CONCATENATED MODULE: ../../node_modules/d3-shape/src/path.js
+
 // CONCATENATED MODULE: ../../node_modules/d3-shape/src/point.js
 
 // CONCATENATED MODULE: ../../node_modules/d3-shape/src/stack.js
 
+// CONCATENATED MODULE: ../../node_modules/d3-shape/src/symbol/asterisk.js
+
 // CONCATENATED MODULE: ../../node_modules/d3-shape/src/symbol/circle.js
 
-// CONCATENATED MODULE: ../../node_modules/d3-time/src/duration.js
+// CONCATENATED MODULE: ../../node_modules/d3-shape/src/symbol/diamond.js
 
-// CONCATENATED MODULE: ../../node_modules/d3-time/src/interval.js
+// CONCATENATED MODULE: ../../node_modules/d3-shape/src/symbol/star.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-shape/src/symbol/triangle.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-shape/src/symbol/triangle2.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-shape/src/symbol/wye.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-time-format/src/locale.js
+
+// CONCATENATED MODULE: ../../node_modules/d3-time/src/duration.js
 
 // CONCATENATED MODULE: ../../node_modules/d3-time/src/millisecond.js
 
 // CONCATENATED MODULE: ../../node_modules/d3-time/src/ticks.js
 
-// CONCATENATED MODULE: ../../node_modules/d3-time/src/utcWeek.js
-
 // CONCATENATED MODULE: ../../node_modules/d3-time/src/week.js
 
-// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/esm/actions/dragDrop/beginDrag.mjs
+// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/actions/dragDrop/beginDrag.js
 
-// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/esm/actions/dragDrop/drop.mjs
+// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/actions/dragDrop/drop.js
 
-// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/esm/actions/dragDrop/endDrag.mjs
+// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/actions/dragDrop/endDrag.js
 
-// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/esm/actions/dragDrop/hover.mjs
+// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/actions/dragDrop/hover.js
 
-// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/esm/actions/dragDrop/index.mjs
+// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/actions/dragDrop/index.js
 
-// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/esm/actions/dragDrop/local/setClientOffset.mjs
+// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/actions/dragDrop/local/setClientOffset.js
 
-// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/esm/actions/dragDrop/publishDragSource.mjs
+// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/actions/dragDrop/publishDragSource.js
 
-// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/esm/actions/dragDrop/types.mjs
+// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/actions/dragDrop/types.js
 
-// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/esm/actions/registry.mjs
+// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/actions/registry.js
 
-// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/esm/classes/DragDropManagerImpl.mjs
+// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/classes/DragDropManagerImpl.js
 
-// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/esm/classes/DragDropMonitorImpl.mjs
+// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/classes/DragDropMonitorImpl.js
 
-// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/esm/classes/HandlerRegistryImpl.mjs
+// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/classes/HandlerRegistryImpl.js
 
-// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/esm/contracts.mjs
+// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/contracts.js
 
-// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/esm/createDragDropManager.mjs
+// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/createDragDropManager.js
 
-// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/esm/interfaces.mjs
+// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/interfaces.js
 
-// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/esm/reducers/dirtyHandlerIds.mjs
+// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/reducers/dirtyHandlerIds.js
 
-// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/esm/reducers/dragOffset.mjs
+// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/reducers/dragOffset.js
 
-// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/esm/reducers/dragOperation.mjs
+// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/reducers/dragOperation.js
 
-// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/esm/reducers/index.mjs
+// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/reducers/index.js
 
-// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/esm/reducers/refCount.mjs
+// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/reducers/refCount.js
 
-// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/esm/reducers/stateId.mjs
+// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/reducers/stateId.js
 
-// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/esm/utils/coords.mjs
+// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/utils/coords.js
 
-// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/esm/utils/dirtiness.mjs
+// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/utils/dirtiness.js
 
-// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/esm/utils/equality.mjs
+// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/utils/equality.js
 
-// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/esm/utils/getNextUniqueId.mjs
+// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/utils/getNextUniqueId.js
 
-// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/esm/utils/js_utils.mjs
+// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/utils/js_utils.js
 
-// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/esm/utils/matchesType.mjs
+// CONCATENATED MODULE: ../../node_modules/dnd-core/dist/utils/matchesType.js
+
+// CONCATENATED MODULE: ../../node_modules/internmap/src/index.js
 
 // CONCATENATED MODULE: ../../node_modules/jss-plugin-camel-case/dist/jss-plugin-camel-case.esm.js
 
@@ -7671,77 +7557,79 @@ reference element's position.
 
 // CONCATENATED MODULE: ../../node_modules/notistack/dist/notistack.esm.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd-html5-backend/dist/esm/BrowserDetector.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd-html5-backend/dist/BrowserDetector.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd-html5-backend/dist/esm/EnterLeaveCounter.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd-html5-backend/dist/EnterLeaveCounter.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd-html5-backend/dist/esm/HTML5BackendImpl.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd-html5-backend/dist/HTML5BackendImpl.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd-html5-backend/dist/esm/MonotonicInterpolant.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd-html5-backend/dist/MonotonicInterpolant.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd-html5-backend/dist/esm/NativeDragSources/NativeDragSource.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd-html5-backend/dist/NativeDragSources/NativeDragSource.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd-html5-backend/dist/esm/NativeDragSources/getDataFromDataTransfer.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd-html5-backend/dist/NativeDragSources/getDataFromDataTransfer.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd-html5-backend/dist/esm/NativeDragSources/index.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd-html5-backend/dist/NativeDragSources/index.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd-html5-backend/dist/esm/NativeDragSources/nativeTypesConfig.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd-html5-backend/dist/NativeDragSources/nativeTypesConfig.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd-html5-backend/dist/esm/NativeTypes.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd-html5-backend/dist/NativeTypes.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd-html5-backend/dist/esm/OptionsReader.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd-html5-backend/dist/OffsetUtils.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd-html5-backend/dist/esm/index.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd-html5-backend/dist/OptionsReader.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd-html5-backend/dist/esm/utils/js_utils.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd-html5-backend/dist/index.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/esm/core/DndProvider.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd-html5-backend/dist/utils/js_utils.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/esm/hooks/useCollectedProps.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/core/DndProvider.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/esm/hooks/useCollector.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useCollectedProps.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/esm/hooks/useDrag/DragSourceImpl.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useCollector.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/esm/hooks/useDrag/connectors.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrag/DragSourceImpl.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/esm/hooks/useDrag/useDrag.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrag/connectors.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/esm/hooks/useDrag/useDragSource.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrag/useDrag.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/esm/hooks/useDrag/useDragSourceConnector.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrag/useDragSource.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/esm/hooks/useDrag/useDragSourceMonitor.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrag/useDragSourceConnector.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/esm/hooks/useDrag/useDragType.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrag/useDragSourceMonitor.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/esm/hooks/useDrag/useRegisteredDragSource.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrag/useDragType.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/esm/hooks/useDrop/DropTargetImpl.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrag/useRegisteredDragSource.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/esm/hooks/useDrop/connectors.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrop/DropTargetImpl.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/esm/hooks/useDrop/useAccept.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrop/connectors.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/esm/hooks/useDrop/useDrop.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrop/useAccept.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/esm/hooks/useDrop/useDropTarget.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrop/useDrop.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/esm/hooks/useDrop/useDropTargetConnector.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrop/useDropTarget.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/esm/hooks/useDrop/useDropTargetMonitor.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrop/useDropTargetConnector.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/esm/hooks/useDrop/useRegisteredDropTarget.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrop/useDropTargetMonitor.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/esm/hooks/useMonitorOutput.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrop/useRegisteredDropTarget.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/esm/internals/DragSourceMonitorImpl.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useMonitorOutput.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/esm/internals/DropTargetMonitorImpl.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/internals/DragSourceMonitorImpl.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/esm/internals/SourceConnector.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/internals/DropTargetMonitorImpl.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/esm/internals/TargetConnector.mjs
+// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/internals/SourceConnector.js
+
+// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/internals/TargetConnector.js
 
 // CONCATENATED MODULE: ../../node_modules/react-smooth/es6/Animate.js
 
@@ -7769,23 +7657,19 @@ reference element's position.
 
 // CONCATENATED MODULE: ../../node_modules/recharts-scale/es6/util/utils.js
 
-// CONCATENATED MODULE: ../../node_modules/recharts/es6/cartesian/Area.js
-
 // CONCATENATED MODULE: ../../node_modules/recharts/es6/cartesian/Brush.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/es6/cartesian/CartesianAxis.js
 
 // CONCATENATED MODULE: ../../node_modules/recharts/es6/cartesian/ReferenceArea.js
 
 // CONCATENATED MODULE: ../../node_modules/recharts/es6/cartesian/ReferenceDot.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/es6/chart/generateCategoricalChart.js
 
 // CONCATENATED MODULE: ../../node_modules/recharts/es6/component/DefaultLegendContent.js
 
 // CONCATENATED MODULE: ../../node_modules/recharts/es6/component/DefaultTooltipContent.js
 
 // CONCATENATED MODULE: ../../node_modules/recharts/es6/component/Legend.js
+
+// CONCATENATED MODULE: ../../node_modules/recharts/es6/component/ResponsiveContainer.js
 
 // CONCATENATED MODULE: ../../node_modules/recharts/es6/component/Tooltip.js
 
@@ -7802,70 +7686,6 @@ reference element's position.
 // CONCATENATED MODULE: ../../node_modules/recharts/es6/util/CssPrefixUtils.js
 
 // CONCATENATED MODULE: ../../node_modules/recharts/es6/util/DetectReferenceElementsDomain.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-format/src/exponent.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-format/src/formatDecimal.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-format/src/formatNumerals.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-format/src/formatRounded.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-format/src/formatTrim.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-format/src/formatTypes.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-format/src/identity.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-format/src/locale.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-format/src/precisionFixed.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-format/src/precisionPrefix.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-format/src/precisionRound.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-scale/src/band.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-scale/src/constant.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-scale/src/continuous.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-scale/src/diverging.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-scale/src/identity.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-scale/src/linear.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-scale/src/log.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-scale/src/nice.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-scale/src/number.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-scale/src/pow.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-scale/src/quantile.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-scale/src/quantize.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-scale/src/radial.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-scale/src/sequential.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-scale/src/sequentialQuantile.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-scale/src/symlog.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-scale/src/threshold.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-scale/src/tickFormat.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-scale/src/time.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-scale/src/utcTime.js
-
-// CONCATENATED MODULE: ../../node_modules/recharts/node_modules/d3-time-format/src/locale.js
 
 // CONCATENATED MODULE: ../../node_modules/redux/es/redux.js
 
@@ -7921,15 +7741,11 @@ reference element's position.
 
 // Check whether the digit to the left of the rounding digit is odd.
 
-// Chrome has a rather weird rounding of "client" properties.
-
 // Cleanup functions are executed lazily in React 17.
 
-// Clear queue here to prevent
+// Client component reference proxy need to be converted to a module.
 
 // Client only
-
-// Client width & height properties can't be
 
 // Clone the event to not override `target` of the original event.
 
@@ -7940,8 +7756,6 @@ reference element's position.
 // Coerce inputs to strings.
 
 // Coerce regexes to strings and treat strings, primitives and objects,
-
-// Collect observers that have active observations.
 
 // Column properties
 
@@ -7969,8 +7783,6 @@ reference element's position.
 
 // Contain can be called between the component being unmounted and its cleanup function being run.
 
-// Continue running updates if changes have been detected as there might
-
 // Controlled input accepts its current value as a prop.
 
 // Convert day-of-week and week-of-year to day-of-year.
@@ -7986,8 +7798,6 @@ reference element's position.
 // Corresponds to 10 frames at 60 Hz.
 
 // Count the linenumber up when we hit the LF (or a stand-alone CR).
-
-// Create ResizeObserverEntry instance for every active observation.
 
 // Create a new layer, increase the isolation of the computed values
 
@@ -8021,11 +7831,9 @@ reference element's position.
 
 // Delay the execution of the ripple effect.
 
-// Deliver notifications in a separate cycle in order to avoid any
-
 // Deprecated! Use color.formatHex.
 
-// Detect whether transition may affect dimensions of an element.
+// Desktop to a lesser extent) that renders both setImmediate and
 
 // Determine exponent.
 
@@ -8046,18 +7854,6 @@ reference element's position.
 // Disable the vendor prefixer server-side, it does nothing.
 
 // Do not act if user performed touchmove
-
-// Do not attempt to divide by 0, otherwise we get `Infinity` as scale
-
-// Do nothing if current environment doesn't have the Element interface.
-
-// Do nothing if element is already being observed.
-
-// Do nothing if element is not being observed.
-
-// Do nothing if observer doesn't have active observations.
-
-// Do nothing if running in a non-browser environment or if listeners
 
 // Dock to the bottom
 
@@ -8105,11 +7901,11 @@ reference element's position.
 
 // E.g. `Decimal.config({ precision: 20 });`
 
-// E.g. for an element with content width of 314.2px it sometimes gives
-
 // E.g. rules inside of @media container
 
 // END of default action (generated by JISON mode classic/merge :: 2,VT,VA,-,-,-,-,-,-)
+
+// ESLint is disabled to allow listening to the `Escape` key. Refer to
 
 // ESM COMPAT FLAG
 
@@ -8123,21 +7919,13 @@ reference element's position.
 
 // EXTERNAL MODULE: ../../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
 
-// EXTERNAL MODULE: ../../node_modules/@emotion/cache/dist/emotion-cache.browser.esm.js + 8 modules
+// EXTERNAL MODULE: ../../node_modules/@emotion/react/dist/emotion-react.browser.esm.js
 
-// EXTERNAL MODULE: ../../node_modules/@emotion/hash/dist/hash.browser.esm.js
+// EXTERNAL MODULE: ../../node_modules/@mui/base/utils/isHostComponent.js
 
-// EXTERNAL MODULE: ../../node_modules/@emotion/react/dist/emotion-react.browser.esm.js + 2 modules
+// EXTERNAL MODULE: ../../node_modules/@mui/base/utils/resolveComponentProps.js
 
-// EXTERNAL MODULE: ../../node_modules/@emotion/react/node_modules/@emotion/serialize/dist/emotion-serialize.browser.esm.js
-
-// EXTERNAL MODULE: ../../node_modules/@mui/base/composeClasses/composeClasses.js
-
-// EXTERNAL MODULE: ../../node_modules/@mui/base/generateUtilityClass/generateUtilityClass.js
-
-// EXTERNAL MODULE: ../../node_modules/@mui/base/generateUtilityClasses/generateUtilityClasses.js
-
-// EXTERNAL MODULE: ../../node_modules/@mui/base/utils/appendOwnerState.js
+// EXTERNAL MODULE: ../../node_modules/@mui/base/utils/useSlotProps.js + 3 modules
 
 // EXTERNAL MODULE: ../../node_modules/@mui/material/Dialog/DialogContext.js
 
@@ -8147,15 +7935,17 @@ reference element's position.
 
 // EXTERNAL MODULE: ../../node_modules/@mui/material/InputBase/utils.js
 
-// EXTERNAL MODULE: ../../node_modules/@mui/material/Paper/Paper.js + 1 modules
+// EXTERNAL MODULE: ../../node_modules/@mui/material/Paper/Paper.js + 2 modules
 
 // EXTERNAL MODULE: ../../node_modules/@mui/material/SvgIcon/SvgIcon.js + 1 modules
 
 // EXTERNAL MODULE: ../../node_modules/@mui/material/styles/defaultTheme.js
 
-// EXTERNAL MODULE: ../../node_modules/@mui/material/styles/styled.js + 9 modules
+// EXTERNAL MODULE: ../../node_modules/@mui/material/styles/styled.js + 6 modules
 
 // EXTERNAL MODULE: ../../node_modules/@mui/material/styles/useTheme.js
+
+// EXTERNAL MODULE: ../../node_modules/@mui/material/styles/useThemeProps.js + 2 modules
 
 // EXTERNAL MODULE: ../../node_modules/@mui/material/utils/capitalize.js
 
@@ -8171,21 +7961,23 @@ reference element's position.
 
 // EXTERNAL MODULE: ../../node_modules/@mui/system/esm/createTheme/createTheme.js + 3 modules
 
-// EXTERNAL MODULE: ../../node_modules/@mui/system/esm/merge.js
-
-// EXTERNAL MODULE: ../../node_modules/@mui/system/esm/spacing.js + 1 modules
-
-// EXTERNAL MODULE: ../../node_modules/@mui/system/esm/style.js
+// EXTERNAL MODULE: ../../node_modules/@mui/system/esm/styleFunctionSx/styleFunctionSx.js
 
 // EXTERNAL MODULE: ../../node_modules/@mui/system/esm/useTheme.js
 
 // EXTERNAL MODULE: ../../node_modules/@mui/system/esm/useThemeWithoutDefault.js
 
+// EXTERNAL MODULE: ../../node_modules/@mui/utils/esm/ClassNameGenerator/ClassNameGenerator.js
+
 // EXTERNAL MODULE: ../../node_modules/@mui/utils/esm/capitalize.js
 
-// EXTERNAL MODULE: ../../node_modules/@mui/utils/esm/createChainedFunction.js
+// EXTERNAL MODULE: ../../node_modules/@mui/utils/esm/composeClasses/composeClasses.js
 
 // EXTERNAL MODULE: ../../node_modules/@mui/utils/esm/deepmerge.js
+
+// EXTERNAL MODULE: ../../node_modules/@mui/utils/esm/generateUtilityClass/generateUtilityClass.js
+
+// EXTERNAL MODULE: ../../node_modules/@mui/utils/esm/generateUtilityClasses/generateUtilityClasses.js
 
 // EXTERNAL MODULE: ../../node_modules/@mui/utils/esm/getScrollbarSize.js
 
@@ -8193,17 +7985,23 @@ reference element's position.
 
 // EXTERNAL MODULE: ../../node_modules/@mui/utils/esm/setRef.js
 
-// EXTERNAL MODULE: ../../node_modules/@react-dnd/invariant/dist/esm/index.mjs
+// EXTERNAL MODULE: ../../node_modules/@react-dnd/invariant/dist/index.js
 
-// EXTERNAL MODULE: ../../node_modules/@react-dnd/shallowequal/dist/esm/index.mjs
+// EXTERNAL MODULE: ../../node_modules/@react-dnd/shallowequal/dist/index.js
 
 // EXTERNAL MODULE: ../../node_modules/classnames/index.js
 
-// EXTERNAL MODULE: ../../node_modules/d3-path/src/path.js
+// EXTERNAL MODULE: ../../node_modules/d3-scale/src/band.js + 1 modules
+
+// EXTERNAL MODULE: ../../node_modules/d3-scale/src/init.js
+
+// EXTERNAL MODULE: ../../node_modules/d3-scale/src/ordinal.js + 1 modules
 
 // EXTERNAL MODULE: ../../node_modules/d3-shape/src/array.js
 
 // EXTERNAL MODULE: ../../node_modules/d3-shape/src/constant.js
+
+// EXTERNAL MODULE: ../../node_modules/decimal.js-light/decimal.js
 
 // EXTERNAL MODULE: ../../node_modules/eventemitter3/index.js
 
@@ -8225,21 +8023,19 @@ reference element's position.
 
 // EXTERNAL MODULE: ../../node_modules/prop-types/index.js
 
-// EXTERNAL MODULE: ../../node_modules/react-dnd/dist/esm/core/DndContext.mjs
+// EXTERNAL MODULE: ../../node_modules/react-dnd/dist/core/DndContext.js
 
-// EXTERNAL MODULE: ../../node_modules/react-dnd/dist/esm/hooks/useCollectedProps.mjs + 2 modules
+// EXTERNAL MODULE: ../../node_modules/react-dnd/dist/hooks/useCollectedProps.js + 2 modules
 
-// EXTERNAL MODULE: ../../node_modules/react-dnd/dist/esm/hooks/useDragDropManager.mjs
+// EXTERNAL MODULE: ../../node_modules/react-dnd/dist/hooks/useDragDropManager.js
 
-// EXTERNAL MODULE: ../../node_modules/react-dnd/dist/esm/hooks/useIsomorphicLayoutEffect.mjs
+// EXTERNAL MODULE: ../../node_modules/react-dnd/dist/hooks/useIsomorphicLayoutEffect.js
 
-// EXTERNAL MODULE: ../../node_modules/react-dnd/dist/esm/hooks/useOptionalFactory.mjs
+// EXTERNAL MODULE: ../../node_modules/react-dnd/dist/hooks/useOptionalFactory.js
 
-// EXTERNAL MODULE: ../../node_modules/react-dnd/dist/esm/internals/isRef.mjs
+// EXTERNAL MODULE: ../../node_modules/react-dnd/dist/internals/isRef.js
 
-// EXTERNAL MODULE: ../../node_modules/react-dnd/dist/esm/internals/registration.mjs
-
-// EXTERNAL MODULE: ../../node_modules/react-dnd/dist/esm/internals/wrapConnectorHooks.mjs
+// EXTERNAL MODULE: ../../node_modules/react-dnd/dist/internals/registration.js
 
 // EXTERNAL MODULE: ../../node_modules/react-dom/index.js
 
@@ -8257,15 +8053,13 @@ reference element's position.
 
 // EXTERNAL MODULE: ../../node_modules/recharts/es6/chart/generateCategoricalChart.js + 9 modules
 
-// EXTERNAL MODULE: ../../node_modules/recharts/es6/component/Legend.js + 1 modules
-
 // EXTERNAL MODULE: ../../node_modules/recharts/es6/shape/Dot.js
 
 // EXTERNAL MODULE: ../../node_modules/recharts/es6/shape/Rectangle.js
 
 // EXTERNAL MODULE: ../../node_modules/recharts/es6/util/CartesianUtils.js
 
-// EXTERNAL MODULE: ../../node_modules/recharts/es6/util/ChartUtils.js + 89 modules
+// EXTERNAL MODULE: ../../node_modules/recharts/es6/util/ChartUtils.js + 86 modules
 
 // EXTERNAL MODULE: ../../node_modules/recharts/es6/util/DataUtils.js
 
@@ -8273,19 +8067,17 @@ reference element's position.
 
 // EXTERNAL MODULE: ../../node_modules/recharts/es6/util/IfOverflowMatches.js
 
+// EXTERNAL MODULE: ../../node_modules/recharts/es6/util/LogUtils.js
+
 // EXTERNAL MODULE: ../../node_modules/recharts/es6/util/PolarUtils.js
-
-// EXTERNAL MODULE: ../../node_modules/recharts/node_modules/d3-scale/src/band.js + 1 modules
-
-// EXTERNAL MODULE: ../../node_modules/recharts/node_modules/d3-scale/src/init.js
-
-// EXTERNAL MODULE: ../../node_modules/recharts/node_modules/d3-scale/src/ordinal.js
 
 // Edge
 
 // Either 0?
 
 // Either this is the first call, activity has stopped and we're at the
+
+// Emotion attaches all the styles as `__emotion_styles`.
 
 // Empty object will remove all currently defined props
 
@@ -8301,8 +8093,6 @@ reference element's position.
 
 // Error if any of these lifecycles are present,
 
-// Error if react root is not enabled and `suspense` option is set to true
-
 // Estimate the precision increase necessary to ensure the first 4 rounding digits are correct.
 
 // Even if we were, there is another bug in Internet Explorer 10.
@@ -8313,21 +8103,13 @@ reference element's position.
 
 // Exponential form?
 
-// Export existing implementation if available.
-
 // Export javascript style and css style vendor prefixes.
 
 // Expose `MapCache`.
 
-// Expose public methods of ResizeObserver.
-
 // Expose the prefix.
 
 // Fallback for data views, maps, sets, and weak maps in IE 11 and promises in Node.js < 6.
-
-// Fallback here: "Not Safari" userAgent
-
-// Fallback to 1 in case both values are `0`
 
 // Fallback to originalResult (result without trimming) if we cannot find the
 
@@ -8335,7 +8117,7 @@ reference element's position.
 
 // Fast path for small integers.
 
-// Feature detection fails in mobile emulation mode in Chrome.
+// Filter out the `sx` style function from the previous styled component to prevent unnecessary styles generated by the composite components.
 
 // Finally call hover on all matching targets.
 
@@ -8383,10 +8165,6 @@ reference element's position.
 
 // Flow doesn't support to extend this property, but it's the most
 
-// Following conditions are required to handle Internet Explorer which
-
-// Following steps can't be applied to the document's root element as its
-
 // Font and text properties
 
 // For SI-prefix, the suffix is lazily computed.
@@ -8411,11 +8189,7 @@ reference element's position.
 
 // For some reason the animation is broken on Mobile Chrome if the size is even.
 
-// Force the update of observations.
-
 // Forwarded Parser Analysis flags:
-
-// Generated by CoffeeScript 1.12.2
 
 // Get a function to be used for $ref replacement.
 
@@ -8489,7 +8263,11 @@ reference element's position.
 
 // However, if we ever elect to use timers in Safari, the prevalent work-around
 
+// However, note that even this simple case requires nuances to operate in a
+
 // However, since this timer gets frequently dropped in Firefox
+
+// However, they do not work reliably in Internet Explorer or Safari.
 
 // IE 11 has no ShadowRoot
 
@@ -8527,9 +8305,13 @@ reference element's position.
 
 // If a negative value rounds to zero after formatting, and no explicit positive sign is requested, hide the sign.
 
+// If a task schedules additional tasks recursively, the task queue can grow
+
 // If a task throws an exception, `flush` ensures that its state will remain
 
 // If a time zone is specified, all fields are interpreted as UTC and then
+
+// If an accessor is specified, promote it to a comparator. In this case we
 
 // If an anchor element wasn't provided, just use the parent body element of this Popover
 
@@ -8540,6 +8322,8 @@ reference element's position.
 // If child drag source refuses drag but parent agrees,
 
 // If divisor < remainder.
+
+// If dynamic options.ssr == true during SSR,
 
 // If either is zero...
 
@@ -8568,6 +8352,8 @@ reference element's position.
 // If source.beginDrag returns null, this is an indicator to cancel the drag
 
 // If that was the last modal in a container, clean up the container.
+
+// If the TextareaAutosize component is replaced by Suspense with a fallback, the last
 
 // If the anchorEl prop is provided, use its parent body element as the container
 
@@ -8631,9 +8417,9 @@ reference element's position.
 
 // Improve type search style.
 
-// In Chrome, it returns a value very close to 0 (+/-) but contains rounding
-
 // In IE11 it is possible for document.activeElement to be null resulting
+
+// In React 18, state updates in a ResizeObserver's callback are happening after the paint which causes flickering
 
 // In a web browser, exceptions are not fatal. However, to avoid
 
@@ -8645,8 +8431,6 @@ reference element's position.
 
 // In order to preserve the right order, we need to queue all `.addRule` calls,
 
-// In some browsers (only in Firefox, actually) CSS width & height
-
 // In some cases the user may want to override this behavior, e.g.
 
 // In the case the element node is external and it is already in the DOM.
@@ -8656,6 +8440,8 @@ reference element's position.
 // In the documentation, we are using `autoprefixer` to solve this problem.
 
 // In the most browsers, rules inserted using insertRule() API will be lost when style element is removed.
+
+// In this case, getSlotProps is responsible for calling the external event handlers.
 
 // Initial children should all be entering, dependent on appear
 
@@ -8675,8 +8461,6 @@ reference element's position.
 
 // Inspired by https://github.com/focus-trap/tabbable
 
-// Inspired by https://github.com/material-components/material-components-ios/blob/bca36107405594d5b7b16265a5b0ed698f85a5ee/components/Elevation/src/UIColor%2BMaterialElevation.m#L61
-
 // Instead, we can look if the active element was restored on the BODY element.
 
 // Instead, we periodically shift 1024 tasks off the queue.
@@ -8684,6 +8468,8 @@ reference element's position.
 // Integer.
 
 // Internal constant.
+
+// Internet Explorer 10 is the only browser that has setImmediate but does
 
 // Interpolate
 
@@ -8747,8 +8533,6 @@ reference element's position.
 
 // It's most likely on issue on userland.
 
-// Its name will be periodically randomized to break any code that
-
 // Its name will be periodically randomized to break any code that depends on
 
 // JavaScript numbers: -7
@@ -8785,6 +8569,8 @@ reference element's position.
 
 // Magic number from d3
 
+// Maintain compat with existing charts / default SVG behavior
+
 // Make sure the event starts and ends on the same DOM element.
 
 // Make the flex item shrink with Firefox
@@ -8797,8 +8583,6 @@ reference element's position.
 
 // Mask properties
 
-// Math.abs(win.innerWidth / visualViewport.scale - visualViewport.width) <
-
 // Math.sqrt underflow/overflow?
 
 // Max k of 9007199254740991 takes 53 loop iterations.
@@ -8807,7 +8591,7 @@ reference element's position.
 
 // Measure height of a textarea with a single row
 
-// Minimum delay before invoking the update of observers.
+// MessageChannel useless for the purposes of ASAP.
 
 // Minus sign?
 
@@ -8831,15 +8615,11 @@ reference element's position.
 
 // Must use `global` or `self` instead of `window` to work in both frames and web
 
-// MutationObservers are desirable because they have high priority and work
-
 // MutationObservers, so we don't need to fall back in that case.
 
-// NAMESPACE OBJECT: ../../node_modules/react-dnd-html5-backend/dist/esm/NativeTypes.mjs
+// NAMESPACE OBJECT: ../../node_modules/react-dnd-html5-backend/dist/NativeTypes.js
 
-// NAMESPACE OBJECT: ../../node_modules/recharts/node_modules/d3-scale/src/index.js
-
-// NB: This isn't supported on iOS <= 12. If the keyboard is open, the popper
+// NAMESPACE OBJECT: ../../node_modules/victory-vendor/es/d3-scale.js
 
 // NOTE: as this API uses parse() as a closure, it MUST be set again on every parse() invocation,
 
@@ -8893,6 +8673,8 @@ reference element's position.
 
 // Normalise xd and yd so highest order digit of yd is >= BASE/2
 
+// Normalize loader to return the module as form { default: Component } for `React.lazy`.
+
 // Not all elements in IE11 have a focus method.
 
 // Not existing properties.
@@ -8924,6 +8706,8 @@ reference element's position.
 // On each update cycle, the `modifiersData` property for each modifier
 
 // On the first iteration only, check to see if rounding up gives the exact result as the
+
+// On the server Emotion doesn't use React.forwardRef for creating components, so the created
 
 // On visiting object, check for its dependencies and visit them recursively
 
@@ -9039,7 +8823,7 @@ reference element's position.
 
 // Properties that cannot be correctly detected using the
 
-// Property accessors are not being used as they'd require to define a
+// Props with default values added.
 
 // Provide a fake value as Chrome might not let you access it for security reasons.
 
@@ -9061,8 +8845,6 @@ reference element's position.
 
 // ROUND_UP         0 Away from zero.
 
-// RawTasks are recycled to reduce GC churn.
-
 // Reach 42px touch target, about ~8mm on screen.
 
 // React <= 16.2 does not support getSnapshotBeforeUpdate.
@@ -9083,8 +8865,6 @@ reference element's position.
 
 // Reconstruct the final output based on the desired alignment.
 
-// Rectangle's properties are not writable and non-enumerable.
-
 // Recursively compare arrays (susceptible to call stack limits).
 
 // Recursively compare objects (susceptible to call stack limits).
@@ -9095,9 +8875,15 @@ reference element's position.
 
 // Redefine target to allow name and value to be read.
 
+// Reduce the iteration if the default slot props is empty
+
+// Reduce the iteration if the slot props is empty
+
+// Ref: https://github.com/emotion-js/emotion/blob/16d971d0da229596d6bcc39d282ba9753c9ee7cf/packages/styled/src/base.js#L186
+
 // Reject Infinity/NaN.
 
-// Reject immediately following calls.
+// Related issue - https://github.com/facebook/react/issues/24331
 
 // Remove IE11 arrow
 
@@ -9112,10 +8898,6 @@ reference element's position.
 // Remove leading zeros and adjust exponent accordingly.
 
 // Remove leading zeros.
-
-// Remove listeners if controller has no connected observers.
-
-// Remove observer if it's present in registry.
 
 // Remove props.
 
@@ -9132,8 +8914,6 @@ reference element's position.
 // Remove trailing zeros of last w.
 
 // Remove trailing zeros.
-
-// Removing webpack and modules means react-loadable won't try preloading
 
 // Renderable is defined if StyleSheet option `link` is true.
 
@@ -9173,7 +8953,7 @@ reference element's position.
 
 // Resize menu on `defaultOpen` automatic toggle.
 
-// ResizeObserver are tracking the same element and the callback of one
+// ResizeObserver's handler that runs because of the change in the layout is trying to
 
 // Response determines if label is presented above field or as placeholder.
 
@@ -9202,8 +8982,6 @@ reference element's position.
 // Return false if value not supported.
 
 // Return the `$accept` rule's `$$` result, if available.
-
-// Return the local global object if it's not possible extract one from
 
 // Return the maximum integer which is smaller than 'value' when 'value' is greater than 1
 
@@ -9245,15 +9023,11 @@ reference element's position.
 
 // Safari 9 has enumerable `arguments.length` in strict mode.
 
-// Safari returns a number <= 0, usually < -1 when pinch-zoomed
-
 // Safari, on iOS, supports touch action since v13.
 
 // Same logic as the LinearProgress track color
 
 // Same logic as useAutocomplete.js
-
-// Schedule new call to be in invoked when the pending one is resolved.
 
 // Search for the interval x is in, returning the corresponding y if x is one of the original xs
 
@@ -9263,11 +9037,13 @@ reference element's position.
 
 // See https://bugs.webkit.org/show_bug.cgi?id=156034 for more details.
 
+// See https://github.com/mui/material-ui/issues/31766
+
+// See https://github.com/mui/material-ui/issues/32640
+
 // See https://www.particleincell.com/2012/bezier-splines/ for derivation.
 
 // See:
-
-// Server only
 
 // Set absolute position to get the size of collapsed content
 
@@ -9280,8 +9056,6 @@ reference element's position.
 // ShadowRoot detected
 
 // Show and hide the placeholder logic
-
-// Show that it's not an text input
 
 // Show user-specified drop effect.
 
@@ -9305,13 +9079,7 @@ reference element's position.
 
 // So we take precedent over the style of a native <a /> element.
 
-// Some browsers, namely IE and Edge, don't have the SVGGraphicsElement
-
 // Some random properties
-
-// Some versions of FF have rAF but not cAF
-
-// Some versions of I.E. have different rules for clearTimeout vs setTimeout
 
 // Special optimization for only a single match.
 
@@ -9331,8 +9099,6 @@ reference element's position.
 
 // StyleSheet of the child has a higher specificity, because of the source order.
 
-// Subscription to the "Transitionend" event is used as a workaround for
-
 // Subtract b from a.
 
 // Subtract divisor from product.
@@ -9348,6 +9114,8 @@ reference element's position.
 // Support CSSTOM.
 
 // Support for direct import(), eg: dynamic(import('../hello-world'))
+
+// Support for having import as a function, eg: dynamic(() => import('../hello-world'))
 
 // Support for passing options, eg: dynamic(import('../hello-world'), {loading: () => <p>Loading something</p>})
 
@@ -9369,7 +9137,7 @@ reference element's position.
 
 // TODO: Cause of circular dependency. Needs refactor.
 
-// TODO: add error doc when this feature is stable
+// TODO: ScaleHelper
 
 // TODO: check again if React releases their internal changes to focus event handling (https://github.com/facebook/react/pull/19186).
 
@@ -9381,13 +9149,13 @@ reference element's position.
 
 // TODO: remove support for Safari < 13.
 
+// TODO: remove this export once ClassNameGenerator is stable
+
 // TODO: rename getAutoHeightDuration to something more generic (width support)
 
 // TODO: return `EventHandlerName extends `on${infer EventName}` ? Lowercase<EventName> : never` once generatePropTypes runs with TS 4.1
 
 // TODO: update brush when children update
-
-// Take the box sizing into account for applying this value as a style.
 
 // Taylor series.
 
@@ -9439,6 +9207,8 @@ reference element's position.
 
 // The flush function processes all tasks that have been scheduled with
 
+// The forbidden HTML tags are the ones from ARIA specification that
+
 // The handler doesn't take event.defaultPrevented into account:
 
 // The height of the outer content
@@ -9455,7 +9225,7 @@ reference element's position.
 
 // The mouseover event will trigger for every nested element in the tooltip.
 
-// The native select doesn't respond to enter on MacOS, but it's recommended by
+// The native select doesn't respond to enter on macOS, but it's recommended by
 
 // The natural logarithm of 10.
 
@@ -9464,6 +9234,8 @@ reference element's position.
 // The ordinates of horizontal grid lines
 
 // The orientation of axis
+
+// The position of the next task to execute in the task queue. This is
 
 // The primary input mechanism of the device includes a pointing device of limited accuracy.
 
@@ -9488,6 +9260,8 @@ reference element's position.
 // The rounding mode used by default by `toInteger`, `toDecimalPlaces`, `toExponential`,
 
 // The series converges faster the closer the argument is to 1, so using
+
+// The simpler case - getSlotProps is not defined, so no internal event handlers are defined,
 
 // The single `==` condition below covers both these `===` comparisons in a single
 
@@ -9527,8 +9301,6 @@ reference element's position.
 
 // These would otherwise all be memory leak opportunities!
 
-// They are implemented in all modern browsers.
-
 // This action has a similiar effect to ActionTypes.INIT.
 
 // This allows seamless integration with the most popular form libraries.
@@ -9537,19 +9309,17 @@ reference element's position.
 
 // This doesn't work in IE11 due to https://github.com/facebook/react/issues/3751
 
+// This guarantees the loader is always resolved after preloading.
+
 // This hack is needed because the `__proto__` property is still inherited in
 
 // This handles the case when num is very small (0.00000001), js will turn this into 1e-8.
 
 // This helps us achieve a neat API where user doesn't even know that refs
 
-// This hook exists purely for testing purposes.
-
 // This is for `asap.js` only.
 
 // This is for to force a repaint,
-
-// This is important for "transitions" which never actually start
 
 // This is necessary because Firefox and Safari will keep focus
 
@@ -9579,6 +9349,10 @@ reference element's position.
 
 // Though IE will keep them and we need a consistent behavior.
 
+// Throw first error
+
+// Timers are implemented universally.
+
 // To be safe, we nuke the other internal stack columns as well...
 
 // To detect a tab/window switch, we look for a blur event followed
@@ -9588,6 +9362,10 @@ reference element's position.
 // To ensure persistent data, use `${name}#persistent`
 
 // To make sure we don't execute the import without rendering first
+
+// To make the animation happen,  we have to separate each rendering and avoid being processed as batched.
+
+// To request a high priority event, we induce a mutation observer by toggling
 
 // Touche devices
 
@@ -9617,27 +9395,27 @@ reference element's position.
 
 // UNUSED EXPORTS: ButtonBaseRoot
 
-// UNUSED EXPORTS: CacheProvider, ClassNames, ThemeContext, ThemeProvider, __unsafe_useEmotionCache, createElement, css, jsx, useTheme, withEmotionCache, withTheme
-
 // UNUSED EXPORTS: ENTERED, ENTERING, EXITED, EXITING, UNMOUNTED
 
-// UNUSED EXPORTS: MAX_VALUE_REG, MIN_VALUE_REG, calculateDomainOfTicks, getDomainOfErrorBars, getStackedData, offsetPositive, offsetSign
+// UNUSED EXPORTS: MAX_VALUE_REG, MIN_VALUE_REG, getDomainOfErrorBars, getStackedData, offsetPositive, offsetSign
 
 // UNUSED EXPORTS: NativeTypes, getEmptyImage
 
-// UNUSED EXPORTS: SliderMark, SliderMarkLabel, SliderRail, SliderRoot, SliderThumb, SliderTrack, SliderValueLabel, sliderClasses
+// UNUSED EXPORTS: SliderMark, SliderMarkLabel, SliderRail, SliderRoot, SliderThumb, SliderTrack, SliderValueLabel
 
 // UNUSED EXPORTS: SnackbarContent, withSnackbar
 
 // UNUSED EXPORTS: TypographyRoot
-
-// UNUSED EXPORTS: backdropClasses
 
 // UNUSED EXPORTS: modalClasses
 
 // UNUSED EXPORTS: overridesResolver
 
 // UNUSED EXPORTS: testReset
+
+// Unfortunately there appears to be a bug in Internet Explorer 10 Mobile (and
+
+// Update /system/styled/#api in case if this changes
 
 // Update and add props.
 
@@ -9671,8 +9449,6 @@ reference element's position.
 
 // Userland code must COPY any data/references
 
-// Uses Layout Viewport (like Chrome; Safari does not currently)
-
 // Using components as a low-level styling construct can be simpler.
 
 // Usually we want to publish it in the next tick so that browser
@@ -9699,8 +9475,6 @@ reference element's position.
 
 // We are using the mouseover event instead of the mouseenter event to fix a hide/show issue.
 
-// We can say that if CSS dimensions + paddings are equal to the "client"
-
 // We can skip rerendering when the tooltip is already open.
 
 // We can use a shorthand class name, we never use the keys to style the components.
@@ -9721,7 +9495,9 @@ reference element's position.
 
 // We don't need to extract functions on each style update, since this can happen only once.
 
-// We don't support changing that prop on an open TrapFocus
+// We don't need to include them in the merged props because of this.
+
+// We don't support changing that prop on an open FocusTrap
 
 // We don't support function values inside of function rules.
 
@@ -9730,6 +9506,8 @@ reference element's position.
 // We don't want to display the ripple for touch scroll events.
 
 // We don't want to wait for the next render commit.
+
+// We fall back to timers in workers in most engines, and in foreground
 
 // We might render an empty child.
 
@@ -9791,15 +9569,13 @@ reference element's position.
 
 // We would risk displaying two tooltips at the same time (native + this one).
 
-// We wrap tasks with recyclable task objects.  A task object implements
-
 // We'll have to wait for @3x to see if this is entirely correct
 
 // What format function should we use?
 
 // When 0 is inside the interval, 0 should be a tick
 
-// When a categotical chart is combined with another chart, the value of chartX
+// When a categorical chart is combined with another chart, the value of chartX
 
 // When a store is created, an "INIT" action is dispatched so that every
 
@@ -9823,10 +9599,6 @@ reference element's position.
 
 // When using a custom drag layer, the only way to prevent
 
-// When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-
-// When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-
 // When, after limiting to maxLines, we still have too much to return,
 
 // Whichever timer succeeds will cancel both timers and
@@ -9836,8 +9608,6 @@ reference element's position.
 // Whitespaces after open parentheses
 
 // Whitespaces before closed
-
-// Width & height include paddings and borders when the 'border-box' box
 
 // Width and height properties
 
@@ -9849,7 +9619,7 @@ reference element's position.
 
 // With Edge, Safari and Firefox, no focus related events are fired when the focused area stops being a focused area.
 
-// Without it we would need to implement separate methods for each of
+// With unmountOnExit or mountOnEnter, the enter animation should happen at the transition between `exited` and `entering`.
 
 // Without it, IE will have a broken source order specificity if we
 
@@ -9862,8 +9632,6 @@ reference element's position.
 // Workaround for https://github.com/facebook/react/issues/7769
 
 // Works with iframes and any node types.
-
-// Wrap in a new function to prevent
 
 // Write current value to cache.
 
@@ -9886,8 +9654,6 @@ reference element's position.
 // `Objet.keys(slots)` can't be wider than `T` because we infer `T` from `slots`.
 
 // `call`, just like a function.
-
-// `cancel` potentially being assigned
 
 // `defaultOpen` and `openState` are ignored to avoid unnecessary callbacks.
 
@@ -9927,7 +9693,11 @@ reference element's position.
 
 // a string precedes the next number in b
 
+// a task throws an exception.
+
 // accept:
+
+// access a dom node that is no longer there (as the fallback component is being shown instead).
 
 // add syncId
 
@@ -9937,8 +9707,6 @@ reference element's position.
 
 // all nested rules within the sheet.
 
-// all props with defaults
-
 // allow the PRE/POST handlers set/modify the return token for maximum flexibility of the generated lexer:
 
 // allows for nested Transitions
@@ -9947,13 +9715,11 @@ reference element's position.
 
 // also handles Invalid Date
 
+// amendments. These decisions, particularly to marginalize MessageChannel and
+
 // an event 20 times per second until it succeeds.
 
-// and "client" properties, though that is not always true in Chrome.
-
 // and applies them to the HTMLElements such as popper and arrow
-
-// and are also not enumerable in the native implementation.
 
 // and chartY may beyond the boundaries.
 
@@ -9967,11 +9733,7 @@ reference element's position.
 
 // and make sure the input has been modified/consumed ...
 
-// and there will be very few iterations of this generally
-
 // and we advance immediately past the LF as well, returning both together as if
-
-// and you can only have one source map per style tag
 
 // angle
 
@@ -9982,8 +9744,6 @@ reference element's position.
 // any other slot specified
 
 // anymore
-
-// anything, or an element merely doesn't have paddings/borders styles.
 
 // anyway.
 
@@ -9997,8 +9757,6 @@ reference element's position.
 
 // arrow is optional + virtual elements
 
-// as a non-relevant.
-
 // as equal. See http://www.ecma-international.org/ecma-262/7.0/#sec-regexp.prototype.tostring
 
 // as produced by either `showPosition()` or `prettyPrintRange()`:
@@ -10007,13 +9765,11 @@ reference element's position.
 
 // as this one delivers all parser internals ready for access by userland code.
 
+// back into ASAP proper.
+
 // bad specificity issues may appear.
 
-// bars are the only difference between rounded dimensions + paddings
-
 // based on https://github.com/WICG/focus-visible/blob/v4.1.5/src/focus-visible.js
-
-// be future ones caused by CSS transitions.
 
 // because cache plugin needs to use it as a key to return a cached rule.
 
@@ -10027,6 +9783,8 @@ reference element's position.
 
 // break out of loop: we accept or fail with error
 
+// broad spectrum of browsers.
+
 // but we can use a longhand property instead.
 
 // but we keep the prototype.constructor and prototype.name assignment lines too for compatibility
@@ -10034,8 +9792,6 @@ reference element's position.
 // by moving forward at least one character at a time IFF the (user-specified?) `parseError()`
 
 // cache prefill method.
-
-// cached from whatever global is present so that test runners that stub it
 
 // calamities or when the `%options no-try-catch` option has been specified for the grammar, in which
 
@@ -10049,17 +9805,17 @@ reference element's position.
 
 // call individual snackbar onClose callback passed through options parameter
 
-// callbacks from appending listeners
-
 // calling preventDefault in keyUp on a <button> will not dispatch a click event if Space is pressed
 
 // calling this method:
 
-// can be obscured underneath it.
+// can be children of body and can't have aria-hidden attribute.
 
 // can be string
 
 // can reliably accommodate that request. This will usually be snapped
+
+// can test whether the search value is (self-) comparable. We can’t do this
 
 // cancel debounced handler
 
@@ -10068,6 +9824,8 @@ reference element's position.
 // case this parse() API method doesn't come with a `finally { ... }` block any more!
 
 // catch misc. parse failures:
+
+// cf. https://www.w3.org/TR/html-aria/#docconformance
 
 // character to make sure that the built-in object properties are not
 
@@ -10097,8 +9855,6 @@ reference element's position.
 
 // clicking a checkbox to check it, hitting a button to submit a form,
 
-// client[Width/Height] properties represent viewport area of the window.
-
 // clipping (or hiding) overflowing elements with a position different from
 
 // clipping parents
@@ -10107,13 +9863,11 @@ reference element's position.
 
 // cmp is -1.
 
-// collisions between observers, e.g. when multiple instances of
-
 // coming from build/babel/plugins/react-loadable-plugin.js
 
-// compression: is the RE an xref to another RE slot in the rules[] table?
+// component stays as a function. This condition makes sure that we do not interpolate functions
 
-// consider extracting to hook an reusing the lint rule for the varints
+// compression: is the RE an xref to another RE slot in the rules[] table?
 
 // consistent and will resume where it left off when called again.
 
@@ -10128,6 +9882,8 @@ reference element's position.
 // constitute the set of elements which can produce a cyclic ref.
 
 // container itself is invisible and should not block clicks, clicks should be passed to its children
+
+// contexts in the following browsers.
 
 // copy over the last transition props;
 
@@ -10153,12 +9909,6 @@ reference element's position.
 
 // default, action):
 
-// delayed transitions. This way it's possible to capture at least the
-
-// depends on its existence.
-
-// detached elements. Though elements with width & height properties less
-
 // did not guarantee a failure signal by throwing an exception!
 
 // digit at (left-to-right) index j, e.g. if w is 908714 and j is 2, the expression will give
@@ -10179,15 +9929,9 @@ reference element's position.
 
 // do not edit .js files directly - edit src/index.jst
 
-// doesn't include paddings and borders to computed CSS dimensions.
-
-// don't break things.  But we need to wrap it in a try catch in case it is
-
 // don't hoist over string (html) components
 
 // don't overwrite the `symbol` variable: use a local var to speed things up:
-
-// don't support this type of collections.
 
 // done when the component updates
 
@@ -10197,8 +9941,6 @@ reference element's position.
 
 // e.g. https://bugzilla.mozilla.org/show_bug.cgi?id=559561.
 
-// effective test for hidden elements. E.g. even jQuery's ':visible' filter
-
 // effective way to apply styles to an HTMLElement
 
 // either ensure that no exceptions are thrown from your task, or to manually
@@ -10207,19 +9949,13 @@ reference element's position.
 
 // else: this is a lexer rule which consumes input without producing a token (e.g. whitespace)
 
-// emotion & styled-components will neglect null
-
 // empty
-
-// empty string to avoid regexp issues
 
 // end of current subpath
 
 // error bar for horizontal charts, the x is fixed, y is a range value
 
 // error bar for horizontal charts, the y is fixed, x is a range value
-
-// errors due to floating point numbers, so we need to check precision.
 
 // eslint-disable-line
 
@@ -10229,29 +9965,35 @@ reference element's position.
 
 // eslint-disable-line react/no-array-index-key
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 // eslint-disable-next-line @typescript-eslint/no-use-before-define
 
 // eslint-disable-next-line import/no-unused-modules
 
+// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+
 // eslint-disable-next-line no-nested-ternary
 
 // eslint-disable-next-line no-prototype-builtins
-
-// eslint-disable-next-line no-redeclare
 
 // eslint-disable-next-line no-restricted-globals
 
 // eslint-disable-next-line no-unused-vars
 
-// eslint-disable-next-line no-use-before-define,@typescript-eslint/no-use-before-define
+// eslint-disable-next-line no-useless-concat -- Workaround for https://github.com/webpack/webpack/issues/14814
 
 // eslint-disable-next-line operator-linebreak
 
 // eslint-disable-next-line prefer-spread
 
 // eslint-disable-next-line react-hooks/exhaustive-deps
+
+// eslint-disable-next-line react-hooks/rules-of-hooks -- `React.useId` is invariant at runtime.
 
 // eslint-disable-next-line react/no-array-index-key
 
@@ -10281,13 +10023,11 @@ reference element's position.
 
 // expected terminals and nonterminals is produced.
 
+// falls through
+
 // fastest way to nuke an array without overly bothering the GC
 
 // filter props for Transtition
-
-// final state of an element.
-
-// finalize string values (regular strings and functions interpolated into css calls)
 
 // find coordinate of category axis by the value of category
 
@@ -10301,13 +10041,15 @@ reference element's position.
 
 // for "a" so this is checking that
 
+// for a comparator (except for specific, known comparators) because we can’t
+
 // for backward compatibility
 
 // for more details.
 
-// frequency
+// for string (html) tag, preserve the behavior in emotion & styled-components.
 
-// function because try/catches deoptimize in certain engines.
+// frequency
 
 // function makeRequestCallFromMessageChannel(callback) {
 
@@ -10323,8 +10065,6 @@ reference element's position.
 
 // getSnapshotBeforeUpdate(prevProps) {
 
-// gives wrong results for elements with width & height less than 0.5.
-
 // goto new state = table[STATE][NONTERMINAL]
 
 // graphic child has data props
@@ -10335,17 +10075,11 @@ reference element's position.
 
 // handle parse error
 
-// happens amids the pending invocation.
-
 // has dataKey in <Axis />
 
 // has not consumed/modified any pending input or changed state in the error handler:
 
 // have WebKitMutationObserver but not un-prefixed MutationObserver.
-
-// have been already added.
-
-// have been already removed.
 
 // height. This ensures a tapable area outside of the simple menu with which to dismiss
 
@@ -10405,13 +10139,15 @@ reference element's position.
 
 // https://en.wikipedia.org/wiki/Content_Security_Policy
 
-// https://esbench.com/bench/5b809c2cf2949800a0f61fb5
-
 // https://github.com/cssinjs/jss/blob/4e6a05dd3f7b6572fdd3ab216861d9e446c20331/src/utils/createGenerateClassName.js
+
+// https://github.com/emotion-js/emotion/blob/26ded6109fcd8ca9875cc2ce4564fee678a3f3c5/packages/styled/src/utils.js#L40
 
 // https://github.com/facebook/react/issues/20074
 
-// https://github.com/mui-org/material-ui/issues/13485#issuecomment-676048492
+// https://github.com/kriskowal/q/issues/396
+
+// https://github.com/mui/material-ui/issues/13485#issuecomment-676048492
 
 // https://github.com/popperjs/popper-core/issues/1078
 
@@ -10419,11 +10155,17 @@ reference element's position.
 
 // https://github.com/react-dnd/react-dnd/issues/1310
 
+// https://github.com/reactjs/react-transition-group/pull/749
+
+// https://github.com/recharts/recharts/pull/2925
+
+// https://github.com/tildeio/rsvp.js/blob/cddf7232546a9cf858524b75cde6f9edf72620a7/lib/rsvp/asap.js
+
 // https://html.spec.whatwg.org/multipage/interaction.html#focus-fixup-rule.
 
-// https://material.io/components/menus#specs > Dense
+// https://m2.material.io/components/menus#specs > Dense
 
-// https://www.w3.org/TR/wai-aria-practices/examples/listbox/listbox-collapsible.html
+// https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/
 
 // i is where to slice str to get the first word of the digits array.
 
@@ -10435,15 +10177,11 @@ reference element's position.
 
 // if children is a function and animation is not active, set style to 'to'
 
-// if clearTimeout wasn't available but was latter defined
-
 // if cmp === 1, k will be 0
 
 // if dragend handler does something like showing an alert.
 
 // if it is a known parser or lexer error which has been thrown by parseError() already:
-
-// if it isn't open, so if this isn't available, the popper will be detected
 
 // if maxHeight is set, overwrite if calculatedHeight is greater than maxHeight
 
@@ -10451,11 +10189,11 @@ reference element's position.
 
 // if open event.stopImmediatePropagation
 
-// if setTimeout wasn't available but was latter defined
-
 // if skipVariantsResolver option is defined, take the value, otherwise, true for root and false for other slots.
 
 // if the focus event is not coming from inside the children's react tree, reset the refs
+
+// if there are 1 or less ticks ticks then the active tick is at index 0
 
 // if this doesn't exist then it will be null so the style element will be appended
 
@@ -10464,8 +10202,6 @@ reference element's position.
 // if we are mounting and running this it means appear _must_ be set
 
 // immediately in some browsers.
-
-// immediately so there is a chance that we might miss one if change
 
 // import { RadiusAxisProps, AngleAxisProps } from '../polar/types';
 
@@ -10493,8 +10229,6 @@ reference element's position.
 
 // include XYCoord objects that may be equivalent, but do not have instance equality.
 
-// include scroll bars size which can be removed at this step as scroll
-
 // including expansion work to be done to go from a loaded
 
 // inclusive stop
@@ -10519,13 +10253,13 @@ reference element's position.
 
 // instanceof
 
-// interface.
-
 // internals: defined here so the object *structure* doesn't get modified by parse() et al,
 
 // interpolate non-matching numbers
 
 // interpolate(a, b)(t) takes a parameter t in [0,1] and returns the corresponding range value x in [a,b].
+
+// into this ASAP package. It was later adapted to RSVP which made further
 
 // invoke the `lex()` token-producing API and related APIs, hence caching the set for direct access helps
 
@@ -10555,8 +10289,6 @@ reference element's position.
 
 // it will try to move the focus back to the rootRef element.
 
-// it's 1 in dev because we insert source maps that map a single rule to a location
-
 // it's a lowercase character
 
 // it's not an issue. I don't think anyone ever specifies width on <html>
@@ -10571,8 +10303,6 @@ reference element's position.
 
 // item is old (exiting)
 
-// its existence.
-
 // j > 0 means i > number of leading zeros of w.
 
 // j: if > 0, the actual index of rd within w (if < 0, rd is a leading zero).
@@ -10582,8 +10312,6 @@ reference element's position.
 // k is the carry.
 
 // k will be how many times the divisor goes into the current remainder.
-
-// key is the value of the data-emotion attribute, it's used to identify different sheets
 
 // last index slot; we don't mind when other previously 
 
@@ -10647,10 +10375,6 @@ reference element's position.
 
 // means it has ended and the drag source node disappeared from DOM,
 
-// might affect dimensions of observed elements.
-
-// model is applied (except for IE).
-
 // more than necessary so that we can still properly check against maxSize
 
 // most browsers create a new CSSStyleSheet, except of all IEs.
@@ -10679,13 +10403,11 @@ reference element's position.
 
 // non-matching targets.
 
-// noop
-
 // normalize(a, b)(x) takes a domain value x in [a,b] and returns the corresponding parameter t in [0,1].
 
-// not necessary (debounced to run at most once-per-tick)
+// not have MutationObservers.
 
-// not the most efficient thing ever but this is a pretty rare case
+// not necessary (debounced to run at most once-per-tick)
 
 // note: ignores next directive
 
@@ -10710,8 +10432,6 @@ reference element's position.
 // of the `<html>` and `<body>` rect bounds if horizontally scrollable
 
 // of the menu.
-
-// of them changes content dimensions of the observed target. Sometimes
 
 // offset according to the specified time zone.
 
@@ -10757,6 +10477,8 @@ reference element's position.
 
 // page's first load. Thankfully, this version of Safari supports
 
+// passing the preloaded promise of component to `React.lazy`.
+
 // placement, which then needs to re-run all the modifiers, because the
 
 // plan B: heuristic using preceding and following:
@@ -10781,6 +10503,10 @@ reference element's position.
 
 // prefer the async Popper#update method
 
+// preferrable to falling back to setTimeout since it does not have
+
+// preserved between calls to `flush` so that it can be resumed if
+
 // prevent lingering circular references from causing memory leaks:
 
 // previous lex rules MAY have invoked the `more()` API rather than producing a token:
@@ -10788,10 +10514,6 @@ reference element's position.
 // priority over other events including IO, animation, reflow, and redraw
 
 // private
-
-// private WeakMap storage which may cause memory leaks in browsers that
-
-// proceed
 
 // produce one 'error' token as `.parseError()` in `reject()`
 
@@ -10805,15 +10527,11 @@ reference element's position.
 
 // properties
 
-// properties then it's either IE, and thus we don't need to subtract
-
 // properties we need to feature test at runtime.
 
 // props priority: `inProps` > `contextProps` > `themeDefaultProps`
 
 // props.viewBox is sometimes generated every time -
-
-// provided element.
 
 // public for test
 
@@ -10825,7 +10543,7 @@ reference element's position.
 
 // rapidly by a visibility change.
 
-// rawAsap provides everything we need except exception management.
+// rawAsap.makeRequestCallFromTimer = makeRequestCallFromTimer
 
 // rd: the rounding digit, i.e. the digit after the digit that may be rounded up.
 
@@ -10847,15 +10565,11 @@ reference element's position.
 
 // regular focus change.
 
-// reliably everywhere they are implemented.
-
 // remove cyclic references added to error info:
 
 // remove duplicated category
 
 // remove syncId
-
-// rendered scroll bars nor it can be clipped.
 
 // report exceptions through the parseError callback too, but keep the exception intact
 
@@ -10887,10 +10601,6 @@ reference element's position.
 
 // run the map function here instead so that the key is the computed one
 
-// same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-
-// same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-
 // sanitize: fix last_line BEFORE we fix first_line as we use the 'raw' value of the latter
 
 // save context
@@ -10909,8 +10619,6 @@ reference element's position.
 
 // shift:
 
-// shim for using process in browser
-
 // should not use createChainedFunction for onClose.
 
 // significant digits p, where x is positive and p is in [1, 21] or undefined.
@@ -10928,6 +10636,8 @@ reference element's position.
 // so that we don't need to depend on findDOMNode() from react-dom.
 
 // so the browser didn't dispatch the dragend event.
+
+// so we can simply merge all the props without having to worry about extracting event handlers.
 
 // so we don't have to add it to registered cache.
 
@@ -10975,7 +10685,9 @@ reference element's position.
 
 // such as table ancestors and cross browser bugs.
 
-// support for disabling server side rendering, eg: dynamic(import('../hello-world'), {ssr: false})
+// support both `slots` and `components` for backward compatibility
+
+// support for disabling server side rendering, eg: dynamic(() => import('../hello-world'), {ssr: false}).
 
 // suppress the useLayoutEffect warning on server side.
 
@@ -10983,7 +10695,9 @@ reference element's position.
 
 // sync with `lineHeight` in `legend` styles
 
-// than 0.5 will be discarded as well.
+// task queue, are implemented in Internet Explorer 10, Safari 5.0-1, and Opera
+
+// tell if the comparator is symmetric, and an asymmetric comparator can’t be
 
 // that causes it, under certain circumstances, to provide the same value for
 
@@ -10993,13 +10707,9 @@ reference element's position.
 
 // the axis is a categorical axis
 
-// the big drawback is that the css won't be editable in devtools
-
 // the bottom line
 
 // the case, the tooltip disappears and immediately re-appears, causing a flickering effect
-
-// the client width of 315px and for the width of 314.7px it may give
 
 // the combined list
 
@@ -11009,7 +10719,7 @@ reference element's position.
 
 // the dragging state in which the node itself has zero opacity
 
-// the field type is category data and this axis is catrgorical axis
+// the field type is category data and this axis is categorical axis
 
 // the field type is category data and this axis is numerical axis
 
@@ -11021,13 +10731,13 @@ reference element's position.
 
 // the left line of |--|
 
-// the max length is how many rules we have per style tag, it's 65000 in speedy mode
-
 // the menu.
 
 // the middle line
 
 // the middle line of |--|
+
+// the minimum 4ms penalty.
 
 // the modifiers in the next step
 
@@ -11038,6 +10748,8 @@ reference element's position.
 // the right line of |--|
 
 // the select to close immediately since we open on space keydown
+
+// the text of a text node between "1" and "-1".
 
 // the top line
 
@@ -11059,15 +10771,9 @@ reference element's position.
 
 // this is a quicker (but less type safe) way to save quite some bytes from the bundle
 
-// this is the ultrafast version, works across browsers
-
-// this may result in notifications being blocked for the rest of observers.
+// this is safe because grey does not change between default light/dark mode
 
 // this shouldn't happen, unless resolve defaults are off
-
-// this weirdness brought to you by firefox
-
-// those cases and it's not possible to perform a precise and performance
 
 // those rules will already have moved this `offset` forward matching their match lengths,
 
@@ -11083,6 +10789,8 @@ reference element's position.
 
 // to avoid it. If k is 1 there is a need to compare yd and rem again below.
 
+// to capture the MutationObserver implementation in a closure, were integrated
+
 // to check if there is a `selected` item. We're looking for the last `selected`
 
 // to enable drag and drop
@@ -11091,15 +10799,9 @@ reference element's position.
 
 // to obtain a human-readable name of the current grammar rule.
 
-// to overflow the bottom of the screen too early.
-
 // to report a different scrollHeight depending on whether the last line
 
-// to the current frame's queue
-
 // to the input and to support wrapping tags..
-
-// to the native rAF function
 
 // to the result
 
@@ -11119,11 +10821,17 @@ reference element's position.
 
 // transition css properties(dash case), optional
 
+// translateX(0) is a workaround for Safari transform scale bug
+
 // true if both NaN, false otherwise
+
+// truncate already-completed tasks.
 
 // tslint:disable-next-line:ban-comma-operator
 
 // type === 1: accept
+
+// unbounded. To prevent memory exhaustion, the task queue will periodically
 
 // undefined on initial render
 
@@ -11133,21 +10841,17 @@ reference element's position.
 
 // update animtaion
 
-// update configuration in chilren
+// update configuration in children
 
 // update the collected properties after react renders.
+
+// use case of https://github.com/emotion-js/emotion/issues/2675
 
 // use default actions if available
 
 // use parent's node as drag image. Neither works in IE though.
 
-// used exclusively as they provide rounded values.
-
-// using a global regex with .exec is stateful so lastIndex has to be reset each time
-
-// v8 likes predictible objects
-
-// value
+// used to test whether a single value is comparable.
 
 // value + (value + something) => (value + value) + something
 
@@ -11163,8 +10867,6 @@ reference element's position.
 
 // value <op> (expr)
 
-// viewBox only exist in <svg />
-
 // w: the word of xd which contains the rounding digit, a base 1e7 number.
 
 // want to crash if focus-visible malfunctioned?
@@ -11177,13 +10879,13 @@ reference element's position.
 
 // we cannot recover from the error!
 
+// we didn't create the domain from user's props above, so we need to calculate it
+
 // we end up with very hard-to-track-down side effects.
 
 // we have to use a deprecated `findDOMNode` method in order to find a DOM element to attach to
 
 // we only need to add the styles to the registered cache if the
-
-// we start at 1 since we've already handled the first arg
 
 // we use a counter. Also it is more accurate, because user can manually reevaluate
 
@@ -11191,13 +10893,13 @@ reference element's position.
 
 // we'll need to consider how to pull off dev-tooling
 
+// when doing some visual updates in it. Using flushSync ensures that the dom will be painted after the states updates happen
+
 // when it's hidden.
 
 // when modal was unmounted before modalRef gets null
 
 // when the `parseError()` call returns, we MUST ensure that the error is registered.
-
-// when when somebody has screwed with setTimeout but no I.E. maddness
 
 // where the user has an older version of dnd-core like in
 
@@ -11210,6 +10912,8 @@ reference element's position.
 // whether there actually is a target before firing `hover`.
 
 // whether we'll go with the standard, slower, lex() API or the
+
+// which are basically components used as a selectors.
 
 // which happen after the first `rules.add()` call.
 
@@ -11241,7 +10945,7 @@ reference element's position.
 
 // workers. `global` is a provision of Browserify, Mr, Mrs, or Mop.
 
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// would be better than imposing the 4ms delay of timers.
 
 // x % 0 = NaN
 
@@ -11265,131 +10969,145 @@ reference element's position.
 
 // 支持Date类型的x轴
 
-//# sourceMappingURL=DndContext.mjs.map
+//# sourceMappingURL=AsapQueue.js.map
 
-//# sourceMappingURL=DndProvider.mjs.map
+//# sourceMappingURL=DndContext.js.map
 
-//# sourceMappingURL=DragDropManagerImpl.mjs.map
+//# sourceMappingURL=DndProvider.js.map
 
-//# sourceMappingURL=DragDropMonitorImpl.mjs.map
+//# sourceMappingURL=DragDropManagerImpl.js.map
 
-//# sourceMappingURL=DragSourceImpl.mjs.map
+//# sourceMappingURL=DragDropMonitorImpl.js.map
 
-//# sourceMappingURL=DragSourceMonitorImpl.mjs.map
+//# sourceMappingURL=DragSourceImpl.js.map
 
-//# sourceMappingURL=DropTargetImpl.mjs.map
+//# sourceMappingURL=DragSourceMonitorImpl.js.map
 
-//# sourceMappingURL=DropTargetMonitorImpl.mjs.map
+//# sourceMappingURL=DropTargetImpl.js.map
 
-//# sourceMappingURL=EnterLeaveCounter.mjs.map
+//# sourceMappingURL=DropTargetMonitorImpl.js.map
 
-//# sourceMappingURL=HTML5BackendImpl.mjs.map
+//# sourceMappingURL=EnterLeaveCounter.js.map
 
-//# sourceMappingURL=HandlerRegistryImpl.mjs.map
+//# sourceMappingURL=HTML5BackendImpl.js.map
 
-//# sourceMappingURL=MonotonicInterpolant.mjs.map
+//# sourceMappingURL=HandlerRegistryImpl.js.map
 
-//# sourceMappingURL=NativeDragSource.mjs.map
+//# sourceMappingURL=MonotonicInterpolant.js.map
 
-//# sourceMappingURL=OffsetUtils.mjs.map
+//# sourceMappingURL=NativeDragSource.js.map
 
-//# sourceMappingURL=OptionsReader.mjs.map
+//# sourceMappingURL=OffsetUtils.js.map
 
-//# sourceMappingURL=SourceConnector.mjs.map
+//# sourceMappingURL=OptionsReader.js.map
 
-//# sourceMappingURL=TargetConnector.mjs.map
+//# sourceMappingURL=RawTask.js.map
 
-//# sourceMappingURL=beginDrag.mjs.map
+//# sourceMappingURL=SourceConnector.js.map
 
-//# sourceMappingURL=connectors.mjs.map
+//# sourceMappingURL=TargetConnector.js.map
 
-//# sourceMappingURL=contracts.mjs.map
+//# sourceMappingURL=TaskFactory.js.map
 
-//# sourceMappingURL=coords.mjs.map
+//# sourceMappingURL=asap.js.map
 
-//# sourceMappingURL=createDragDropManager.mjs.map
+//# sourceMappingURL=beginDrag.js.map
 
-//# sourceMappingURL=dirtiness.mjs.map
+//# sourceMappingURL=connectors.js.map
 
-//# sourceMappingURL=dirtyHandlerIds.mjs.map
+//# sourceMappingURL=contracts.js.map
 
-//# sourceMappingURL=dragOffset.mjs.map
+//# sourceMappingURL=coords.js.map
 
-//# sourceMappingURL=dragOperation.mjs.map
+//# sourceMappingURL=createDragDropManager.js.map
 
-//# sourceMappingURL=drop.mjs.map
+//# sourceMappingURL=dirtiness.js.map
+
+//# sourceMappingURL=dirtyHandlerIds.js.map
+
+//# sourceMappingURL=dragOffset.js.map
+
+//# sourceMappingURL=dragOperation.js.map
+
+//# sourceMappingURL=drop.js.map
+
+//# sourceMappingURL=dynamic-no-ssr.js.map
 
 //# sourceMappingURL=dynamic.js.map
 
-//# sourceMappingURL=endDrag.mjs.map
+//# sourceMappingURL=endDrag.js.map
 
-//# sourceMappingURL=equality.mjs.map
+//# sourceMappingURL=equality.js.map
 
 //# sourceMappingURL=fast-equals.js.map
 
-//# sourceMappingURL=getDataFromDataTransfer.mjs.map
+//# sourceMappingURL=getDataFromDataTransfer.js.map
 
-//# sourceMappingURL=hover.mjs.map
+//# sourceMappingURL=hover.js.map
 
-//# sourceMappingURL=index.mjs.map
+//# sourceMappingURL=index.esm.js.map
 
-//# sourceMappingURL=isRef.mjs.map
+//# sourceMappingURL=index.js.map
 
-//# sourceMappingURL=js_utils.mjs.map
+//# sourceMappingURL=isRef.js.map
 
-//# sourceMappingURL=matchesType.mjs.map
+//# sourceMappingURL=js_utils.js.map
 
-//# sourceMappingURL=nativeTypesConfig.mjs.map
+//# sourceMappingURL=makeRequestCall.js.map
 
-//# sourceMappingURL=publishDragSource.mjs.map
+//# sourceMappingURL=matchesType.js.map
 
-//# sourceMappingURL=refCount.mjs.map
+//# sourceMappingURL=nativeTypesConfig.js.map
 
-//# sourceMappingURL=registration.mjs.map
+//# sourceMappingURL=publishDragSource.js.map
 
-//# sourceMappingURL=registry.mjs.map
+//# sourceMappingURL=refCount.js.map
 
-//# sourceMappingURL=setClientOffset.mjs.map
+//# sourceMappingURL=registration.js.map
 
-//# sourceMappingURL=stateId.mjs.map
+//# sourceMappingURL=registry.js.map
 
-//# sourceMappingURL=useAccept.mjs.map
+//# sourceMappingURL=setClientOffset.js.map
 
-//# sourceMappingURL=useCollectedProps.mjs.map
+//# sourceMappingURL=stateId.js.map
 
-//# sourceMappingURL=useCollector.mjs.map
+//# sourceMappingURL=useAccept.js.map
 
-//# sourceMappingURL=useDrag.mjs.map
+//# sourceMappingURL=useCollectedProps.js.map
 
-//# sourceMappingURL=useDragDropManager.mjs.map
+//# sourceMappingURL=useCollector.js.map
 
-//# sourceMappingURL=useDragSource.mjs.map
+//# sourceMappingURL=useDrag.js.map
 
-//# sourceMappingURL=useDragSourceConnector.mjs.map
+//# sourceMappingURL=useDragDropManager.js.map
 
-//# sourceMappingURL=useDragSourceMonitor.mjs.map
+//# sourceMappingURL=useDragSource.js.map
 
-//# sourceMappingURL=useDragType.mjs.map
+//# sourceMappingURL=useDragSourceConnector.js.map
 
-//# sourceMappingURL=useDrop.mjs.map
+//# sourceMappingURL=useDragSourceMonitor.js.map
 
-//# sourceMappingURL=useDropTarget.mjs.map
+//# sourceMappingURL=useDragType.js.map
 
-//# sourceMappingURL=useDropTargetConnector.mjs.map
+//# sourceMappingURL=useDrop.js.map
 
-//# sourceMappingURL=useDropTargetMonitor.mjs.map
+//# sourceMappingURL=useDropTarget.js.map
 
-//# sourceMappingURL=useIsomorphicLayoutEffect.mjs.map
+//# sourceMappingURL=useDropTargetConnector.js.map
 
-//# sourceMappingURL=useMonitorOutput.mjs.map
+//# sourceMappingURL=useDropTargetMonitor.js.map
 
-//# sourceMappingURL=useOptionalFactory.mjs.map
+//# sourceMappingURL=useIsomorphicLayoutEffect.js.map
 
-//# sourceMappingURL=useRegisteredDragSource.mjs.map
+//# sourceMappingURL=useMonitorOutput.js.map
 
-//# sourceMappingURL=useRegisteredDropTarget.mjs.map
+//# sourceMappingURL=useOptionalFactory.js.map
 
-//# sourceMappingURL=wrapConnectorHooks.mjs.map
+//# sourceMappingURL=useRegisteredDragSource.js.map
+
+//# sourceMappingURL=useRegisteredDropTarget.js.map
+
+//# sourceMappingURL=wrapConnectorHooks.js.map
 
 /// ADVANCED USE ONLY: tracks input which has been matched so far for the lexer token under construction; this value is transferred to the parser as the 'token value' when the parser consumes the lexer token produced through a call to the `lex()` API.  
 
@@ -11418,8 +11136,6 @@ reference element's position.
 /// READ-ONLY EXTERNAL ACCESS - ADVANCED USE ONLY: tracks the 'cursor position' in the input string, i.e. the number of characters matched so far  
 
 //_signaled_error_token: this._signaled_error_token,
-
-//normal enviroments in sane situations
 
 //this.done = true;    -- don't set `done` as we want the lex()/next() API to be able to produce one custom EOF token match after this anyhow. (lexer can match special <<EOF>> tokens and perform user action code for a <<EOF>> match, but only does so *once*)
 

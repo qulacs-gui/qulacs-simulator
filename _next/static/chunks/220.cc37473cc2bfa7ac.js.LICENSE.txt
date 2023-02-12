@@ -7,6 +7,10 @@
        * <ins>A</ins><del>B</del>X<del>C</del>
        */
 
+/*
+ * TODO: python delimiters
+ */
+
 /* module decorator */
 
 /**
@@ -1551,10 +1555,6 @@
 
 //  PATCH FUNCTIONS
 
-// " string
-
-// ' string
-
 // '\x00' is a valid character, but various debuggers don't like it.
 
 // 'this' becomes 'window' in a closure.
@@ -2007,6 +2007,8 @@
 
 // as equal. See http://www.ecma-international.org/ecma-262/7.0/#sec-regexp.prototype.tostring
 
+// changing the value may create create a new session which will require annotations to be re-set
+
 // delta keeps track of the offset between the expected and actual location
 
 // despite having improperly defined `toString` methods.
@@ -2029,8 +2031,6 @@
 
 // error level.
 
-// float
-
 // for more details.
 
 // get a list of possible options to avoid 'misspelled option errors'
@@ -2039,7 +2039,7 @@
 
 // https://github.com/google/diff-match-patch/wiki/Unidiff
 
-// imaginary
+// if the value or annotations changed, set the annotations
 
 // in Safari 8-9 which returns 'object' for typed array and other constructors.
 
@@ -2049,25 +2049,11 @@
 
 // indices.
 
-// integer
-
 // integers and undefined.
 
 // just completed patch.
 
-// long integer
-
 // matches are found, increase the pattern length.
-
-// method
-
-// multi line """ string end
-
-// multi line """ string start
-
-// multi line ''' string end
-
-// multi line ''' string start
 
 // number of diffs equals number of characters, no commonality at all.
 
@@ -2110,5 +2096,3 @@
 // which can be shifted sideways to eliminate an equality.
 
 // with the reverse path.
-
-//TODO: nested {}
