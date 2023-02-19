@@ -162,6 +162,8 @@
 
 // EXTERNAL MODULE: ../../node_modules/@mui/material/Input/Input.js + 1 modules
 
+// EXTERNAL MODULE: ../../node_modules/@mui/material/InputAdornment/InputAdornment.js + 1 modules
+
 // EXTERNAL MODULE: ../../node_modules/@mui/material/Menu/Menu.js + 7 modules
 
 // EXTERNAL MODULE: ../../node_modules/@mui/material/MenuItem/MenuItem.js + 4 modules
@@ -225,8 +227,6 @@
 // EXTERNAL MODULE: ./src/ts/quantumCircuitTab/organisms/CircuitGateCollections/CircuitGateCollections.module.scss
 
 // EXTERNAL MODULE: ./src/ts/quantumCircuitTab/organisms/CircuitGateComposer/CircuitGateComposer.module.scss
-
-// EXTERNAL MODULE: ./src/ts/quantumCircuitTab/organisms/EditGateDialog/ParametricValueSlider/ParametricValueSlider.module.scss
 
 // EXTERNAL MODULE: ./src/ts/quantumCircuitTab/templates/QuantumCircuitTab.module.scss
 

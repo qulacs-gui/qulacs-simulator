@@ -1503,6 +1503,8 @@ reference element's position.
 
 /* no exception! */
 
+/* notranslate needed while Google Translate will not fix zero-width space issue */
+
 /* o */
 
 /* parseChildIndex */
@@ -7083,6 +7085,8 @@ reference element's position.
 
 // CONCATENATED MODULE: ../../node_modules/@mui/material/Input/inputClasses.js
 
+// CONCATENATED MODULE: ../../node_modules/@mui/material/InputAdornment/inputAdornmentClasses.js
+
 // CONCATENATED MODULE: ../../node_modules/@mui/material/InputBase/InputBase.js
 
 // CONCATENATED MODULE: ../../node_modules/@mui/material/List/List.js
@@ -8141,6 +8145,8 @@ reference element's position.
 
 // First, attempt with faster native method
 
+// Fix IE11 flexbox alignment. To remove at some point.
+
 // Fix IE11 issue, to remove at some point.
 
 // Fix IE11 width issue
@@ -9098,6 +9104,14 @@ reference element's position.
 // Style sheet was created without link: true and attached, in this case we
 
 // StyleSheet of the child has a higher specificity, because of the source order.
+
+// Styles applied to the root element if `disablePointerEvents={true}`.
+
+// Styles applied to the root element if `position="end"`.
+
+// Styles applied to the root element if `position="start"`.
+
+// Styles applied to the root element if `variant="filled"`.
 
 // Subtract b from a.
 
