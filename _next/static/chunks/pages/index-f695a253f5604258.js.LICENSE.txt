@@ -242,6 +242,8 @@
 
 // NOTE: MultiGateとControllQubitの間には置けない
 
+// NOTE: QuantumCircuitではこのゲートが挿入されることを想定していない
+
 // NOTE: ciruict側の量子ビット数を合わせる（減算はuseEffectで行われる）
 
 // NOTE: controllQubitの始点から終点までを消す
