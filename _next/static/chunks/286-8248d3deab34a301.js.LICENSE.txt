@@ -407,6 +407,10 @@
  */
 
 /*
+ * Need to make sure that buffer isn't trying to write out of bounds.
+ */
+
+/*
  * Return the first matched child by type, return null otherwise.
  * `type` must be a React.ComponentType
  */
@@ -1351,6 +1355,8 @@ reference element's position.
 
 /* eslint-disable import/prefer-default-export */
 
+/* eslint-disable no-proto */
+
 /* eslint-disable no-restricted-globals, @typescript-eslint/ban-ts-comment, @typescript-eslint/no-unused-vars, @typescript-eslint/no-non-null-assertion */
 
 /* eslint-disable no-restricted-syntax */
@@ -1599,6 +1605,13 @@ reference element's position.
 	http://jedwatson.github.io/classnames
 */
 
+/*!
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <https://feross.org>
+ * @license  MIT
+ */
+
 /*! Conditions:: INITIAL */
 
 /*! Production::    css_value : ANGLE */
@@ -1740,6 +1753,8 @@ reference element's position.
 /*! Rule::       \/ */
 
 /*! decimal.js-light v2.5.1 https://github.com/MikeMcl/decimal.js-light/LICENCE */
+
+/*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
 
 /*#__PURE__*/
 
@@ -4518,6 +4533,11 @@ reference element's position.
  */
 
 /**
+ * Creates a new filled Buffer instance.
+ * alloc(size[, fill[, encoding]])
+ **/
+
+/**
  * Creates a stack cache object to store key-value pairs.
  *
  * @private
@@ -4807,6 +4827,14 @@ reference element's position.
  */
 
 /**
+ * Equivalent to Buffer(num), by default creates a non-zero-filled Buffer instance.
+ * */
+
+/**
+ * Equivalent to SlowBuffer(num), by default creates a non-zero-filled Buffer instance.
+ */
+
+/**
  * Extracts a styles object with only props that contain function values.
  */
 
@@ -4833,6 +4861,15 @@ reference element's position.
 /**
  * Find attached sheet with the highest index.
  */
+
+/**
+ * Functionally equivalent to Buffer(arg, encoding) but throws a TypeError
+ * if value is a number.
+ * Buffer.from(str[, encoding])
+ * Buffer.from(array)
+ * Buffer.from(buffer)
+ * Buffer.from(arrayBuffer[, byteOffset[, length]])
+ **/
 
 /**
  * Generates string classKey based on the properties provided. It starts with the
@@ -5017,6 +5054,21 @@ reference element's position.
  *
  * @param {*} children `this.props.children`
  * @return {object} Mapping of key to child
+ */
+
+/**
+ * If `Buffer.TYPED_ARRAY_SUPPORT`:
+ *   === true    Use Uint8Array implementation (fastest)
+ *   === false   Print warning and recommend using `buffer` v4.x which has an Object
+ *               implementation (most compatible, even IE6)
+ *
+ * Browsers that support typed arrays are IE 10+, Firefox 4+, Chrome 7+, Safari 5.1+,
+ * Opera 11.6+, iOS 4.2+.
+ *
+ * We report that the browser does not support typed arrays if the are not subclassable
+ * using __proto__. Firefox 4-29 lacks support for adding new properties to `Uint8Array`
+ * (See: https://bugzilla.mozilla.org/show_bug.cgi?id=695438). IE 10 lacks support
+ * for __proto__ and has a buggy typed array implementation.
  */
 
 /**
@@ -5518,6 +5570,16 @@ reference element's position.
  * @param {Object} [options]
  * @return {String|Boolean}
  * @api public
+ */
+
+/**
+ * The Buffer constructor returns instances of `Uint8Array` that have their
+ * prototype changed to `Buffer.prototype`. Furthermore, `Buffer` is a subclass of
+ * `Uint8Array`, so the returned instances will have all the node `Buffer` methods
+ * and the `Uint8Array` methods. Square bracket notation works as expected -- it
+ * returns a single octet.
+ *
+ * The `Uint8Array` prototype remains unmodified.
  */
 
 /**
@@ -6499,6 +6561,12 @@ reference element's position.
 
 //    6. If remainder > divisor: remainder -= divisor, k++
 
+//    buffer.fill(buffer[, offset[, end]])
+
+//    buffer.fill(number[, offset[, end]])
+
+//    buffer.fill(string[, offset[, end]][, encoding])
+
 //   * https://github.com/react-dnd/react-dnd/issues/869
 
 //   * https://github.com/react-dnd/react-dnd/pull/928
@@ -6687,6 +6755,8 @@ reference element's position.
 
 // $FlowFixMe[prop-missing]: need a better way to handle this...
 
+// 'abxxcd' will be treated as 'ab')
+
 // 'type',
 
 // (also account for a userdef function which does not return any value: keep the token as is)
@@ -6717,7 +6787,17 @@ reference element's position.
 
 // - Lynx 2.8.7
 
+// - buffer - a Buffer to search
+
+// - byteOffset - an index into `buffer`; will be clamped to an int32
+
+// - dir - true for indexOf, false for lastIndexOf
+
+// - encoding - an optional encoding, relevant is val is a string
+
 // - iPad Safari 4.3
+
+// - val - a string, Buffer, or number
 
 // --------- END OF REPORT -----------
 
@@ -6767,6 +6847,8 @@ reference element's position.
 
 // 16.3+ will not execute our will-update method;
 
+// 2 leads in a row
+
 // 2. The child might render null.
 
 // 23px
@@ -6782,6 +6864,12 @@ reference element's position.
 // 96 is one less than the char code
 
 // <div ref={node => connectDragSource(connectDropTarget(node))}/>
+
+// =============
+
+// ===============
+
+// ================
 
 // @TODO bug prone logic
 
@@ -6837,6 +6925,8 @@ reference element's position.
 
 // ASAP was originally a nextTick shim included in Q. This was factored out
 
+// Access the stack to generate the error message including the error code
+
 // According to https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Representations
 
 // ActiveX objects in IE.
@@ -6864,6 +6954,8 @@ reference element's position.
 // Add methods to `Stack`.
 
 // Add remains of b.
+
+// Add the error code to the name to include it in the stack trace.
 
 // Add the next digit, k, to the result array.
 
@@ -6919,11 +7011,17 @@ reference element's position.
 
 // Are there any non-zero digits after the rounding digit?
 
+// Are we oob?
+
 // Argument reduction.
+
+// Arguments:
 
 // Array syntax {fallbacks: [{prop: value}]}
 
 // Array-as-queue is good enough here, since we are just dealing with exceptions.
+
+// ArrayBuffer or Uint8Array objects from other contexts (i.e. iframes) do not pass
 
 // As a workaround, use cWM and cWRP to invoke the new static lifecycle.
 
@@ -6946,6 +7044,8 @@ reference element's position.
 // Avoids applying same plugin twice, at least based on ref.
 
 // Background properties
+
+// Based on http://stackoverflow.com/a/22747272/680742, the browser with
 
 // Based on https://github.com/mourner/quickselect
 
@@ -6973,6 +7073,8 @@ reference element's position.
 
 // Browsers where the left scrollbar doesn't cause an issue report `0` for
 
+// Buffer#write(string)
+
 // Bump specificity to allow extending custom inputs
 
 // Bundle may contain multiple JSS versions at the same time. In order to identify
@@ -6980,6 +7082,8 @@ reference element's position.
 // But we should also take height into consideration
 
 // By explicitly using `prop-types` you are opting into new production behavior.
+
+// CHECK FUNCTIONS
 
 // CONCATENATED MODULE: ../../node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js
 
@@ -7695,6 +7799,8 @@ reference element's position.
 
 // CSS selector
 
+// CUSTOM ERRORS
+
 // Cache for the finalized classes value.
 
 // Cache for the last used classes prop pointer.
@@ -7720,6 +7826,8 @@ reference element's position.
 // Call this.constructor.gDSFP to support sub-classes.
 
 // Can this type generate exponential notation?
+
+// Can typed array instances can be augmented?
 
 // Cancel move in case some other element consumed a mouseup event and it was not fired.
 
@@ -7761,7 +7869,11 @@ reference element's position.
 
 // Coerce regexes to strings and treat strings, primitives and objects,
 
+// Coerce to Number.
+
 // Column properties
+
+// Common case.
 
 // Compare digit by digit.
 
@@ -7795,6 +7907,8 @@ reference element's position.
 
 // Convert sd to decimal places.
 
+// Copy 0 bytes; we're done
+
 // Correctly detect the Edge browser.
 
 // Correctly detect the Safari browser.
@@ -7808,6 +7922,8 @@ reference element's position.
 // Create and configure initial Decimal constructor.
 
 // Create cache key for current value.
+
+// Create lookup table for `toString('hex')`
 
 // Credit https://github.com/twbs/bootstrap/blob/488fd8afc535ca3a6ad4dc581f5e89217b6a36ac/js/src/util/scrollbar.js#L14-L18
 
@@ -7828,6 +7944,8 @@ reference element's position.
 // Decimal prototype methods
 
 // Decimal.prototype object
+
+// Decode in chunks to avoid "call stack size exceeded".
 
 // Default JSS instance.
 
@@ -8083,6 +8201,8 @@ reference element's position.
 
 // Emotion attaches all the styles as `__emotion_styles`.
 
+// Empty buffer means no match
+
 // Empty object will remove all currently defined props
 
 // Enable rule without name for inline styles.
@@ -8121,15 +8241,23 @@ reference element's position.
 
 // Fast path for small integers.
 
+// Fast path: If `val` fits into a single byte, use that numeric value.
+
+// Fatal error conditions
+
 // Filter out the `sx` style function from the previous styled component to prevent unnecessary styles generated by the composite components.
 
 // Finally call hover on all matching targets.
 
 // Finally, add the keys which didn't appear before any key in `next`
 
+// Finally, search either indexOf (if dir is true) or lastIndexOf
+
 // Find a plugin for current prefix property.
 
 // Find a position.
+
+// Finds either the first index of `val` in `buffer` at offset >= `byteOffset`,
 
 // Firefox 19+
 
@@ -8173,6 +8301,8 @@ reference element's position.
 
 // Font and text properties
 
+// For IE11 support
+
 // For SI-prefix, the suffix is lazily computed.
 
 // For each key of `next`, the list of keys to insert before that key in
@@ -8194,6 +8324,8 @@ reference element's position.
 // For significant precision, it must be in [1, 21].
 
 // For some reason the animation is broken on Mobile Chrome if the size is even.
+
+// Force coercion to uint32. This will also coerce falsey/NaN values to 0.
 
 // Forwarded Parser Analysis flags:
 
@@ -8245,11 +8377,15 @@ reference element's position.
 
 // Grid properties
 
+// HELPER FUNCTIONS
+
 // Hack to get children with a negative margin to not falsify the height computation.
 
 // Handle invocations in a tight loop.
 
 // Handle rules like @font-face, which can have multiple styles in an array
+
+// Handle string cases:
 
 // Hardcode test to convert "flex" to "-ms-flexbox" for IE10.
 
@@ -8324,6 +8460,8 @@ reference element's position.
 // If base 1e7 exponents differ...
 
 // If by this time no drag source reacted, tell browser not to drag.
+
+// If bytes.length is odd, the last 8 bits must be ignored (same as node.js)
 
 // If child drag source refuses drag but parent agrees,
 
@@ -8484,6 +8622,8 @@ reference element's position.
 // Interpolation in One Dimension. Astronomy and Astrophysics, Vol. 239, NO.
 
 // Invalid dates are coerced to `NaN`.
+
+// Invalid ranges are not set to a default, so can range check early.
 
 // Invoke the leading edge.
 
@@ -8669,9 +8809,21 @@ reference element's position.
 
 // No need to render an empty rule.
 
+// No need to verify that "this.length <= MAX_UINT32" since it's a read-only
+
 // No operation performed.
 
 // No vertical points are specified
+
+// Node allows for non-padded base64 strings (missing trailing ===), base64-js does not
+
+// Node converts strings with length < 2 to ''
+
+// Node strips out invalid characters like \n and \t from the string, base64-js does not
+
+// Node takes equal signs as end of the Base64 encoding
+
+// Node's code seems to be doing this and not & 0x7F..
 
 // Node.js 0.10 has enumerable non-index properties on buffers.
 
@@ -8679,7 +8831,13 @@ reference element's position.
 
 // Normalise xd and yd so highest order digit of yd is >= BASE/2
 
+// Normalize byteOffset
+
+// Normalize byteOffset: negative offsets start from the end of the buffer
+
 // Normalize loader to return the module as form { default: Component } for `React.lazy`.
+
+// Normalize val
 
 // Not all elements in IE11 have a focus method.
 
@@ -8691,11 +8849,17 @@ reference element's position.
 
 // Note that this is only kept for the edge case where someone is passing in a promise as first argument
 
+// Note: Change prototype *after* Buffer.from is defined to workaround Chrome bug:
+
+// Note: cannot use `length < K_MAX_LENGTH` here because that fails when
+
 // Note: the arrays are 1-based, while `len` itself is a valid index,
 
 // Now we are ready to publish the drag source.. or are we not?
 
 // Numbers with massively different exponents would result in a very high number of zeros
+
+// OR the last index of `val` in `buffer` at offset <= `byteOffset`.
 
 // Object syntax {fallbacks: {prop: value}}
 
@@ -8764,6 +8928,8 @@ reference element's position.
 // Outline properties
 
 // Over 80% of the iOS phones are compatible
+
+// Overflow
 
 // Padding properties
 
@@ -8955,6 +9121,8 @@ reference element's position.
 
 // Reset the array, or remove it completely if we have no more listeners.
 
+// Reset the name to the actual name.
+
 // Resets for multiple select with chips
 
 // Resize menu on `defaultOpen` automatic toggle.
@@ -8981,11 +9149,17 @@ reference element's position.
 
 // Return already prefixed value without prefixing.
 
+// Return an augmented `Uint8Array` instance
+
 // Return custom CSS variable without prefixing.
+
+// Return early if start > this.length. Done here to prevent potential uint32
 
 // Return false if setter was not successful.
 
 // Return false if value not supported.
+
+// Return not function with Error if BigInt not supported
 
 // Return the `$accept` rule's `$$` result, if available.
 
@@ -9035,7 +9209,11 @@ reference element's position.
 
 // Same logic as useAutocomplete.js
 
+// Search for a byte value [0-255]
+
 // Search for the interval x is in, returning the corresponding y if x is one of the original xs
+
+// Section 13.3.3.7 Runtime Semantics: KeyedBindingInitialization.
 
 // See also:
 
@@ -9050,6 +9228,16 @@ reference element's position.
 // See https://www.particleincell.com/2012/bezier-splines/ for derivation.
 
 // See:
+
+// See: https://en.wikipedia.org/wiki/Base64#URL_applications
+
+// See: https://github.com/beatgammit/base64-js/issues/42
+
+// See: https://github.com/feross/buffer/issues/154
+
+// See: https://github.com/feross/buffer/issues/166
+
+// See: https://github.com/feross/buffer/issues/219
 
 // Set absolute position to get the size of collapsed content
 
@@ -9066,6 +9254,8 @@ reference element's position.
 // Show user-specified drop effect.
 
 // Signs differ?
+
+// Simplified versions from Node, changed for Buffer-only usage
 
 // Since CSS.supports is supported on all but Edge@12 and IE and touch-action
 
@@ -9086,6 +9276,8 @@ reference element's position.
 // So we take precedent over the style of a native <a /> element.
 
 // Some random properties
+
+// Special case: looking for empty string/buffer always fails
 
 // Special optimization for only a single match.
 
@@ -9126,6 +9318,8 @@ reference element's position.
 // Subtract yd from xd.
 
 // Support CSSTOM.
+
+// Support decoding URL-safe base64 strings, as Node.js does.
 
 // Support for direct import(), eg: dynamic(import('../hello-world'))
 
@@ -9321,6 +9515,8 @@ reference element's position.
 
 // This also ensures a stable sort in V8 and other engines.
 
+// This behaves neither like String nor Uint8Array in that we set start/end
+
 // This doesn't work in IE11 due to https://github.com/facebook/react/issues/3751
 
 // This guarantees the loader is always resolved after preloading.
@@ -9356,6 +9552,8 @@ reference element's position.
 // This one MAY be empty; userland code should use the `upcomingInput` API to obtain more text which follows the 'lexer cursor position'...  
 
 // This prevents infinite rendering loop.
+
+// This property is used by `Buffer.isBuffer` (and the `is-buffer` npm package)
 
 // This shouldn't be necessary, but there are weird race conditions with
 
@@ -9394,6 +9592,8 @@ reference element's position.
 // Translate the node so it can't be seen on the screen.
 
 // Trim insignificant zeros.
+
+// Trim off extra bytes after placeholder bytes are found
 
 // Trims insignificant zeros, e.g., replaces 1.2000k with 1.2k.
 
@@ -9437,9 +9637,15 @@ reference element's position.
 
 // Update the ruleset cache as we apparently encountered a state change or just started lexing.
 
+// Usage:
+
 // Use !important to override the Modal inline-style.
 
 // Use `util.types` for Node.js 10+.
+
+// Use a for loop to avoid recursion
+
+// Use built-in when available, missing from IE11
 
 // Use computed style, here to get the real padding to add our scrollbar width.
 
@@ -9478,6 +9684,8 @@ reference element's position.
 // Value with a vendor prefix.
 
 // Visibility needed to hide the extra text area on iPads
+
+// Warning: maxLength not taken into account in base64Write
 
 // We accomplish this by signaling an 'error' token to be produced for the current
 
@@ -9522,6 +9730,8 @@ reference element's position.
 // We don't want to wait for the next render commit.
 
 // We fall back to timers in workers in most engines, and in foreground
+
+// We go 1 magnitude less, for safety
 
 // We might render an empty child.
 
@@ -9648,6 +9858,8 @@ reference element's position.
 // Works with iframes and any node types.
 
 // Write current value to cache.
+
+// Writing a hex string, for example, that contains invalid characters will
 
 // Zero.
 
@@ -9779,9 +9991,15 @@ reference element's position.
 
 // as this one delivers all parser internals ready for access by userland code.
 
+// assume utf8
+
+// avoid extra slice()
+
 // back into ASAP proper.
 
 // bad specificity issues may appear.
+
+// base64 is 4/3 + up to two characters of the original data
 
 // based on https://github.com/WICG/focus-visible/blob/v4.1.5/src/focus-visible.js
 
@@ -9804,6 +10022,8 @@ reference element's position.
 // but we keep the prototype.constructor and prototype.name assignment lines too for compatibility
 
 // by moving forward at least one character at a time IFF the (user-specified?) `parseError()`
+
+// byteOffset: it it's undefined, null, NaN, "foo", etc, search whole buffer
 
 // cache prefill method.
 
@@ -9838,6 +10058,8 @@ reference element's position.
 // case this parse() API method doesn't come with a `finally { ... }` block any more!
 
 // catch misc. parse failures:
+
+// cause everything after the first invalid character to be ignored. (e.g.
 
 // cf. https://www.w3.org/TR/html-aria/#docconformance
 
@@ -9877,6 +10099,8 @@ reference element's position.
 
 // cmp is -1.
 
+// coercion fail below.
+
 // coming from build/babel/plugins/react-loadable-plugin.js
 
 // component stays as a function. This condition makes sure that we do not interpolate functions
@@ -9899,9 +10123,13 @@ reference element's position.
 
 // contexts in the following browsers.
 
+// copies of the 'buffer' package in use. This method works even for Buffer
+
 // copy over the last transition props;
 
 // copy state
+
+// copy(targetBuffer, targetStart=0, sourceStart=0, sourceEnd=buffer.length)
 
 // create a containing block.
 
@@ -9965,6 +10193,10 @@ reference element's position.
 
 // empty
 
+// encode to utf16 (surrogate pair dance)
+
+// encode utf8
+
 // end of current subpath
 
 // error bar for horizontal charts, the x is fixed, y is a range value
@@ -9974,6 +10206,10 @@ reference element's position.
 // eslint-disable-line
 
 // eslint-disable-line no-empty
+
+// eslint-disable-line no-self-compare
+
+// eslint-disable-line no-unused-expressions
 
 // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -10065,6 +10301,8 @@ reference element's position.
 
 // frequency
 
+// from the name.
+
 // function makeRequestCallFromMessageChannel(callback) {
 
 // function makeRequestCallFromSetImmediate(callback) {
@@ -10078,6 +10316,8 @@ reference element's position.
 // get union set and add compatible prefix
 
 // getSnapshotBeforeUpdate(prevProps) {
+
+// go through the array every three bytes, we'll deal with trailing stuff later
 
 // goto new state = table[STATE][NONTERMINAL]
 
@@ -10158,6 +10398,8 @@ reference element's position.
 // https://github.com/emotion-js/emotion/blob/26ded6109fcd8ca9875cc2ce4564fee678a3f3c5/packages/styled/src/utils.js#L40
 
 // https://github.com/facebook/react/issues/20074
+
+// https://github.com/feross/buffer/pull/148
 
 // https://github.com/kriskowal/q/issues/396
 
@@ -10267,6 +10509,8 @@ reference element's position.
 
 // instanceof
 
+// instances that were created from another copy of the `buffer` package.
+
 // internals: defined here so the object *structure* doesn't get modified by parse() et al,
 
 // interpolate non-matching numbers
@@ -10284,6 +10528,8 @@ reference element's position.
 // is filled with the initial data specified by the modifier. This means
 
 // is supported on both Edge@12 and IE if CSS.supports is not available that means that
+
+// is surrogate component
 
 // is to add a scroll event listener that calls for a flush.
 
@@ -10327,11 +10573,15 @@ reference element's position.
 
 // k will be how many times the divisor goes into the current remainder.
 
+// last char was a lead
+
 // last index slot; we don't mind when other previously 
 
 // later be divided by this number, then separate out the power of 10 using
 
 // length
+
+// length is NaN (which is otherwise coerced to zero.)
 
 // less than 1y!
 
@@ -10397,6 +10647,8 @@ reference element's position.
 
 // multiply the argument by itself until the leading digits of the significand are 7, 8, 9,
 
+// must be multiple of 3
+
 // mutation observers, so that implementation is used instead.
 
 // n: the number of digits of w.
@@ -10413,6 +10665,8 @@ reference element's position.
 
 // no exit animation skip right to EXITED
 
+// no lead yet
+
 // node is `undefined` when user provided `nodeRef` prop
 
 // non-matching targets.
@@ -10422,6 +10676,8 @@ reference element's position.
 // not have MutationObservers.
 
 // not necessary (debounced to run at most once-per-tick)
+
+// not used by this implementation
 
 // note: ignores next directive
 
@@ -10489,6 +10745,8 @@ reference element's position.
 
 // overridden or used as an attack vector.
 
+// pad the end with zeros, but make sure to not forget the extra bytes
+
 // page's first load. Thankfully, this version of Safari supports
 
 // passing the preloaded promise of component to `React.lazy`.
@@ -10543,6 +10801,8 @@ reference element's position.
 
 // properties we need to feature test at runtime.
 
+// property of a typed array.
+
 // props priority: `inProps` > `contextProps` > `themeDefaultProps`
 
 // props.viewBox is sometimes generated every time -
@@ -10579,11 +10839,15 @@ reference element's position.
 
 // regular focus change.
 
+// reliably in a browserify context because there could be multiple different
+
 // remove cyclic references added to error info:
 
 // remove duplicated category
 
 // remove syncId
+
+// replacement char (U+FFFD) and advance only 1 byte
 
 // report exceptions through the parseError callback too, but keep the exception intact
 
@@ -10644,6 +10908,8 @@ reference element's position.
 // skip constant() and env()
 
 // slowing down the queue of pending tasks, we rethrow the error in a
+
+// so Buffer.isBuffer(Buffer.prototype) will be false
 
 // so if they don't have a tabindex attribute specifically set, assume it's 0.
 
@@ -10719,6 +10985,8 @@ reference element's position.
 
 // the JS engine itself can go and remove these statements when `yy` turns out to be unused in any action code!
 
+// the `instanceof` check but they should be treated as of that type.
+
 // the axis is a categorical axis
 
 // the bottom line
@@ -10744,6 +11012,8 @@ reference element's position.
 // the initial state tree.
 
 // the left line of |--|
+
+// the lowest limit is Chrome, with 0x10000 args.
 
 // the menu.
 
@@ -10807,6 +11077,8 @@ reference element's position.
 
 // to check if there is a `selected` item. We're looking for the last `selected`
 
+// to detect a Buffer instance. It's not possible to use `instanceof Buffer`
+
 // to enable drag and drop
 
 // to merit a non-consuming error handling action right now.
@@ -10820,6 +11092,8 @@ reference element's position.
 // to the result
 
 // to the top and bottom line count:
+
+// to their upper/lower bounds if the value passed is out of range.
 
 // to work around IE not supporting custom drag previews.
 
@@ -10847,11 +11121,17 @@ reference element's position.
 
 // unbounded. To prevent memory exhaustion, the task queue will periodically
 
+// undefined is handled specially as per ECMA-262 6th Edition,
+
 // undefined on initial render
 
 // under any circumstances.
 
+// unexpected trail
+
 // unless `do_not_describe` parameter is set, in which case a list of the raw, *numeric*,
+
+// unpaired lead
 
 // update animtaion
 
@@ -10866,6 +11146,10 @@ reference element's position.
 // use parent's node as drag image. Neither works in IE though.
 
 // used to test whether a single value is comparable.
+
+// valid lead
+
+// valid surrogate pair
 
 // value + (value + something) => (value + value) + something
 
@@ -10892,6 +11176,8 @@ reference element's position.
 // we can try to recover from a lexer error that `parseError()` did not 'recover' for us
 
 // we cannot recover from the error!
+
+// we did not generate a valid codePoint so insert a
 
 // we didn't create the domain from user's props above, so we need to calculate it
 

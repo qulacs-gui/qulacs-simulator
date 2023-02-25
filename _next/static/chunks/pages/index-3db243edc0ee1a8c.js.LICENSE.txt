@@ -48,6 +48,8 @@
 
 /* nanoid */
 
+/* provided dependency */
+
 /* selector */
 
 /* useDrag */
@@ -61,6 +63,8 @@
 /* useSetRecoilState */
 
 /* useSnackbar */
+
+/*! For license information please see index.js.LICENSE.txt */
 
 /*#__PURE__*/
 
