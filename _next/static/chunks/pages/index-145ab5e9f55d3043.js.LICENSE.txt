@@ -78,6 +78,10 @@
 
 // CONCATENATED MODULE: ./src/ts/complexAmplitudesTab/organisms/AmplitudesChart/index.tsx
 
+// CONCATENATED MODULE: ./src/ts/complexAmplitudesTab/organisms/HelpPopover/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/complexAmplitudesTab/templates/index.tsx
+
 // CONCATENATED MODULE: ./src/ts/constants/Form.ts
 
 // CONCATENATED MODULE: ./src/ts/constants/Gate.ts
@@ -158,17 +162,21 @@
 
 // EXTERNAL MODULE: ../../node_modules/@mui/icons-material/CodeRounded.js
 
+// EXTERNAL MODULE: ../../node_modules/@mui/icons-material/HelpOutlineRounded.js
+
 // EXTERNAL MODULE: ../../node_modules/@mui/material/Card/Card.js + 1 modules
 
 // EXTERNAL MODULE: ../../node_modules/@mui/material/Dialog/Dialog.js + 1 modules
 
 // EXTERNAL MODULE: ../../node_modules/@mui/material/DialogContent/DialogContent.js + 1 modules
 
+// EXTERNAL MODULE: ../../node_modules/@mui/material/IconButton/IconButton.js + 1 modules
+
 // EXTERNAL MODULE: ../../node_modules/@mui/material/Input/Input.js + 1 modules
 
 // EXTERNAL MODULE: ../../node_modules/@mui/material/InputAdornment/InputAdornment.js + 1 modules
 
-// EXTERNAL MODULE: ../../node_modules/@mui/material/Menu/Menu.js + 7 modules
+// EXTERNAL MODULE: ../../node_modules/@mui/material/Menu/Menu.js + 5 modules
 
 // EXTERNAL MODULE: ../../node_modules/@mui/material/MenuItem/MenuItem.js + 4 modules
 
@@ -201,6 +209,8 @@
 // EXTERNAL MODULE: ./node_modules/nanoid/index.browser.js
 
 // EXTERNAL MODULE: ./src/ts/codeViewTab/templates/CodeViewTab.module.scss
+
+// EXTERNAL MODULE: ./src/ts/complexAmplitudesTab/templates/ComplexAmplitudesTab.module.scss
 
 // EXTERNAL MODULE: ./src/ts/observableTab/molecules/EmptyGate/EmptyGate.module.scss
 

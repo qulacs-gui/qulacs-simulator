@@ -1,5 +1,7 @@
 .AppHeader_heading__W1R2i{flex-grow:1}
 .AmplitudesChart_tooltipWrapper__TDeOL{margin:0;padding:10px;background-color:#fff;border:1px solid #ccc;white-space:nowrap}.AmplitudesChart_tooltipLabel__hXlqF{margin:0}.AmplitudesChart_tooltipValue__7ddKW{color:#666}
+.HelpPopover_wrapper__6hN6X{padding:16px}.HelpPopover_phase__dEUgI{width:300px;height:30px;background:linear-gradient(90deg, hsl(180deg, 100%, 70%), hsl(240deg, 100%, 70%), hsl(300deg, 100%, 70%), hsl(0deg, 100%, 70%), hsl(60deg, 100%, 70%), hsl(120deg, 100%, 70%), hsl(180deg, 100%, 70%))}.HelpPopover_caption__NO0cd{display:flex;justify-content:space-between}
+.ComplexAmplitudesTab_wrapper__Mopv1{position:relative;height:100%}.ComplexAmplitudesTab_popover__thwyU{position:absolute;top:0;left:0;z-index:1}
 .RunButton_wrapper__O3LjR{margin-left:15px}
 .ChartContainer_control__ZBDdw{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;margin-top:5px}
 .ChartTabContainer_wrapper__yBkwl{position:relative;display:flex;flex-wrap:nowrap;justify-content:space-between;width:100%;height:100%}.ChartTabContainer_tab__bl9dv{width:33.3%;flex-basis:33.3%;flex-grow:1;padding:0 5px}
@@ -22,4 +24,4 @@
 .ParametricValueSlider_wrapper__F1Myu{display:flex;align-items:center;width:400px;padding-top:24px}.ParametricValueSlider_inputWrapper__74f3E{margin:0 0 20px 20px}
 .QuantumCircuitTab_wrapper__FYqSg{display:flex;flex-direction:column;height:100%}.QuantumCircuitTab_heading__EckJj{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}.QuantumCircuitTab_actions__DgSdi{margin-right:-8px}.QuantumCircuitTab_actions__DgSdi>button:not(:last-of-type){margin-right:2px}.QuantumCircuitTab_composer__ZPqxz{flex-grow:1;margin-top:32px}
 .UIStateTabContainer_wrapper___G6H6{position:relative;display:flex;flex-wrap:nowrap;justify-content:space-between;width:100%;height:100%}.UIStateTabContainer_tab__fDDXM{flex-grow:1;padding:0 5px}.UIStateTabContainer_circuitTab__ZkGud{width:55%;flex-basis:55%}.UIStateTabContainer_observableTab__jm1WI{width:45%;flex-basis:45%}
-.Home_wrapper__1h3zx{position:relative;display:flex;flex-direction:column;width:100%;height:calc(100vh - 48px);padding:10px}.Home_uiState__SjV35{position:relative;min-height:calc(100% - 300px);padding-bottom:10px;flex-shrink:0}.Home_charts__Jfxme{position:relative;height:300px;flex-shrink:0}
+.Home_wrapper__1h3zx{position:relative;display:flex;flex-direction:column;width:100%;min-height:calc(100vh - 48px);padding:10px}.Home_uiState__SjV35{position:relative;min-height:calc(100% - 300px);padding-bottom:10px;flex-shrink:0}.Home_charts__Jfxme{position:relative;height:300px;flex-shrink:0}
