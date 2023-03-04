@@ -18,8 +18,6 @@
 
 /* Line */
 
-/* QulacsGUISimulator.BrowserUIClient */
-
 /* RecoilRoot */
 
 /* ReferenceLine */
@@ -148,9 +146,9 @@
 
 // CONCATENATED MODULE: ./src/ts/utils/assertion.ts
 
-// CONCATENATED MODULE: ./src/ts/utils/formHelper.ts
-
 // CONCATENATED MODULE: ./src/ts/utils/math.ts
+
+// CONCATENATED MODULE: ./src/ts/utils/react/useUIClient.ts
 
 // ESM COMPAT FLAG
 
@@ -203,8 +201,6 @@
 // EXTERNAL MODULE: ../../node_modules/recharts/es6/component/ResponsiveContainer.js + 1 modules
 
 // EXTERNAL MODULE: ../../node_modules/recoil/es/index.js
-
-// EXTERNAL MODULE: ../simulator/lib/index.js
 
 // EXTERNAL MODULE: ./node_modules/nanoid/index.browser.js
 
@@ -269,6 +265,8 @@
 // NOTE: 上/下方向（ccnotは両方向）のいずれかに配置できるか確認する
 
 // NOTE: 同列以外はdropできない
+
+// TODO: 現状のGUIでは起動時に自動でwasmDriverをロードする
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
