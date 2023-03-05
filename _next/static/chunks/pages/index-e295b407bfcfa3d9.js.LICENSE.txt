@@ -104,6 +104,8 @@
 
 // CONCATENATED MODULE: ./src/ts/probabilityDistributionTab/organisms/ChartContainer/index.tsx
 
+// CONCATENATED MODULE: ./src/ts/probabilityDistributionTab/organisms/ProbabilitiesChart/index.tsx
+
 // CONCATENATED MODULE: ./src/ts/probabilityDistributionTab/organisms/RunButton/index.tsx
 
 // CONCATENATED MODULE: ./src/ts/probabilityDistributionTab/organisms/ScaleSelect/index.tsx
@@ -225,6 +227,8 @@
 // EXTERNAL MODULE: ./src/ts/organisms/UIStateTabContainer/UIStateTabContainer.module.scss
 
 // EXTERNAL MODULE: ./src/ts/probabilityDistributionTab/organisms/ChartContainer/ChartContainer.module.scss
+
+// EXTERNAL MODULE: ./src/ts/probabilityDistributionTab/organisms/ProbabilitiesChart/ProbabilitiesChart.module.scss
 
 // EXTERNAL MODULE: ./src/ts/probabilityDistributionTab/organisms/RunButton/RunButton.module.scss
 
