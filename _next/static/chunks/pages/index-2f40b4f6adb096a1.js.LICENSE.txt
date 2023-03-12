@@ -82,8 +82,6 @@
 
 // CONCATENATED MODULE: ./src/ts/constants/Form.ts
 
-// CONCATENATED MODULE: ./src/ts/constants/Gate.ts
-
 // CONCATENATED MODULE: ./src/ts/constants/GateType.ts
 
 // CONCATENATED MODULE: ./src/ts/expectationValueTab/organisms/ExpectationChart/index.tsx
@@ -192,10 +190,6 @@
 
 // EXTERNAL MODULE: ../../node_modules/react-dnd-html5-backend/dist/index.js + 12 modules
 
-// EXTERNAL MODULE: ../../node_modules/react-dnd/dist/core/DndProvider.js + 34 modules
-
-// EXTERNAL MODULE: ../../node_modules/react-dnd/dist/hooks/useDrag/useDrag.js + 9 modules
-
 // EXTERNAL MODULE: ../../node_modules/react/jsx-runtime.js
 
 // EXTERNAL MODULE: ../../node_modules/recharts/es6/chart/BarChart.js
@@ -205,6 +199,10 @@
 // EXTERNAL MODULE: ../../node_modules/recoil/es/index.js
 
 // EXTERNAL MODULE: ./node_modules/nanoid/index.browser.js
+
+// EXTERNAL MODULE: ./node_modules/react-dnd/dist/core/DndProvider.js + 34 modules
+
+// EXTERNAL MODULE: ./node_modules/react-dnd/dist/hooks/useDrag/useDrag.js + 9 modules
 
 // EXTERNAL MODULE: ./src/ts/codeViewTab/templates/CodeViewTab.module.scss
 

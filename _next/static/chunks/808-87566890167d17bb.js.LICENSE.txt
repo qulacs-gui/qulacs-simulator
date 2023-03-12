@@ -7691,54 +7691,6 @@ reference element's position.
 
 // CONCATENATED MODULE: ../../node_modules/react-dnd-html5-backend/dist/utils/js_utils.js
 
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/core/DndProvider.js
-
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useCollectedProps.js
-
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useCollector.js
-
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrag/DragSourceImpl.js
-
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrag/connectors.js
-
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrag/useDrag.js
-
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrag/useDragSource.js
-
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrag/useDragSourceConnector.js
-
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrag/useDragSourceMonitor.js
-
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrag/useDragType.js
-
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrag/useRegisteredDragSource.js
-
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrop/DropTargetImpl.js
-
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrop/connectors.js
-
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrop/useAccept.js
-
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrop/useDrop.js
-
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrop/useDropTarget.js
-
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrop/useDropTargetConnector.js
-
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrop/useDropTargetMonitor.js
-
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useDrop/useRegisteredDropTarget.js
-
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/hooks/useMonitorOutput.js
-
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/internals/DragSourceMonitorImpl.js
-
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/internals/DropTargetMonitorImpl.js
-
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/internals/SourceConnector.js
-
-// CONCATENATED MODULE: ../../node_modules/react-dnd/dist/internals/TargetConnector.js
-
 // CONCATENATED MODULE: ../../node_modules/react-smooth/es6/Animate.js
 
 // CONCATENATED MODULE: ../../node_modules/react-smooth/es6/AnimateGroup.js
@@ -7796,6 +7748,54 @@ reference element's position.
 // CONCATENATED MODULE: ../../node_modules/recharts/es6/util/DetectReferenceElementsDomain.js
 
 // CONCATENATED MODULE: ../../node_modules/redux/es/redux.js
+
+// CONCATENATED MODULE: ./node_modules/react-dnd/dist/core/DndProvider.js
+
+// CONCATENATED MODULE: ./node_modules/react-dnd/dist/hooks/useCollectedProps.js
+
+// CONCATENATED MODULE: ./node_modules/react-dnd/dist/hooks/useCollector.js
+
+// CONCATENATED MODULE: ./node_modules/react-dnd/dist/hooks/useDrag/DragSourceImpl.js
+
+// CONCATENATED MODULE: ./node_modules/react-dnd/dist/hooks/useDrag/connectors.js
+
+// CONCATENATED MODULE: ./node_modules/react-dnd/dist/hooks/useDrag/useDrag.js
+
+// CONCATENATED MODULE: ./node_modules/react-dnd/dist/hooks/useDrag/useDragSource.js
+
+// CONCATENATED MODULE: ./node_modules/react-dnd/dist/hooks/useDrag/useDragSourceConnector.js
+
+// CONCATENATED MODULE: ./node_modules/react-dnd/dist/hooks/useDrag/useDragSourceMonitor.js
+
+// CONCATENATED MODULE: ./node_modules/react-dnd/dist/hooks/useDrag/useDragType.js
+
+// CONCATENATED MODULE: ./node_modules/react-dnd/dist/hooks/useDrag/useRegisteredDragSource.js
+
+// CONCATENATED MODULE: ./node_modules/react-dnd/dist/hooks/useDrop/DropTargetImpl.js
+
+// CONCATENATED MODULE: ./node_modules/react-dnd/dist/hooks/useDrop/connectors.js
+
+// CONCATENATED MODULE: ./node_modules/react-dnd/dist/hooks/useDrop/useAccept.js
+
+// CONCATENATED MODULE: ./node_modules/react-dnd/dist/hooks/useDrop/useDrop.js
+
+// CONCATENATED MODULE: ./node_modules/react-dnd/dist/hooks/useDrop/useDropTarget.js
+
+// CONCATENATED MODULE: ./node_modules/react-dnd/dist/hooks/useDrop/useDropTargetConnector.js
+
+// CONCATENATED MODULE: ./node_modules/react-dnd/dist/hooks/useDrop/useDropTargetMonitor.js
+
+// CONCATENATED MODULE: ./node_modules/react-dnd/dist/hooks/useDrop/useRegisteredDropTarget.js
+
+// CONCATENATED MODULE: ./node_modules/react-dnd/dist/hooks/useMonitorOutput.js
+
+// CONCATENATED MODULE: ./node_modules/react-dnd/dist/internals/DragSourceMonitorImpl.js
+
+// CONCATENATED MODULE: ./node_modules/react-dnd/dist/internals/DropTargetMonitorImpl.js
+
+// CONCATENATED MODULE: ./node_modules/react-dnd/dist/internals/SourceConnector.js
+
+// CONCATENATED MODULE: ./node_modules/react-dnd/dist/internals/TargetConnector.js
 
 // CSS selector
 
@@ -8143,20 +8143,6 @@ reference element's position.
 
 // EXTERNAL MODULE: ../../node_modules/prop-types/index.js
 
-// EXTERNAL MODULE: ../../node_modules/react-dnd/dist/core/DndContext.js
-
-// EXTERNAL MODULE: ../../node_modules/react-dnd/dist/hooks/useCollectedProps.js + 2 modules
-
-// EXTERNAL MODULE: ../../node_modules/react-dnd/dist/hooks/useDragDropManager.js
-
-// EXTERNAL MODULE: ../../node_modules/react-dnd/dist/hooks/useIsomorphicLayoutEffect.js
-
-// EXTERNAL MODULE: ../../node_modules/react-dnd/dist/hooks/useOptionalFactory.js
-
-// EXTERNAL MODULE: ../../node_modules/react-dnd/dist/internals/isRef.js
-
-// EXTERNAL MODULE: ../../node_modules/react-dnd/dist/internals/registration.js
-
 // EXTERNAL MODULE: ../../node_modules/react-dom/index.js
 
 // EXTERNAL MODULE: ../../node_modules/react-smooth/node_modules/react-transition-group/index.js
@@ -8190,6 +8176,20 @@ reference element's position.
 // EXTERNAL MODULE: ../../node_modules/recharts/es6/util/LogUtils.js
 
 // EXTERNAL MODULE: ../../node_modules/recharts/es6/util/PolarUtils.js
+
+// EXTERNAL MODULE: ./node_modules/react-dnd/dist/core/DndContext.js
+
+// EXTERNAL MODULE: ./node_modules/react-dnd/dist/hooks/useCollectedProps.js + 2 modules
+
+// EXTERNAL MODULE: ./node_modules/react-dnd/dist/hooks/useDragDropManager.js
+
+// EXTERNAL MODULE: ./node_modules/react-dnd/dist/hooks/useIsomorphicLayoutEffect.js
+
+// EXTERNAL MODULE: ./node_modules/react-dnd/dist/hooks/useOptionalFactory.js
+
+// EXTERNAL MODULE: ./node_modules/react-dnd/dist/internals/isRef.js
+
+// EXTERNAL MODULE: ./node_modules/react-dnd/dist/internals/registration.js
 
 // Edge
 
