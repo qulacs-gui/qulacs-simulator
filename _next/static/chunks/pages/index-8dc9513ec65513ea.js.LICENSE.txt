@@ -112,8 +112,6 @@
 
 /*require.resolve*/
 
-// 1列目のみの場合は空オブザーバブルでも使う（min observableと同じ）
-
 // = S^dag = RZ(-pi/2)
 
 // CONCATENATED MODULE: ../simulator/lib/common/codeTextGenerator/circuit/qasm3/qasm3CircuitCodeGenerator.js
