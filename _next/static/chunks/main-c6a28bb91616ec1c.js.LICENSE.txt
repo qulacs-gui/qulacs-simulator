@@ -4,9 +4,47 @@
  Also adds support for deduplicated `key` properties
 */
 
+/*
+MIT License
+
+Copyright (c) Jason Miller (https://jasonformat.com/)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
 /* (ignored) */
 
-/* ["default"] */
+/* CSS minified from
+                body { margin: 0; color: #000; background: #fff; }
+                .next-error-h1 {
+                  border-right: 1px solid rgba(0, 0, 0, .3);
+                }
+
+                ${
+                  withDarkMode
+                    ? `@media (prefers-color-scheme: dark) {
+                  body { color: #fff; background: #000; }
+                  .next-error-h1 {
+                    border-right: 1px solid rgba(255, 255, 255, .3);
+                  }
+                }`
+                    : ''
+                }
+               */
+
+/* __next_internal_client_entry_do_not_use__  cjs */
+
+/* binding */
+
+/* global location */
+
+/* global window */
+
+/* harmony export */
 
 /*#__PURE__*/
 
@@ -101,21 +139,59 @@
  */
 
 /**
+ * For a given page path, this function ensures that there is a leading slash.
+ * If there is not a leading slash, one is added, otherwise it is noop.
+ */
+
+/**
+ * For a given page path, this function ensures that there is no backslash
+ * escaping slashes in the path. Example:
+ *  - `foo\/bar\/baz` -> `foo/bar/baz`
+ */
+
+/**
  * Getter for the Trusted Types Policy. If it is undefined, it is instantiated
  * here or set to null if Trusted Types is not supported in the browser.
  */
 
 /**
+ * Given a path this function will find the pathname, query and hash and return
+ * them. This is useful to parse full paths on the client side.
+ * @param path A path to parse e.g. /foo/bar?id=1#hash
+ */
+
+/**
  * Parses a given parameter from a route to a data structure that can be used
  * to generate the parametrized route. Examples:
- *   - `[...slug]` -> `{ name: 'slug', repeat: true, optional: true }`
- *   - `[foo]` -> `{ name: 'foo', repeat: false, optional: true }`
- *   - `bar` -> `{ name: 'bar', repeat: false, optional: false }`
+ *   - `[...slug]` -> `{ key: 'slug', repeat: true, optional: true }`
+ *   - `...slug` -> `{ key: 'slug', repeat: true, optional: false }`
+ *   - `[foo]` -> `{ key: 'foo', repeat: false, optional: true }`
+ *   - `bar` -> `{ key: 'bar', repeat: false, optional: false }`
+ */
+
+/**
+ * Removes the trailing slash for a given route or page path. Preserves the
+ * root page. Examples:
+ *   - `/foo/bar/` -> `/foo/bar`
+ *   - `/foo/bar` -> `/foo/bar`
+ *   - `/` -> `/`
+ */
+
+/**
+ * Run function with `scroll-behavior: auto` applied to `<html/>`.
+ * This css change will be reverted after the function finishes.
  */
 
 /**
  * Stores the Trusted Types Policy. Starts as undefined and can be set to null
  * if Trusted Types is not supported in the browser.
+ */
+
+/**
+ * These are the browser versions that support all of the following:
+ * static import: https://caniuse.com/es6-module
+ * dynamic import: https://caniuse.com/es6-module-dynamic-import
+ * import.meta: https://caniuse.com/mdn-javascript_operators_import_meta
  */
 
 /**
@@ -126,13 +202,6 @@
 /**
  * `App` component is used for initialize of pages. It allows for overwriting and full control of the `page` initialization.
  * This allows for keeping state between navigation, custom error handling, injecting additional data.
- */
-
-/**
- * transforms the ParsedUrlQuery into a URLSearchParams.
- *
- * @param query the query to transform
- * @returns URLSearchParams
  */
 
 /** Execute after the script first loaded */
@@ -151,6 +220,18 @@
 
 //    must be appended for fetching to start.
 
+//   /blog -> true
+
+//   /blog/ -> true
+
+//   /blog/1 -> true
+
+//   /blogging -> false
+
+//   /blogging/ -> false
+
+//   /blogging/1 -> false
+
 //  1. Page doesn't exists
 
 //  1. With older safari (< 8) and older chrome (< 34)
@@ -160,6 +241,18 @@
 //  2. When the URL changed with #
 
 //  3. Internal error while loading the page
+
+// "Software"), to deal in the Software without restriction, including
+
+// "asset path" being its javascript file, data file, prerendered html,...
+
+// (.) indicates that we should match with sibling routes, so we just need to append the intercepted route to the intercepting route
+
+// (..) indicates that we should match at one level up, so we need to remove the last segment of the intercepting route
+
+// (..)(..) indicates that we should match at two levels up, so we need to remove the last two segments of the intercepting route
+
+// (...) will match the route segment in the root directory, so we need to use the root directory to prepend the intercepted route
 
 // (as it's already changed)
 
@@ -181,8 +274,6 @@
 
 // 3. Finally, set the source and inject into the DOM in case the child
 
-// 3.8s was arbitrarily chosen as it's what https://web.dev/interactive
-
 // 404 and 500 errors are special kind of errors
 
 // > For maximum browser compatibility when it comes to sending &
@@ -203,9 +294,13 @@
 
 // Actually, for (1) we don't need to nothing. But it's hard to detect that event.
 
+// Add the locale prefix to the path.
+
 // Add this attribute to make it easy to identify optimized tags
 
 // Adds support for React.Fragment
+
+// After 25 reconnects we'll want to reload the page as it indicates the dev server is no longer running.
 
 // And since your PR passed through `slugName` as an array basically it'd including it in too many possibilities
 
@@ -217,6 +312,22 @@
 
 // But we can simply replace the state with the new changes.
 
+// Can't trim the basePath if it has zero length!
+
+// Case 1: Styles for afterInteractive/lazyOnload with appDir injected via handleClientScriptLoad
+
+// Case 1: Styles for beforeInteractive/worker with appDir - handled here
+
+// Case 2: Styles for afterInteractive/lazyOnload with pages injected via handleClientScriptLoad
+
+// Case 2: Styles for beforeInteractive/worker with pages dir - Not handled yet
+
+// Case 3: Styles for afterInteractive/lazyOnload with appDir - handled here
+
+// Case 4: Styles for afterInteractive/lazyOnload with pages dir - handled in insertStylesheets function
+
+// Casting since lib.dom.d.ts doesn't have TrustedHTML yet.
+
 // Changing the URL doesn't block executing the current code path.
 
 // Check again the cache with the new destination.
@@ -225,17 +336,25 @@
 
 // Check only path match on client. Matching "has" should be done on server
 
+// Coerce into HMR_ACTION_TYPES as that is the format.
+
 // Combines timestamp with random number for unique ID
 
 // Contents of this script are already loading/loaded
 
 // Context is available only during SSR
 
+// Convert router.asPath to a URLSearchParams object
+
 // Cookies are required to be present for Next.js' SSG "Preview Mode".
 
 // Cookies may also be required for `getServerSideProps`.
 
-// Create public properties and methods of the router in the singletonRouter
+// Copyright Joyent, Inc. and other Node contributors.
+
+// Create a memoized value for next/navigation router context.
+
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 
 // Decode hash to make non-latin anchor works.
 
@@ -247,11 +366,15 @@
 
 // Eg you can't have pages/[post]/abc.js and pages/[hello]/something-else.js
 
+// Empty segments are ignored.
+
 // Ensure this render was not canceled
 
 // Events is a static property on the router, the router doesn't have to be initialized to use it
 
 // Every time the path changes, announce the new page’s title following this
+
+// Export the singletonRouter and this is the public API.
 
 // Fall back to reading the values from the href
 
@@ -267,19 +390,41 @@
 
 // For non-SSG prefetches that bailed before sending data
 
+// For other strategies injecting here ensures correct stylesheet order
+
+// For prefix: /blog
+
 // For the app directory, we need React Float to preload these scripts.
+
+// Format function modified from nodejs
+
+// Groups are ignored.
 
 // Here the `root` gets injected multiple paths, and insert will break them up into sublevels
 
 // Here we need to use Object.defineProperty because we need to return
 
+// I am keeping the process check explicit so this can be statically optimized
+
 // Identify /[param]/ in route string
 
 // If asked to change the current URL we should reload the current page
 
+// If no locale was given or the locale is the default locale, we don't need
+
+// If provided, use the locale route normalizer to detect the locale instead
+
 // If the downstream application returns falsy, return.
 
+// If the path doesn't start with the prefix we can return it as is. This
+
 // If the path hasn't change, we do nothing.
+
+// If the path is an API path or the path already has the locale prefix, we
+
+// If the path without the prefix doesn't start with a `/` we need to add it
+
+// If the path without the prefix starts with a `/` we can return it as is.
 
 // If the routeInfo brings a redirect we simply apply it.
 
@@ -299,6 +444,8 @@
 
 // If we fail to resolve the page list or client-build manifest, we must
 
+// If we have a deployment ID, we need to append it to the webpack chunk names
+
 // If we have a match with the current route due to rewrite,
 
 // If we've gotten here upon initial render, we can use the props from the server.
@@ -315,6 +462,8 @@
 
 // Initialize next/config with the environment configuration
 
+// Injecting stylesheets here handles beforeInteractive and worker scripts correctly
+
 // Instead what has to be passed through is the upwards path's dynamic names
 
 // Interpolate group into data URL if present
@@ -323,9 +472,17 @@
 
 // It may change at any time without notice.
 
+// It's been edited for the needs of this script
+
 // JavaScript bundle unless explicitly enabled in your application.
 
+// Keep file changes in sync with the corresponding `.d.ts` files.
+
 // License: Apache 2.0
+
+// Load styles associated with this script
+
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
 
 // Make sure we don't re-render on initial load,
 
@@ -337,7 +494,15 @@
 
 // More info here: https://github.com/vercel/next.js/issues/40719#issuecomment-1336248042
 
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+
 // No prefetches for bots that render the link since they are typically navigating
+
+// Note: This file is JS because it's used by the taskfile-swc.js file, which is JS.
+
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 
 // On initial render a hydrate should always happen
 
@@ -359,9 +524,19 @@
 
 // Passing the empty string here should be safe against future changes to the method.
 
+// Permission is hereby granted, free of charge, to any person obtaining a
+
 // Promise. It should remain synchronous.
 
+// Re-inject styles here to handle scripts loaded via handleClientScriptLoad
+
 // React children can be "string" or "number" in this case we ignore them for backwards compat
+
+// ReactDOM.preinit handles dedup and ensures the styles are loaded only once
+
+// ReactDOM.preinit handles loading the styles in the correct order,
+
+// Remove the prefix from the path via slicing.
 
 // Reorder styles into intended order:
 
@@ -385,6 +560,8 @@
 
 // Scroll to top if the hash is just `#` with no value or `#top`
 
+// See the LICENSE at the top of the file
+
 // Server Background Cache (HEAD requests)
 
 // Server Data Cache (full data requests)
@@ -405,21 +582,27 @@
 
 // So, doing the following for (1) does no harm.
 
-// So, this is how we do it in the client side at runtime
-
 // Strip `...`, leaving only `something`
 
 // Strip `[` and `]`, leaving only `something`
 
 // Strip optional `[` and `]`, leaving only `something`
 
+// Stylesheets might have already been loaded if initialized with Script component
+
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+
 // TODO(prateekbh@): Replace this with const from `constants` when the tree shaking works.
+
+// TODO-APP: add more serious validation
 
 // TODO: Remove shouldHydrate variable when React 18 is stable as it can depend on `reactRoot` existing
 
 // TODO: Should be remove the following major version as it was never documented
 
 // TODO: This error seems to be confusing for users, needs an error link, the description can be based on above comment.
+
+// TODO: Use React float APIs to load styles once available for pages dir
 
 // TODO: do we need the resolved href when only a hash change?
 
@@ -428,6 +611,12 @@
 // TODO: should this take priority; also need to change in the router.
 
 // The `router.asPath` contains the pathname seen by the browser (including
+
+// The above copyright notice and this permission notice shall be included
+
+// The build manifest needs to be loaded before auto-static dynamic pages
+
+// The last segment (if it's a leaf) should be ignored.
 
 // The next segment in the urlPaths list
 
@@ -445,7 +634,11 @@
 
 // This code is not shipped, executed, or present in the client-side
 
+// This file is based on https://github.com/developit/mitt/blob/v1.1.3/src/index.js
+
 // This function has a return type to ensure it doesn't start returning a
+
+// This has to be a shared module which is shared between client component error boundary and dynamic component
 
 // This is ensured by keeping the last unflushed `updateHead` in the `_pendingUpdate`
 
@@ -457,13 +650,23 @@
 
 // Toggle `<style>` tags on or off depending on if they're needed:
 
+// Translates a logical route into its pages asset path (relative from a common prefix)
+
+// Try again after 5 seconds
+
 // URL as this can end up with an infinite refresh
+
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 // Unlike with createRoot, you don't need a separate root.render() call here
 
 // Update function if it changes:
 
+// Use array[0] for performant purpose
+
 // Use the destination from redirect without adding locale
+
+// Using ReactDOM.preinit to feature detect appDir and inject styles
 
 // Using default react onRecoverableError
 
@@ -495,6 +698,8 @@
 
 // We use `useLayoutEffect` to guarantee the callbacks are executed
 
+// We use this function to load styles when appdir is not detected
+
 // We wait for pages to be built in dev before we start the route transition
 
 // When `isAutoExport` is true, meaning this is a page page has been
@@ -507,17 +712,19 @@
 
 // When this feature is enabled, we'll make it very clear by printing a
 
-// With dynamic assetPrefix it's no longer possible to set assetPrefix at the build time
-
 // __NA is used to identify if the history entry can be handled by the app-router.
 
 // `asPath` option over at:
 
 // `href` should always be last:
 
+// a hard navigation
+
 // absolute urls can be local if they are on the same origin
 
 // add cacheKey to LoadCache when load successfully
+
+// also ensures the stylesheet is loaded only once and in a consistent manner
 
 // and they are still handle via the main render method.
 
@@ -533,11 +740,15 @@
 
 // as this should not go into the history (That's how browsers work)
 
+// assetPrefix is a url
+
 // at:
 
 // automatically statically optimized, and the router is not ready, then
 
 // back from external site
+
+// back to the path to make sure it's a valid path.
 
 // basePath from the pathname to match the pages dir 1-to-1
 
@@ -571,11 +782,13 @@
 
 // come again to the errored page.
 
-// considers as "Good" time-to-interactive. We must assume something went
-
 // copied to prevent pulling in un-necessary utils
 
+// copy of this software and associated documentation files (the
+
 // determine if we need to stop showing the pathname.
+
+// distribute, sublicense, and/or sell copies of the Software, and to permit
 
 // do a server-side transition:
 
@@ -583,11 +796,17 @@
 
 // don't cause any hydration delay:
 
+// don't need to prefix the path.
+
 // during query updating the page must match although during
+
+// effects
 
 // ensure statusCode is still correct for static 500 page
 
 // ensure we don't trigger a hard navigation to the same
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 // eslint-disable-next-line @typescript-eslint/no-use-before-define
 
@@ -595,13 +814,19 @@
 
 // eslint-disable-next-line default-case
 
+// example: /dynamic/[slug]?foo=bar -> { foo: 'bar' }
+
 // fallback to / for invalid asPath values e.g. //
 
 // firefox
 
 // first item will be empty string from splitting at first char
 
+// following conditions:
+
 // for static pages with query params in the URL we delay
+
+// get their query parameters to allow ensuring they can be parsed properly
 
 // handle SSG data 404
 
@@ -609,13 +834,15 @@
 
 // handle resolving href for dynamic routes
 
-// https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+// https://developer.mozilla.org/docs/Web/API/Fetch_API/Using_Fetch
 
-// https://developer.mozilla.org/en-US/docs/Web/API/History/replaceState
+// https://developer.mozilla.org/docs/Web/API/History/replaceState
 
 // https://github.com/GoogleChromeLabs/quicklink/blob/453a661fa1fa940e2d2e044452398e38c67a98fb/src/index.mjs#L115-L118
 
 // https://github.com/github/fetch#caveats
+
+// https://github.com/sindresorhus/modern-normalize/blob/main/modern-normalize.css#L38-L52
 
 // https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe
 
@@ -631,11 +858,23 @@
 
 // if a route transition is already in progress before
 
+// if any sub-path of as matches a dynamic filter path
+
 // if auto prerendered and dynamic route wait to update asPath
 
 // if none of these exist, then the pathname from the URL. This methodology is
 
+// if only the hash is changed, we don't need to disable smooth scrolling
+
+// if the client router filter is matched then we trigger
+
 // if the origin didn't change, it means we received a relative href
+
+// if the segment has an interception marker, make sure that's part of the regex pattern
+
+// if we detected the path as app route during prefetching
+
+// in all copies or substantial portions of the Software.
 
 // in order for `e.state` to work on the `onpopstate` event
 
@@ -650,6 +889,8 @@
 // invalid and will never match a Next.js page/file
 
 // isAutoExport is only ever `true` on the first render from the server,
+
+// it should be hard navigated
 
 // it won't be inlined. In this case revert to the original behavior
 
@@ -673,6 +914,8 @@
 
 // make sure to ignore extra popState in safari on navigating
 
+// mark end of hydration
+
 // mark end of render
 
 // mark start of hydrate/render
@@ -685,6 +928,8 @@
 
 // middleware can skip cache per request with
 
+// minimal implementation MurmurHash2 hash function
+
 // nextSegment is overwritten to [...] so that it can later be sorted specifically
 
 // nextSegment is overwritten to [[...]] so that it can later be sorted specifically
@@ -694,6 +939,8 @@
 // not shallow.
 
 // of native <script> tags, because they no longer have `defer`.
+
+// of the function below.
 
 // optimization at:
 
@@ -707,15 +954,21 @@
 
 // path delimiter escaped since they are being inserted
 
+// persons to whom the Software is furnished to do so, subject to the
+
 // point by either next/link or router.push/replace so strip the
 
 // prefetches.
+
+// prefix such as:
 
 // prevent a hydration mismatch on href for url with anchor refs
 
 // priority: first the document title (from head), otherwise the first h1, or
 
 // proper way to access it
+
+// protects us from situations where the prefix is a substring of the path
 
 // query parameters. Route changes here might add the basePath when it
 
@@ -743,8 +996,6 @@
 
 // shallow routing is only allowed for same page URL changes.
 
-// show the user something of value.
-
 // singleton in the layout effect pass, and actually trigger it in the effect pass.
 
 // slugName is kept as it can only be one particular slugName
@@ -756,6 +1007,8 @@
 // the URL).
 
 // the named regex
+
+// the non-intercepted route (ie /app/(.)[username] should not match /app/[username])
 
 // the path, so return `null` here. Read more about fallback pages over
 
@@ -769,17 +1022,27 @@
 
 // this cache entry
 
+// this is to ensure that the route with the interception marker doesn't incorrectly match
+
 // throw an error as it's considered invalid
 
 // timeout to prevent an un-necessary hard navigation in development.
 
+// to prefix the path.
+
 // toggle the correct styles before the page is rendered.
+
+// trigger hard navigation
+
+// tslint:disable:no-console
 
 // unless it is a fallback route and the props can't
 
 // unless we're in production:
 
 // until after mount to prevent hydration mismatch
+
+// update pathname with normalized if enabled although
 
 // update query on mount for exported pages
 
@@ -809,7 +1072,11 @@
 
 // we need to resolve the as value using rewrites for dynamic SSG
 
+// we only care to prevent smooth scrolling when navigating to a new page to avoid jarring UX
+
 // we use a dummy base url for relative urls
+
+// we use normalized to populate locale info still
 
 // we'll format them into the string version here.
 
@@ -818,6 +1085,10 @@
 // when called from _app `ctx` is nested in `ctx`
 
 // when parsing dynamic route params
+
+// when rendering error routes we don't apply middleware
+
+// when rewritten to
 
 // when skipping client cache we wait to update
 
@@ -833,7 +1104,7 @@
 
 // without blocking navigation when stale data is available
 
-// wrong beyond this point, and then fall-back to a full page transition to
+// without limitation the rights to use, copy, modify, merge, publish,
 
 // x-middleware-cache: no-cache as well
 
@@ -851,9 +1122,23 @@
 
 //# sourceMappingURL=amp-mode.js.map
 
+//# sourceMappingURL=app-paths.js.map
+
+//# sourceMappingURL=as-path-to-search-params.js.map
+
+//# sourceMappingURL=bloom-filter.js.map
+
 //# sourceMappingURL=compare-states.js.map
 
+//# sourceMappingURL=constants.js.map
+
 //# sourceMappingURL=denormalize-page-path.js.map
+
+//# sourceMappingURL=deployment-id.js.map
+
+//# sourceMappingURL=detect-domain-locale.js.map
+
+//# sourceMappingURL=ensure-leading-slash.js.map
 
 //# sourceMappingURL=escape-regexp.js.map
 
@@ -865,9 +1150,17 @@
 
 //# sourceMappingURL=get-next-pathname-info.js.map
 
+//# sourceMappingURL=handle-smooth-scroll.js.map
+
 //# sourceMappingURL=has-base-path.js.map
 
+//# sourceMappingURL=head.js.map
+
 //# sourceMappingURL=index.js.map
+
+//# sourceMappingURL=interception-routes.js.map
+
+//# sourceMappingURL=interpolate-as.js.map
 
 //# sourceMappingURL=is-api-route.js.map
 
@@ -877,21 +1170,33 @@
 
 //# sourceMappingURL=is-error.js.map
 
+//# sourceMappingURL=is-local-url.js.map
+
 //# sourceMappingURL=is-plain-object.js.map
 
 //# sourceMappingURL=mitt.js.map
+
+//# sourceMappingURL=no-ssr-error.js.map
 
 //# sourceMappingURL=normalize-locale-path.js.map
 
 //# sourceMappingURL=normalize-path-sep.js.map
 
+//# sourceMappingURL=normalize-trailing-slash.js.map
+
+//# sourceMappingURL=omit.js.map
+
 //# sourceMappingURL=on-recoverable-error.js.map
+
+//# sourceMappingURL=page-loader.js.map
 
 //# sourceMappingURL=parse-path.js.map
 
 //# sourceMappingURL=parse-relative-url.js.map
 
 //# sourceMappingURL=path-has-prefix.js.map
+
+//# sourceMappingURL=performance-relayer.js.map
 
 //# sourceMappingURL=querystring.js.map
 
@@ -903,12 +1208,36 @@
 
 //# sourceMappingURL=remove-trailing-slash.js.map
 
+//# sourceMappingURL=report-to-socket.js.map
+
+//# sourceMappingURL=request-idle-callback.js.map
+
+//# sourceMappingURL=resolve-href.js.map
+
+//# sourceMappingURL=route-announcer.js.map
+
 //# sourceMappingURL=route-loader.js.map
 
 //# sourceMappingURL=route-matcher.js.map
 
 //# sourceMappingURL=route-regex.js.map
 
+//# sourceMappingURL=router.js.map
+
+//# sourceMappingURL=runtime-config.external.js.map
+
+//# sourceMappingURL=script.js.map
+
+//# sourceMappingURL=segment.js.map
+
+//# sourceMappingURL=side-effect.js.map
+
 //# sourceMappingURL=sorted-routes.js.map
+
+//# sourceMappingURL=tracer.js.map
+
+//# sourceMappingURL=utils.js.map
+
+//# sourceMappingURL=websocket.js.map
 
 //# sourceMappingURL=with-router.js.map

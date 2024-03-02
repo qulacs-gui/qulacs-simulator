@@ -1,0 +1,481 @@
+/* Bar */
+
+/* BarChart */
+
+/* CartesianGrid */
+
+/* Cell */
+
+/* ComposedChart */
+
+/* Controller */
+
+/* DefaultValue */
+
+/* DndProvider */
+
+/* FormProvider */
+
+/* HTML5Backend */
+
+/* Label */
+
+/* Line */
+
+/* RecoilRoot */
+
+/* ReferenceLine */
+
+/* ResponsiveContainer */
+
+/* Scatter */
+
+/* SnackbarProvider */
+
+/* Tooltip */
+
+/* XAxis */
+
+/* YAxis */
+
+/* atom */
+
+/* binding */
+
+/* default */
+
+/* default.NEVER */
+
+/* default.ZodIssueCode */
+
+/* default.object */
+
+/* default.string */
+
+/* enum */
+
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+
+/* eslint-disable no-nested-ternary */
+
+/* eslint-enable no-nested-ternary */
+
+/* harmony default export */
+
+/* import() */
+
+/* nanoid */
+
+/* number */
+
+/* object */
+
+/* provided dependency */
+
+/* record */
+
+/* selector */
+
+/* string */
+
+/* useDrag */
+
+/* useDrop */
+
+/* useForm */
+
+/* useFormContext */
+
+/* useRecoilState */
+
+/* useRecoilValue */
+
+/* useRecoilValueLoadable */
+
+/* useSetRecoilState */
+
+/* useSnackbar */
+
+/* zodResolver */
+
+/*! For license information please see index.js.LICENSE.txt */
+
+/*#__PURE__*/
+
+/**
+ * レスポンスのpropertiesを受け取ってqasm順序の基底とカウントのマップにして返す
+ */
+
+/******/
+
+/***/
+
+/*require.resolve*/
+
+// 1列目のみの場合は空オブザーバブルでも使う（min observableと同じ）
+
+// = S^dag = RZ(-pi/2)
+
+// CONCATENATED MODULE: ../simulator/lib/common/codeTextGenerator/circuit/qasm3/qasm3CircuitCodeGenerator.js
+
+// CONCATENATED MODULE: ../simulator/lib/common/utils/api/apiHelper.js
+
+// CONCATENATED MODULE: ../simulator/lib/common/utils/api/apiUtil.js
+
+// CONCATENATED MODULE: ../simulator/lib/common/utils/api/type.js
+
+// CONCATENATED MODULE: ./src/ts/api/client.ts
+
+// CONCATENATED MODULE: ./src/ts/constants/Color.ts
+
+// CONCATENATED MODULE: ./src/ts/constants/GateType.ts
+
+// CONCATENATED MODULE: ./src/ts/shared/atoms/ContextMenu/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/shared/atoms/Gate/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/shared/atoms/Loading/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/shared/atoms/Tab/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/shared/molecules/DraggableGate/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/shared/molecules/GateLabels/AddGateLabelsButton/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/shared/molecules/GateLabels/RemoveGateLabelsButton/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/shared/organisms/APISettingsDialog/CloudAPIForm/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/shared/organisms/APISettingsDialog/CloudAPIList/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/shared/organisms/AppHeader/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/shared/organisms/ChartTabContainer/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/shared/organisms/CodeViewDialog/presentation.tsx
+
+// CONCATENATED MODULE: ./src/ts/shared/organisms/CopyButton/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/shared/organisms/EditCodeButton/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/shared/organisms/EditCodeDialog/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/shared/organisms/ResetComposerButton/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/shared/organisms/UIStateTabContainer/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/shared/providers/DndProvider/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/shared/providers/ErrorBoudary/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/shared/providers/SnackbarProvider/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/stores/cloudAPIState.ts
+
+// CONCATENATED MODULE: ./src/ts/tabs/complexAmplitudesTab/organisms/AmplitudesChart/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/tabs/complexAmplitudesTab/organisms/HelpPopover/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/tabs/complexAmplitudesTab/templates/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/tabs/observableTab/molecules/EmptyGate/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/tabs/observableTab/organisms/GateCollections/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/tabs/observableTab/organisms/GateInput/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/tabs/observableTab/templates/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/tabs/probabilityDistributionTab/organisms/ChartContainer/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/tabs/probabilityDistributionTab/organisms/ProbabilitiesChart/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/tabs/probabilityDistributionTab/organisms/RunButton/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/tabs/probabilityDistributionTab/organisms/ScaleSelect/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/tabs/quantumCircuitTab/molecules/DroppableMultiGate/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/tabs/quantumCircuitTab/molecules/DroppableParametricGate/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/tabs/quantumCircuitTab/molecules/EmptyGate/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/tabs/quantumCircuitTab/molecules/QubitGate/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/tabs/quantumCircuitTab/organisms/CircuitGateCollections/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/tabs/quantumCircuitTab/organisms/CircuitGateFilter/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/tabs/quantumCircuitTab/organisms/EditGateDialog/ParametricValueSlider/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/tabs/quantumCircuitTab/organisms/FilterToggleButton/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/tabs/quantumCircuitTab/templates/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/tabs/runOnCloudTab/organisms/CloudActions/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/tabs/runOnCloudTab/organisms/CloudResult/CloudResultInfo/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/tabs/runOnCloudTab/organisms/CloudResult/CloudResultList/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/tabs/runOnCloudTab/organisms/CloudSettingsForm/APISelect/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/tabs/runOnCloudTab/organisms/CloudSettingsForm/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/tabs/runOnCloudTab/organisms/JobQueueProvider/useGetJob.ts
+
+// CONCATENATED MODULE: ./src/ts/tabs/runOnCloudTab/templates/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/templates/Home/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/utils/assertion.ts
+
+// CONCATENATED MODULE: ./src/ts/utils/react/useUIClient.ts
+
+// ESM COMPAT FLAG
+
+// EXPORTS
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@aspida+fetch@1.14.0_aspida@1.14.0/node_modules/@aspida/fetch/dist/esm/index.js + 1 modules
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+icons-material@5.15.4_@mui+material@5.15.4_@types+react@18.2.47_react@18.2.0/node_modules/@mui/icons-material/Add.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+icons-material@5.15.4_@mui+material@5.15.4_@types+react@18.2.47_react@18.2.0/node_modules/@mui/icons-material/AddRounded.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+icons-material@5.15.4_@mui+material@5.15.4_@types+react@18.2.47_react@18.2.0/node_modules/@mui/icons-material/CodeRounded.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+icons-material@5.15.4_@mui+material@5.15.4_@types+react@18.2.47_react@18.2.0/node_modules/@mui/icons-material/ContentCutOutlined.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+icons-material@5.15.4_@mui+material@5.15.4_@types+react@18.2.47_react@18.2.0/node_modules/@mui/icons-material/DeleteOutlineRounded.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+icons-material@5.15.4_@mui+material@5.15.4_@types+react@18.2.47_react@18.2.0/node_modules/@mui/icons-material/DeleteRounded.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+icons-material@5.15.4_@mui+material@5.15.4_@types+react@18.2.47_react@18.2.0/node_modules/@mui/icons-material/HelpOutlineRounded.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+icons-material@5.15.4_@mui+material@5.15.4_@types+react@18.2.47_react@18.2.0/node_modules/@mui/icons-material/SettingsRounded.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+material@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react-dom@18.2.0_react@18.2.0/node_modules/@mui/material/Card/Card.js + 1 modules
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+material@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react-dom@18.2.0_react@18.2.0/node_modules/@mui/material/Dialog/Dialog.js + 1 modules
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+material@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react-dom@18.2.0_react@18.2.0/node_modules/@mui/material/DialogActions/DialogActions.js + 1 modules
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+material@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react-dom@18.2.0_react@18.2.0/node_modules/@mui/material/DialogContent/DialogContent.js + 1 modules
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+material@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react-dom@18.2.0_react@18.2.0/node_modules/@mui/material/IconButton/IconButton.js + 1 modules
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+material@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react-dom@18.2.0_react@18.2.0/node_modules/@mui/material/InputAdornment/InputAdornment.js + 1 modules
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+material@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react-dom@18.2.0_react@18.2.0/node_modules/@mui/material/Menu/Menu.js + 5 modules
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+material@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react-dom@18.2.0_react@18.2.0/node_modules/@mui/material/MenuItem/MenuItem.js + 4 modules
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+material@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react-dom@18.2.0_react@18.2.0/node_modules/@mui/material/Popover/Popover.js + 1 modules
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+material@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react-dom@18.2.0_react@18.2.0/node_modules/@mui/material/Radio/Radio.js + 8 modules
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+material@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react-dom@18.2.0_react@18.2.0/node_modules/@mui/material/Select/Select.js + 10 modules
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+material@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react-dom@18.2.0_react@18.2.0/node_modules/@mui/material/Slider/Slider.js + 6 modules
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+material@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react-dom@18.2.0_react@18.2.0/node_modules/@mui/material/ToggleButton/ToggleButton.js + 1 modules
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+material@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react-dom@18.2.0_react@18.2.0/node_modules/@mui/material/ToggleButtonGroup/ToggleButtonGroup.js + 2 modules
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+material@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react-dom@18.2.0_react@18.2.0/node_modules/@mui/material/Tooltip/Tooltip.js + 59 modules
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@qramana+qramana@0.0.8/node_modules/@qramana/qramana/lib/index.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/clsx@2.1.0/node_modules/clsx/dist/clsx.mjs
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/lodash.inrange@3.3.6/node_modules/lodash.inrange/index.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/nanoid@5.0.4/node_modules/nanoid/index.browser.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/next@14.0.4_@babel+core@7.23.7_react-dom@18.2.0_react@18.2.0_sass@1.69.7/node_modules/next/dynamic.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/react-dnd-html5-backend@16.0.1/node_modules/react-dnd-html5-backend/dist/index.js + 12 modules
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/react-dnd@16.0.1_@types+node@20.11.0_@types+react@18.2.47_react@18.2.0/node_modules/react-dnd/dist/core/DndProvider.js + 34 modules
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/react-dnd@16.0.1_@types+node@20.11.0_@types+react@18.2.47_react@18.2.0/node_modules/react-dnd/dist/hooks/useDrag/useDrag.js + 9 modules
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/react-loading@2.0.3_prop-types@15.8.1_react@18.2.0/node_modules/react-loading/dist/react-loading.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/react@18.2.0/node_modules/react/jsx-runtime.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/recharts@2.10.4_prop-types@15.8.1_react-dom@18.2.0_react@18.2.0/node_modules/recharts/es6/chart/BarChart.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/recharts@2.10.4_prop-types@15.8.1_react-dom@18.2.0_react@18.2.0/node_modules/recharts/es6/component/ResponsiveContainer.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/recoil@0.7.7_react-dom@18.2.0_react@18.2.0/node_modules/recoil/es/index.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/swr@2.2.4_react@18.2.0/node_modules/swr/core/dist/index.mjs
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/swr@2.2.4_react@18.2.0/node_modules/swr/mutation/dist/index.mjs
+
+// EXTERNAL MODULE: ./src/ts/shared/atoms/ContextMenu/ContextMenu.module.scss
+
+// EXTERNAL MODULE: ./src/ts/shared/atoms/Gate/Gate.module.scss
+
+// EXTERNAL MODULE: ./src/ts/shared/molecules/DraggableGate/DraggableGate.module.scss
+
+// EXTERNAL MODULE: ./src/ts/shared/molecules/GateLabels/GateLabels.module.scss
+
+// EXTERNAL MODULE: ./src/ts/shared/organisms/APISettingsDialog/CloudAPIForm/CloudAPIForm.module.scss
+
+// EXTERNAL MODULE: ./src/ts/shared/organisms/ChartTabContainer/ChartTabContainer.module.scss
+
+// EXTERNAL MODULE: ./src/ts/shared/organisms/CodeViewDialog/CodeViewDialog.module.scss
+
+// EXTERNAL MODULE: ./src/ts/shared/organisms/UIStateTabContainer/UIStateTabContainer.module.scss
+
+// EXTERNAL MODULE: ./src/ts/shared/providers/SnackbarProvider/SnackbarProvider.module.scss
+
+// EXTERNAL MODULE: ./src/ts/tabs/complexAmplitudesTab/templates/ComplexAmplitudesTab.module.scss
+
+// EXTERNAL MODULE: ./src/ts/tabs/observableTab/molecules/EmptyGate/EmptyGate.module.scss
+
+// EXTERNAL MODULE: ./src/ts/tabs/observableTab/organisms/GateCollections/GateCollections.module.scss
+
+// EXTERNAL MODULE: ./src/ts/tabs/observableTab/organisms/GateComposer/GateComposer.module.scss
+
+// EXTERNAL MODULE: ./src/ts/tabs/observableTab/organisms/GateInput/GateInput.module.scss
+
+// EXTERNAL MODULE: ./src/ts/tabs/observableTab/templates/ObservableTab.module.scss
+
+// EXTERNAL MODULE: ./src/ts/tabs/probabilityDistributionTab/organisms/ChartContainer/ChartContainer.module.scss
+
+// EXTERNAL MODULE: ./src/ts/tabs/probabilityDistributionTab/organisms/ProbabilitiesChart/ProbabilitiesChart.module.scss
+
+// EXTERNAL MODULE: ./src/ts/tabs/probabilityDistributionTab/organisms/RunButton/RunButton.module.scss
+
+// EXTERNAL MODULE: ./src/ts/tabs/quantumCircuitTab/molecules/DroppableParametricGate/DroppableParametricGate.module.scss
+
+// EXTERNAL MODULE: ./src/ts/tabs/quantumCircuitTab/molecules/EmptyGate/EmptyGate.module.scss
+
+// EXTERNAL MODULE: ./src/ts/tabs/quantumCircuitTab/molecules/QubitGate/QubitGate.module.scss
+
+// EXTERNAL MODULE: ./src/ts/tabs/quantumCircuitTab/organisms/CircuitGateCollections/CircuitGateCollections.module.scss
+
+// EXTERNAL MODULE: ./src/ts/tabs/quantumCircuitTab/organisms/CircuitGateComposer/CircuitGateComposer.module.scss
+
+// EXTERNAL MODULE: ./src/ts/tabs/quantumCircuitTab/organisms/CircuitGateFilter/CircuitGateFilter.module.scss
+
+// EXTERNAL MODULE: ./src/ts/tabs/quantumCircuitTab/templates/QuantumCircuitTab.module.scss
+
+// EXTERNAL MODULE: ./src/ts/tabs/runOnCloudTab/organisms/CloudActions/CloudActions.module.scss
+
+// EXTERNAL MODULE: ./src/ts/tabs/runOnCloudTab/organisms/CloudResult/CloudResult.module.scss
+
+// EXTERNAL MODULE: ./src/ts/tabs/runOnCloudTab/organisms/CloudResult/CloudResultList/CloudResultList.module.scss
+
+// EXTERNAL MODULE: ./src/ts/tabs/runOnCloudTab/organisms/CloudSettingsForm/APISelect/APISelect.module.scss
+
+// EXTERNAL MODULE: ./src/ts/tabs/runOnCloudTab/organisms/CloudSettingsForm/CloudSettingsForm.module.scss
+
+// EXTERNAL MODULE: ./src/ts/tabs/runOnCloudTab/templates/RunOnCloudTab.module.scss
+
+// EXTERNAL MODULE: ./src/ts/templates/Home/Home.module.scss
+
+// GetJobsResponseResult
+
+// NOTE: MultiGateとControllQubitの間には置けない
+
+// NOTE: QuantumCircuitではこのゲートが挿入されることを想定していない
+
+// NOTE: ciruict側の量子ビット数を合わせる（減算はuseEffectで行われる）
+
+// NOTE: controllQubitの始点から終点までを消す
+
+// NOTE: default値はstringである必要がある
+
+// NOTE: jobが成功したらcompletedに移す
+
+// NOTE: jobが残っている場合waitJobsからJobを1つ積む
+
+// NOTE: observable側の量子ビット数を合わせる（減算はuseEffectで行われる）
+
+// NOTE: qubitを消す場合、再帰的にmultigateを消す
+
+// NOTE: 上/下方向（ccnotは両方向）のいずれかに配置できるか確認する
+
+// NOTE: 同列以外はdropできない
+
+// NOTE: 文字列の先頭が+であれば除去する
+
+// NOTE: 末尾スラッシュを除去したうえで `/api` を付与する
+
+// NOTE: 現在の結果を保持したままキューを開放する
+
+// NOTE: 移動するゲートがParametricであり、かつ、選択されているゲートであれば
+
+// PhyIndexQasmRelationMapのインデックスキーがcounts表記の物理インデックスに対応し、値がqasmのインデックスを指す
+
+// RX(-pi/2)でもよい?
+
+// TODO: バグっている。rxとhの2ステップを追加する必要があるケースで2つめのゲートのインデックスが正しくない。またそれが複数ある場合のスタック戦略がない
+
+// TODO: 現状のGUIでは起動時に自動でwasmDriverをロードする
+
+// X=HZHより、Z測定するためにXを対角化するHを追加する
+
+// Z=S^dag HZHSより、Z測定するためにYを対角化するSとHを追加する
+
+// Z以外の測定をZ基底で測定できるよう、qasmの末尾に対角化の演算子を追加する
+
+// control ... target
+
+// diagonalizationGates.push(step);
+
+// diagonalizationGates.push({ type: ParametricSingleGateType.RX, size: 1, param: -0.5 }); // = S^dag = RZ(-pi/2)
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
+
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
+
+// eslint-disable-next-line no-param-reassign
+
+// eslint-disable-next-line no-unused-expressions
+
+// eslint-disable-next-line react-hooks/exhaustive-deps
+
+// eslint-disable-next-line react/no-array-index-key
+
+// extracted by mini-css-extract-plugin
+
+// failureの場合、省略
+
+// jobResult.counts のキーは値が0の場合省略されるため、 qasmBasisCounts にない場合は0として扱う
+
+// q_xの数が変化したらCircuit側も変更する
+
+// q_xの数が変化したらObservable側も変更する
+
+// qasmBasisCountsのキーは値が0の場合省略されることがあるが、expectationValueへの加算が0なので導出には影響しない
+
+// step.push(undefined);
+
+// undefined 以外を持つ配列の場合、偽
+
+// 右から数え上げと配列インデックス順が逆なので反転
+
+// 右から数え上げるためArrayと順序が逆なので、前後でreverseを通す
+
+// 数え上げに含めない
+
+// 最終列に何らかのGateが配置されていれば列を増やす
+
+// 最終列の１つ前列にすべてEmptyが配置されていれば再帰的に列を減らす
+
+// 物理量子ビットのインデックスによる状態ベクトル表記を、qasmのインデックスによる表記に読み換える
+
+// 物理順の基底表現を受け取りqasm順の基底表現で返す関数
+
+// 適切な値を引けているかどうか
+
+// 選択位置を保持する

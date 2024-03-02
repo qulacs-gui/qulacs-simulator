@@ -1,4 +1,9 @@
 /*
+ * During SSR, unstable_batchedUpdates may be undefined so this
+ * falls back to a basic function that executes the batch
+ */
+
+/*
  * The purpose of the Batcher is to observe when React batches end so that
  * Recoil state changes can be batched. Whenever Recoil state changes, we call
  * setState on the batcher. Then we wait for that change to be committed, which
@@ -66,7 +71,7 @@ into children's state keys as well.
 
 /* harmony import */
 
-/* unused harmony exports RecoilEnv, RecoilLoadable, atomFamily, constSelector, errorSelector, isRecoilValue, noWait, readOnlySelector, retentionZone, selectorFamily, snapshot_UNSTABLE, useGetRecoilValueInfo_UNSTABLE, useGotoRecoilSnapshot, useRecoilBridgeAcrossReactRoots_UNSTABLE, useRecoilCallback, useRecoilRefresher_UNSTABLE, useRecoilSnapshot, useRecoilStateLoadable, useRecoilState_TRANSITION_SUPPORT_UNSTABLE, useRecoilStoreID, useRecoilTransactionObserver_UNSTABLE, useRecoilTransaction_UNSTABLE, useRecoilValue, useRecoilValueLoadable_TRANSITION_SUPPORT_UNSTABLE, useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useResetRecoilState, useRetain, waitForAll, waitForAllSettled, waitForAny, waitForNone */
+/* unused harmony exports RecoilEnv, RecoilLoadable, atomFamily, constSelector, errorSelector, isRecoilValue, noWait, readOnlySelector, retentionZone, selectorFamily, snapshot_UNSTABLE, useGetRecoilValueInfo_UNSTABLE, useGotoRecoilSnapshot, useRecoilBridgeAcrossReactRoots_UNSTABLE, useRecoilCallback, useRecoilRefresher_UNSTABLE, useRecoilSnapshot, useRecoilStateLoadable, useRecoilState_TRANSITION_SUPPORT_UNSTABLE, useRecoilStoreID, useRecoilTransactionObserver_UNSTABLE, useRecoilTransaction_UNSTABLE, useRecoilValueLoadable_TRANSITION_SUPPORT_UNSTABLE, useRecoilValue_TRANSITION_SUPPORT_UNSTABLE, useResetRecoilState, useRetain, waitForAll, waitForAllSettled, waitForAny, waitForNone */
 
 /*#__PURE__*/
 
@@ -611,7 +616,7 @@ into children's state keys as well.
  */
 
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -622,7 +627,7 @@ into children's state keys as well.
  */
 
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -635,7 +640,7 @@ into children's state keys as well.
  */
 
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -649,7 +654,7 @@ into children's state keys as well.
  */
 
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -662,37 +667,12 @@ into children's state keys as well.
  */
 
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
  * Wraps another recoil value and prevents writing to it.
- *
- * 
- * @format
- * @oncall recoil
- */
-
-/**
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * 
- * @format
- * @oncall recoil
- */
-
-/**
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * This is to export esstiential functions from react-dom
- * for our web build
  *
  * 
  * @format
@@ -866,13 +846,21 @@ into children's state keys as well.
 
 // $FlowFixMe(site=recoil) Window does not have a FlowType definition https://github.com/facebook/flow/issues/6709
 
+// $FlowFixMe[incompatible-call]
+
+// $FlowFixMe[incompatible-return]
+
 // $FlowFixMe[incompatible-type]
 
 // $FlowFixMe[incompatible-use]
 
+// $FlowFixMe[invalid-computed-prop]
+
 // $FlowFixMe[missing-local-annot]
 
 // $FlowFixMe[prop-missing]
+
+// $FlowFixMe[underconstrained-implicit-instantiation]
 
 // $FlowIssue
 
@@ -1252,6 +1240,8 @@ into children's state keys as well.
 
 // Note that we DO NOT delete from nodeToComponentSubscriptions because this
 
+// Note: RECOIL_GKS_ENABLED settings will only be honored in OSS builds of Recoil
+
 // Notifying components is needed to wake from suspense, even when using
 
 // Object.getOwnPropertyNames() has consistent key ordering with ES6
@@ -1313,6 +1303,8 @@ into children's state keys as well.
 // Returns true if leaf was actually deleted from the tree
 
 // Run Atom Effects
+
+// SSR should clear out the wake-up resolver if the Promise is resolved
 
 // Save changes to nextTree and schedule a React update:
 
@@ -1489,6 +1481,8 @@ into children's state keys as well.
 // because something above RecoilRoot re-rendered:
 
 // behavior and only batch in `Snapshot.map`, but this would be a breaking
+
+// breaking cache when arguments change
 
 // but state initialization only happens once the first time.
 
@@ -1759,6 +1753,8 @@ into children's state keys as well.
 // this snapshot gets counted towards the node's live stores count).
 
 // threw their own Promise to "suspend" a selector evaluation.  We need
+
+// to avoid infinite loops.  (See https://github.com/facebookexperimental/Recoil/pull/2073)
 
 // to check that the loadingDepPromise actually matches the promise that
 

@@ -1,0 +1,1532 @@
+/*
+
+Based off glamor's StyleSheet, thanks Sunil ❤️
+
+high performance StyleSheet for css-in-js systems
+
+- uses multiple style tags behind the scenes for millions of rules
+- uses `insertRule` for appending in production for *much* faster performance
+
+// usage
+
+import { StyleSheet } from '@emotion/sheet'
+
+let styleSheet = new StyleSheet({ key: '', container: document.head })
+
+styleSheet.insert('#box { border: 1px solid red; }')
+- appends a css rule into the stylesheet
+
+styleSheet.flush()
+- empties the stylesheet of all its contents
+
+*/
+
+/*
+     * Receive `sxInput` as object or callback
+     * and then recursively check keys & values to create media query object styles.
+     * (the result will be used in `styled`)
+     */
+
+/* #__PURE__ */
+
+/* .IS_REACT_LEGACY */
+
+/* .IS_SERVER */
+
+/* .OBJECT */
+
+/* .SWRConfig */
+
+/* .SWRGlobalState */
+
+/* .UNDEFINED */
+
+/* .createCacheHelper */
+
+/* .createEmptyBreakpointObject */
+
+/* .defaultConfig */
+
+/* .getPath */
+
+/* .getStyleValue */
+
+/* .getTimestamp */
+
+/* .handleBreakpoints */
+
+/* .internalMutate */
+
+/* .isFunction */
+
+/* .isUndefined */
+
+/* .mergeObjects */
+
+/* .rAF */
+
+/* .removeUnusedBreakpoints */
+
+/* .revalidateEvents */
+
+/* .serialize */
+
+/* .subscribeCallback */
+
+/* .useIsomorphicLayoutEffect */
+
+/* .withArgs */
+
+/* HTTPError */
+
+/* Math.imul(h, m): */
+
+/* Math.imul(k, m): */
+
+/* SWRConfig */
+
+/* ["default"] */
+
+/* binding */
+
+/* colon */
+
+/* createUnarySpacing */
+
+/* createUnaryUnit */
+
+/* darken */
+
+/* default */
+
+/* eslint-disable */
+
+/* eslint-disable @typescript-eslint/naming-convention */
+
+/* eslint-disable no-fallthrough */
+
+/* eslint-disable prefer-template */
+
+/* eslint-enable prefer-template */
+
+/* eslint-env browser */
+
+/* getContrastRatio */
+
+/* getPath */
+
+/* getValue */
+
+/* handleBreakpoints */
+
+/* harmony default export */
+
+/* harmony export */
+
+/* harmony import */
+
+/* istanbul ignore next */
+
+/* k >>> r: */
+
+/* lighten */
+
+/* margin */
+
+/* padding */
+
+/* reexport safe */
+
+/* unused harmony export unstable_createStyleFunctionSx */
+
+/* unused harmony export unstable_serialize */
+
+/* unused harmony exports E, _, a, b, c, h, u */
+
+/* unused harmony exports INFINITE_PREFIX, cache, compare, defaultConfigOptions, hasRequestAnimationFrame, initCache, isDocumentDefined, isPromiseLike, isWindowDefined, mergeConfigs, mutate, noop, normalize, preload, preset, slowConnection, stableHash */
+
+/* unused harmony exports hexToRgb, decomposeColor, colorChannel, private_safeColorChannel, recomposeColor, rgbToHex, hslToRgb, getLuminance, private_safeAlpha, private_safeDarken, private_safeLighten, emphasize, private_safeEmphasize */
+
+/* unused harmony exports mergeBreakpointsInOrder, computeBreakpointsBase, resolveBreakpointValues */
+
+/* values */
+
+/*#__NOINLINE__*/
+
+/*#__PURE__*/
+
+/**
+ * @license React
+ * use-sync-external-store-shim.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/**
+ * @param {any[]} value
+ * @return {number}
+ */
+
+/**
+ * @param {any} value
+ * @param {any[]} array
+ * @return {any}
+ */
+
+/**
+ * @param {any} value
+ * @return {any}
+ */
+
+/**
+ * @param {number}
+ * @return {string}
+ */
+
+/**
+ * @param {number} begin
+ * @param {number} end
+ * @return {string}
+ */
+
+/**
+ * @param {number} index
+ * @param {number} count
+ * @return {string}
+ */
+
+/**
+ * @param {number} index
+ * @return {string}
+ */
+
+/**
+ * @param {number} type
+ * @param {number} index
+ * @return {number}
+ */
+
+/**
+ * @param {number} type
+ * @return {number}
+ */
+
+/**
+ * @param {number} type
+ * @return {string}
+ */
+
+/**
+ * @param {number} value
+ * @param {object} root
+ * @param {object?} parent
+ * @return {object}
+ */
+
+/**
+ * @param {object[]} children
+ * @param {function} callback
+ * @return {string}
+ */
+
+/**
+ * @param {object}
+ * @return {object}
+ */
+
+/**
+ * @param {object} element
+ * @param {number} index
+ * @param {object[]} children
+ * @param {function} callback
+ * @return {string}
+ */
+
+/**
+ * @param {object} root
+ * @param {object} props
+ * @return {object}
+ */
+
+/**
+ * @param {string[]} array
+ * @param {function} callback
+ * @return {string}
+ */
+
+/**
+ * @param {string[]} children
+ * @return {string[]}
+ */
+
+/**
+ * @param {string} value
+ * @param {(string|RegExp)} pattern
+ * @param {string} replacement
+ * @return {string}
+ */
+
+/**
+ * @param {string} value
+ * @param {RegExp} pattern
+ * @return {string?}
+ */
+
+/**
+ * @param {string} value
+ * @param {number} begin
+ * @param {number} end
+ * @return {string}
+ */
+
+/**
+ * @param {string} value
+ * @param {number} index
+ * @return {number}
+ */
+
+/**
+ * @param {string} value
+ * @param {number} length
+ * @return {number}
+ */
+
+/**
+ * @param {string} value
+ * @param {object | null} root
+ * @param {object | null} parent
+ * @param {string} type
+ * @param {string[] | string} props
+ * @param {object[] | string} children
+ * @param {number} length
+ */
+
+/**
+ * @param {string} value
+ * @param {object} root
+ * @param {object?} parent
+ * @param {number} index
+ * @param {number} offset
+ * @param {string[]} rules
+ * @param {number[]} points
+ * @param {string} type
+ * @param {string[]} props
+ * @param {string[]} children
+ * @param {number} length
+ * @return {object}
+ */
+
+/**
+ * @param {string} value
+ * @param {object} root
+ * @param {object?} parent
+ * @param {number} length
+ * @return {object}
+ */
+
+/**
+ * @param {string} value
+ * @param {object} root
+ * @param {object?} parent
+ * @param {string[]} rule
+ * @param {string[]} rules
+ * @param {string[]} rulesets
+ * @param {number[]} pseudo
+ * @param {number[]} points
+ * @param {string[]} declarations
+ * @return {object}
+ */
+
+/**
+ * @param {string} value
+ * @param {string} search
+ * @return {number}
+ */
+
+/**
+ * @param {string} value
+ * @return {any[]}
+ */
+
+/**
+ * @param {string} value
+ * @return {number}
+ */
+
+/**
+ * @param {string} value
+ * @return {object[]}
+ */
+
+/**
+ * @param {string} value
+ * @return {string[]}
+ */
+
+/**
+ * @param {string} value
+ * @return {string}
+ */
+
+/**
+ * @return {number}
+ */
+
+/**
+ * @see @link{https://m2.material.io/design/typography/the-type-system.html}
+ * @see @link{https://m2.material.io/design/typography/understanding-typography.html}
+ */
+
+/**
+ * Calculates the contrast ratio between two colors.
+ *
+ * Formula: https://www.w3.org/TR/WCAG20-TECHS/G17.html#G17-tests
+ * @param {string} foreground - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla()
+ * @param {string} background - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla()
+ * @returns {number} A contrast ratio value in the range 0 - 21.
+ */
+
+/**
+ * Converts a color from CSS hex format to CSS rgb format.
+ * @param {string} color - Hex color, i.e. #nnn or #nnnnnn
+ * @returns {string} A CSS rgb color string
+ */
+
+/**
+ * Converts a color from CSS rgb format to CSS hex format.
+ * @param {string} color - RGB color, i.e. rgb(n, n, n)
+ * @returns {string} A CSS rgb color string, i.e. #nnnnnn
+ */
+
+/**
+ * Converts a color from hsl format to rgb format.
+ * @param {string} color - HSL color values
+ * @returns {string} rgb color values
+ */
+
+/**
+ * Converts a color object with type and values to a string.
+ * @param {object} color - Decomposed color
+ * @param {string} color.type - One of: 'rgb', 'rgba', 'hsl', 'hsla', 'color'
+ * @param {array} color.values - [n,n,n] or [n,n,n,n]
+ * @returns {string} A CSS color string
+ */
+
+/**
+ * Darkens a color.
+ * @param {string} color - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla(), color()
+ * @param {number} coefficient - multiplier in the range 0 - 1
+ * @returns {string} A CSS color string. Hex input values are returned as rgb
+ */
+
+/**
+ * Due to the bug https://bugs.chromium.org/p/chromium/issues/detail?id=678075,
+ * it's not reliable to detect if the browser is currently online or offline
+ * based on `navigator.onLine`.
+ * As a workaround, we always assume it's online on the first load, and change
+ * the status upon `online` or `offline` events.
+ */
+
+/**
+ * Lightens a color.
+ * @param {string} color - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla(), color()
+ * @param {number} coefficient - multiplier in the range 0 - 1
+ * @returns {string} A CSS color string. Hex input values are returned as rgb
+ */
+
+/**
+ * Returns a channel created from the input color.
+ *
+ * @param {string} color - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla(), color()
+ * @returns {string} - The channel for the color, that can be used in rgba or hsla colors
+ */
+
+/**
+ * Returns a number whose value is limited to the given range.
+ * @param {number} value The value to be clamped
+ * @param {number} min The lower boundary of the output range
+ * @param {number} max The upper boundary of the output range
+ * @returns {number} A number in the range [min, max]
+ */
+
+/**
+ * Returns an object with the type and values of a color.
+ *
+ * Note: Does not support rgb % values.
+ * @param {string} color - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla(), color()
+ * @returns {object} - A MUI color object: {type: string, values: number[]}
+ */
+
+/**
+ * Sets the absolute transparency of a color.
+ * Any existing alpha values are overwritten.
+ * @param {string} color - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla(), color()
+ * @param {number} value - value to set the alpha channel to in the range 0 - 1
+ * @returns {string} A CSS color string. Hex input values are returned as rgb
+ */
+
+/**
+ * The relative brightness of any point in a color space,
+ * normalized to 0 for darkest black and 1 for lightest white.
+ *
+ * Formula: https://www.w3.org/TR/WCAG20-TECHS/G17.html#G17-tests
+ * @param {string} color - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla(), color()
+ * @returns {number} The relative brightness of the color in the range 0 - 1
+ */
+
+/**
+ * This component makes the `theme` available down the React tree.
+ * It should preferably be used at **the root of your component tree**.
+ *
+ * <ThemeProvider theme={theme}> // existing use case
+ * <ThemeProvider theme={{ id: theme }}> // theme scoping
+ */
+
+/**
+ * This component takes a `theme` prop.
+ * It makes the `theme` available down the React tree thanks to React context.
+ * This component should preferably be used at **the root of your component tree**.
+ */
+
+/**
+ * WARNING: Don't import this directly.
+ * Use `MuiError` from `@mui-internal/babel-macros/MuiError.macro` instead.
+ * @param {number} code
+ */
+
+/******/
+
+/***/
+
+//
+
+//         req------------>res
+
+//        req2---------------->res2
+
+//       mutate-------...---------->
+
+//       mutate------>end
+
+//   mutate------>end
+
+//   req------------------>res
+
+//   req1------------------>res1        (current one)
+
+// ! + , / > @ ~ isolate token
+
+// " '
+
+// " ' ( [ opening delimit token
+
+// " ' [
+
+// $FlowFixMe
+
+// $FlowFixMe we know it's not null
+
+// &
+
+// &\f
+
+// 'm' and 'r' are mixing constants generated offline.
+
+// (
+
+// (f)ill-available, (f)it-content
+
+// (inline-)?fl(e)x
+
+// (m)ax-content, (m)in-content
+
+// (margin|padding)-inline-(start|end)
+
+// (min|max)?(width|height|inline-size|block-size)
+
+// (s)ticky?
+
+// (s)tretch
+
+// ) ] closing delimit token
+
+// ,
+
+// -
+
+// - Fast and ensures unique hash properties
+
+// - Generates short results
+
+// - Handles object key ordering
+
+// - Handles unserializable values
+
+// - `force` is true, which is the start of polling
+
+// - or `timer` is not 0, which means the effect wasn't canceled
+
+// ...or invoke the function with the updated data to get the interval
+
+// /
+
+// 16px is the default font-size used by browsers.
+
+// :
+
+// : accompanied token
+
+// :placeholder
+
+// :read-(only|write)
+
+// ;
+
+// ; { } breakpoint token
+
+// @
+
+// @ ;
+
+// @ts-expect-error
+
+// A collection of common colors.
+
+// A stable hash implementation that supports:
+
+// A strict capitalization should uppercase the first letter of each word in the sentence.
+
+// After mounted or key changed.
+
+// Already transformed.
+
+// Always update fetcher and config refs even with the Suspense mode.
+
+// Apply babel-plugin-transform-template-literals in loose mode
+
+// Apply middleware
+
+// Apply the CSS properties to all the variants.
+
+// Array.
+
+// Avoid prototype pollution
+
+// Before writing to the store, we keep the value in the initial cache
+
+// Bootstrap: https://github.com/twbs/bootstrap/blob/1d6e3710dd447de1a200f29e8fa521f8a0908f70/scss/_functions.scss#L59
+
+// CONCATENATED MODULE: ../../node_modules/.pnpm/@aspida+fetch@1.14.0_aspida@1.14.0/node_modules/@aspida/fetch/dist/esm/index.js
+
+// CONCATENATED MODULE: ../../node_modules/.pnpm/@emotion+cache@11.11.0/node_modules/@emotion/cache/dist/emotion-cache.browser.esm.js
+
+// CONCATENATED MODULE: ../../node_modules/.pnpm/@emotion+hash@0.9.1/node_modules/@emotion/hash/dist/emotion-hash.esm.js
+
+// CONCATENATED MODULE: ../../node_modules/.pnpm/@emotion+sheet@1.2.2/node_modules/@emotion/sheet/dist/emotion-sheet.browser.esm.js
+
+// CONCATENATED MODULE: ../../node_modules/.pnpm/@emotion+unitless@0.8.1/node_modules/@emotion/unitless/dist/emotion-unitless.esm.js
+
+// CONCATENATED MODULE: ../../node_modules/.pnpm/@mui+material@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react-dom@18.2.0_react@18.2.0/node_modules/@mui/material/styles/createMixins.js
+
+// CONCATENATED MODULE: ../../node_modules/.pnpm/@mui+material@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react-dom@18.2.0_react@18.2.0/node_modules/@mui/material/styles/createPalette.js
+
+// CONCATENATED MODULE: ../../node_modules/.pnpm/@mui+material@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react-dom@18.2.0_react@18.2.0/node_modules/@mui/material/styles/createTheme.js
+
+// CONCATENATED MODULE: ../../node_modules/.pnpm/@mui+material@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react-dom@18.2.0_react@18.2.0/node_modules/@mui/material/styles/createTransitions.js
+
+// CONCATENATED MODULE: ../../node_modules/.pnpm/@mui+material@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react-dom@18.2.0_react@18.2.0/node_modules/@mui/material/styles/createTypography.js
+
+// CONCATENATED MODULE: ../../node_modules/.pnpm/@mui+private-theming@5.15.4_@types+react@18.2.47_react@18.2.0/node_modules/@mui/private-theming/ThemeProvider/ThemeProvider.js
+
+// CONCATENATED MODULE: ../../node_modules/.pnpm/@mui+private-theming@5.15.4_@types+react@18.2.47_react@18.2.0/node_modules/@mui/private-theming/useTheme/useTheme.js
+
+// CONCATENATED MODULE: ../../node_modules/.pnpm/@mui+system@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react@18.2.0/node_modules/@mui/system/esm/borders.js
+
+// CONCATENATED MODULE: ../../node_modules/.pnpm/@mui+system@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react@18.2.0/node_modules/@mui/system/esm/compose.js
+
+// CONCATENATED MODULE: ../../node_modules/.pnpm/@mui+system@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react@18.2.0/node_modules/@mui/system/esm/createTheme/createBreakpoints.js
+
+// CONCATENATED MODULE: ../../node_modules/.pnpm/@mui+system@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react@18.2.0/node_modules/@mui/system/esm/createTheme/createSpacing.js
+
+// CONCATENATED MODULE: ../../node_modules/.pnpm/@mui+system@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react@18.2.0/node_modules/@mui/system/esm/createTheme/createTheme.js
+
+// CONCATENATED MODULE: ../../node_modules/.pnpm/@mui+system@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react@18.2.0/node_modules/@mui/system/esm/cssGrid.js
+
+// CONCATENATED MODULE: ../../node_modules/.pnpm/@mui+system@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react@18.2.0/node_modules/@mui/system/esm/memoize.js
+
+// CONCATENATED MODULE: ../../node_modules/.pnpm/@mui+system@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react@18.2.0/node_modules/@mui/system/esm/palette.js
+
+// CONCATENATED MODULE: ../../node_modules/.pnpm/@mui+system@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react@18.2.0/node_modules/@mui/system/esm/sizing.js
+
+// CONCATENATED MODULE: ../../node_modules/.pnpm/@mui+system@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react@18.2.0/node_modules/@mui/system/esm/spacing.js
+
+// CONCATENATED MODULE: ../../node_modules/.pnpm/aspida@1.14.0/node_modules/aspida/dist/esm/index.js
+
+// CONCATENATED MODULE: ../../node_modules/.pnpm/stylis@4.2.0/node_modules/stylis/src/Enum.js
+
+// CONCATENATED MODULE: ../../node_modules/.pnpm/stylis@4.2.0/node_modules/stylis/src/Parser.js
+
+// CONCATENATED MODULE: ../../node_modules/.pnpm/stylis@4.2.0/node_modules/stylis/src/Serializer.js
+
+// CONCATENATED MODULE: ../../node_modules/.pnpm/stylis@4.2.0/node_modules/stylis/src/Tokenizer.js
+
+// CONCATENATED MODULE: ./src/ts/shared/providers/MuiThemeProvider/index.tsx
+
+// CONCATENATED MODULE: ./src/ts/utils/fetch.ts
+
+// Check if CSS variables are used
+
+// Check if it's OK to execute:
+
+// Check if it's still the same request before deleting it.
+
+// Check if other mutations have occurred since we've started this mutation.
+
+// Clear error.
+
+// Consistency between these values is important.
+
+// Deep compare with the latest state to avoid extra re-renders.
+
+// Default cache provider
+
+// Delay the revalidate if we have data to return so we won't block
+
+// Disabled text have even lower visual prominence.
+
+// Display debug info in React DevTools.
+
+// Do a few final mixes of the hash to ensure the last few
+
+// Do optimistic data update.
+
+// Don't use [...shadows] until you've verified its transpiled code is not invoking the iterator protocol.
+
+// E.g., shift from Red 500 to Red 300 or Red 700.
+
+// ESM COMPAT FLAG
+
+// EXPORTS
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@aspida+fetch@1.14.0_aspida@1.14.0/node_modules/@aspida/fetch/dist/esm/index.js + 1 modules
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@babel+runtime@7.23.8/node_modules/@babel/runtime/helpers/esm/extends.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@babel+runtime@7.23.8/node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@emotion+memoize@0.8.1/node_modules/@emotion/memoize/dist/emotion-memoize.esm.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@emotion+react@11.11.3_@types+react@18.2.47_react@18.2.0/node_modules/@emotion/react/dist/emotion-element-c39617d8.browser.esm.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+material@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react-dom@18.2.0_react@18.2.0/node_modules/@mui/material/styles/createTheme.js + 14 modules
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+material@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react-dom@18.2.0_react@18.2.0/node_modules/@mui/material/styles/identifier.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+system@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react@18.2.0/node_modules/@mui/system/esm/breakpoints.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+system@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react@18.2.0/node_modules/@mui/system/esm/colorManipulator.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+system@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react@18.2.0/node_modules/@mui/system/esm/spacing.js + 1 modules
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+system@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react@18.2.0/node_modules/@mui/system/esm/style.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+system@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react@18.2.0/node_modules/@mui/system/esm/styleFunctionSx/defaultSxConfig.js + 5 modules
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+system@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react@18.2.0/node_modules/@mui/system/esm/styleFunctionSx/styleFunctionSx.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+system@5.15.4_@emotion+react@11.11.3_@emotion+styled@11.11.0_@types+react@18.2.47_react@18.2.0/node_modules/@mui/system/esm/useThemeWithoutDefault.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/form-data@4.0.0/node_modules/form-data/lib/browser.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/react@18.2.0/node_modules/react/jsx-runtime.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/swr@2.2.4_react@18.2.0/node_modules/swr/core/dist/index.mjs
+
+// Emotion & styled-components will neglect null
+
+// Error event and retry logic. Only for the actual request, not
+
+// Expose revalidators to global event listeners. So we can trigger
+
+// FIXME:
+
+// Follow https://material.google.com/motion/duration-easing.html#duration-easing-natural-easing-curves
+
+// For instance with the first breakpoint xs: [xs, sm).
+
+// For instance with the first breakpoint xs: [xs, sm[.
+
+// For local state, compare and assign.
+
+// For node and React Native, `add/removeEventListener` doesn't exist on window.
+
+// For now, it's just a `Map` interface without any modifications.
+
+// For other objects like set and map, we use this id directly as the hash.
+
+// Generate a rich color object.
+
+// Get a new error, don't use deep comparison for errors.
+
+// Get server cache snapshot
+
+// Get the cache and merge it with expected states.
+
+// Get the default and inherited configuration.
+
+// Getter
+
+// Global state used to deduplicate requests and store listeners
+
+// Global timestamp.
+
+// Handle laggy data updates. If there's cached data of the current key,
+
+// Handle the last few bytes of the input array
+
+// Haven't found value
+
+// However, since the `isEqual` function only compares selected fields,
+
+// Idempotent
+
+// If `revalidateOnMount` is set, we take the value directly.
+
+// If data exists, only revalidate if `revalidateIfStale` is true.
+
+// If it throws an error synchronously, we shouldn't update the cache.
+
+// If it's already hashed, directly return the result.
+
+// If it's inactive, stop. It will auto-revalidate when
+
+// If it's paused, we skip revalidation.
+
+// If key is not falsy, or not an empty array, hash it.
+
+// If no cache is being rendered currently (it shows a blank page),
+
+// If the request isn't interrupted, clean it up after the
+
+// If the second argument is a key filter, return the mutation results for all
+
+// If there is an `error`, the `error` needs to be thrown to the error boundary.
+
+// If there is no `error`, the `revalidation` promise needs to be thrown to
+
+// If there is no new data provided, revalidate the key with current state.
+
+// If there is no ongoing concurrent request, or `dedupe` is not set, a
+
+// If there're other mutations(s), that overlapped with the current revalidation:
+
+// If there're other ongoing request(s), started after the current one,
+
+// If there's a race we don't update cache or broadcast the change,
+
+// If there's no global state bound to the provider, create a new one with the
+
+// If two configs are provided, merge their `use` and `fallback` options.
+
+// If we should write back the cache after request.
+
+// In Suspense mode, we can't return the empty `data` state.
+
+// Initialize the hash
+
+// Inject component definitions.
+
+// Inspired by https://github.com/garycourt/murmurhash-js
+
+// Invalidate the key by deleting the concurrent request markers so new
+
+// It can't be configured as it's used statically for propTypes.
+
+// It is in the `isLoading` state, if and only if there is no cached data.
+
+// It should to be noted that this function isn't equivalent to `text-transform: capitalize`.
+
+// It's not a shorthand notation.
+
+// Keep in mind that @media is inclusive by the CSS specification.
+
+// Keep the original key in the cache.
+
+// Key must be truthy if entering here.
+
+// Mark it as unmounted.
+
+// Mark loading as stopped.
+
+// Mark the component as mounted and update corresponding refs.
+
+// Material Design layouts are visually balanced. Most measurements align to an 8dp grid, which aligns both spacing and the overall layout.
+
+// Mentally, we should always return the `memorizedSnapshot` here
+
+// Mix 4 bytes at a time into the hash
+
+// NOTE: SWRImmutableと同じ設定
+
+// Need to create a new object to avoid mutating the original here.
+
+// Normalize arguments.
+
+// Not paused, we continue handling the error. Otherwise, discard it.
+
+// O(1): faster than splice
+
+// Object, sort keys.
+
+// Object/function, not null/date/regexp. Use WeakMap to store the id first.
+
+// Objects enter the screen at full velocity from off-screen and
+
+// Objects leave the screen at full velocity. They do not decelerate when off-screen.
+
+// Only convert the first 3 values to int (i.e. not alpha)
+
+// Only revalidate when the page is visible, online, and not errored.
+
+// Only update cached data and reset the error if there's no error. Data can be `undefined` here.
+
+// Override the cache if a new provider is given.
+
+// Polling
+
+// Ported from https://github.com/aappleby/smhasher/blob/61a0530f28277f2e850bfc39600ce61d02b518de/src/MurmurHash2.cpp#L37-L86
+
+// React currently throws a warning when using useLayoutEffect on the server.
+
+// React's state updates.
+
+// Reset data to be the latest committed data, and clear the `_c` value.
+
+// Reset the timestamp to mark the mutation has ended.
+
+// Revalidate and broadcast state.
+
+// Revalidate immediately.
+
+// Rollback. Always populate the cache in this case but without
+
+// SVG-related properties
+
+// SWR should throw when trying to use Suspense on the server with React 18,
+
+// Schedule the next interval to check again.
+
+// Secondary text.
+
+// Serialize key
+
+// Setter
+
+// Shared state between server components and client components
+
+// Since `output` is a clone of `target` and we have narrowed `target` in this block we can cast to the same type.
+
+// Since the compare fn could be custom fn
+
+// Skip the special useSWRInfinite and useSWRSubscription keys.
+
+// Smaller components, such as icons, can align to a 4dp grid.
+
+// So we omit the values from the deps array
+
+// Sort in ascending order
+
+// Sorted ASC by size. That's important.
+
+// Start the request and save the timestamp.
+
+// Store the hash first for circular reference detection before entering the
+
+// Subscriber
+
+// TODO v6: Remove handling of 'inherit' variant from the theme as it is already handled in Material UI's Typography component. Also, remember to remove the associated types.
+
+// TODO v6: remove, see https://github.com/mui/material-ui/pull/38123
+
+// Takes a background color and returns the text color that maximizes the contrast.
+
+// Tell MUI what's the font-size on the html element.
+
+// The background color of a disabled action.
+
+// The background colors used to style the surfaces.
+
+// The breakpoint **start** at this value.
+
+// The color of a disabled action.
+
+// The color of a selected action.
+
+// The color of an active action like an icon button.
+
+// The color of an hovered action.
+
+// The color used to divide different elements.
+
+// The colors used to indicate the successful completion of an action that user triggered.
+
+// The colors used to present information to the user that is neutral and not necessarily important.
+
+// The colors used to represent interface elements that the user should be made aware of.
+
+// The colors used to represent potentially dangerous actions or important messages.
+
+// The colors used to represent primary interface elements for a user.
+
+// The colors used to represent secondary interface elements for a user.
+
+// The colors used to style the action elements.
+
+// The colors used to style the text.
+
+// The default font size of the Material Specification.
+
+// The different signatures imply different meaning for their arguments that can't be expressed structurally.
+
+// The global state for a specific provider will be used to deduplicate
+
+// The grey colors.
+
+// The logic for updating refs.
+
+// The most important text.
+
+// The mutation and revalidation are ended, we can clear it since the data is
+
+// The palette mode, can be light or dark.
+
+// The provider's global state might be already initialized. Let's try to get the
+
+// The sharp curve is used by objects that may return to the screen at any time.
+
+// The timestamp maybe be `undefined` or a number
+
+// They're not really 'magic', they just happen to work well.
+
+// This avoids some unnecessary revalidations such as
+
+// This bypasses fallback data and laggy data.
+
+// This is a new provider, we need to initialize it and setup DOM events
+
+// This is not a serialization function, and the result is not guaranteed to be
+
+// This is the most common easing curve.
+
+// This means that the mutation is async, we need to check timestamps to
+
+// Throw error or return data
+
+// To get around it, we can conditionally useEffect on the server (no-op) and
+
+// To make sure that we are returning the same object reference to avoid
+
+// To support composition of theme.
+
+// To support the case in https://github.com/vercel/swr/pull/2576,
+
+// Transform the result into data.
+
+// Trigger a revalidation
+
+// Trigger the successful callback if it's the original request.
+
+// Truncate at 3 digits
+
+// UNUSED EXPORTS: createMuiTheme
+
+// UNUSED EXPORTS: default, getStyleFromPropValue, marginKeys, paddingKeys
+
+// Under suspense mode, it will always fetch on render if there is no
+
+// Unitless following https://meyerweb.com/eric/thoughts/2006/02/08/unitless-line-heights/
+
+// Unsubscribe events.
+
+// Update existing SWR Hooks' internal states:
+
+// Update global timestamps.
+
+// Update the current hook's state.
+
+// Update the state if it's new, or if the provider has been extended.
+
+// Use callback to make sure `keyRef.current` returns latest result every time
+
+// Use the original key as the argument of fetcher. This can be a string or an
+
+// Use the passed interval
+
+// Use the same logic as
+
+// Used by `getContrastText()` to maximize the contrast between
+
+// Used by the functions below to shift a color's luminance by approximately
+
+// Using Node instead of HTMLElement since container may be a ShadowRoot
+
+// Using a hash computation over an array iteration could be faster, but with only 28 items,
+
+// Using noop() as the undefined value as undefined can be replaced
+
+// Values from https://github.com/material-components/material-components-web/blob/be8747f94574669cb5e7add1a7c54fa41a89cec7/packages/mdc-elevation/_variables.scss
+
+// We express the difference with variable names.
+
+// We might want to inject an extra layer on top of `provider` in the future,
+
+// We only handle the first word.
+
+// We only select the needed fields from the state.
+
+// We only start the next interval if `refreshInterval` is not 0, and:
+
+// WeakMap uses a hashtable under the hood, so the lookup
+
+// When listening to the native events for auto revalidations,
+
+// When passing as a boolean, it's explicitly used to disable/enable
+
+// When retrying, deduplication is always enabled.
+
+// When un-mounting, we need to remove the cache provider from the state
+
+// When we set optimistic data, backup the current committedData data in `_c`.
+
+// \
+
+// \0 \t \n \r \s whitespace token
+
+// \0 }
+
+// \t \n \r \s
+
+// ] ) " '
+
+// `data` is a function, call it passing current cache value.
+
+// `data` is a promise/thenable, resolve the final data first.
+
+// `fn` and `config` might be changed during the lifecycle,
+
+// `keyValidating` are depending on `key`, so we can exclude them from
+
+// `setState` is immutable, and `eventsCallback`, `fnArg`, and
+
+// `useSWR('key', () => fetch('/api/'), { suspense: true })`
+
+// align-content
+
+// align-items
+
+// align-self
+
+// and material-components-web https://github.com/material-components/material-components-web/blob/ac46b8863c4dab9fc22c4c662dc6bd1b65dd652f/packages/mdc-theme/_functions.scss#L54
+
+// and there will be very few iterations of this generally
+
+// and we could have a special build just for that
+
+// and when it should just concatenate the outer and inner selectors
+
+// and you can only have one source map per style tag
+
+// animation, animation-(delay|direction|duration|fill-mode|iteration-count|name|play-state|timing-function)
+
+// appearance, user-select, transform, hyphens, text-size-adjust
+
+// array of values.
+
+// as there's no change between the new and old snapshots.
+
+// avoid race conditions.
+
+// background, background-image
+
+// background-clip, columns, column-(count|fill|gap|rule|rule-color|rule-style|rule-width|span|width)
+
+// because this module is primarily intended for the browser and node
+
+// borders
+
+// but it's also required in react native and similar environments sometimes
+
+// but they might be changed every render like this.
+
+// but this is much easier and the native packages
+
+// by something else. Prettier ignore and extra parentheses are necessary here
+
+// bytes are well-incorporated.
+
+// cacheData might be different from newData even when compare fn returns True
+
+// case 1
+
+// case 1:
+
+// case 2
+
+// case 2:
+
+// case 3
+
+// case 3:
+
+// charcode for b
+
+// charcode for l
+
+// closest to orange[800] that pass 3:1.
+
+// colon
+
+// color-adjust
+
+// comma
+
+// comparison to check if we need to return a new one.
+
+// complexity is almost O(1).
+
+// const m = 0x5bd1e995;
+
+// const r = 24;
+
+// counter of the key
+
+// cursor
+
+// d l m s
+
+// deduped ones.
+
+// deduplication interval.
+
+// dependencies not ready
+
+// desktop
+
+// display
+
+// display: (flex|inline-flex)
+
+// document.head is a safe place to move them to(though note document.head is not necessarily the last place they will be)
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+
+// eslint-disable-next-line prefer-rest-params
+
+// eslint-disable-next-line react-hooks/exhaustive-deps
+
+// eslint-disable-next-line react/function-component-definition
+
+// even for the unselected fields, but only trigger re-renders when
+
+// even though it might cause unexpected behaviors.
+
+// events
+
+// extracted by mini-css-extract-plugin
+
+// fallthrough
+
+// false positive
+
+// filtered keys.
+
+// finalize string values (regular strings and functions interpolated into css calls)
+
+// fired after immediate JavaScript executions, which can be
+
+// flex, flex-direction
+
+// flex-basis
+
+// flex-grow
+
+// flex-shrink
+
+// flexbox
+
+// focus revalidate
+
+// get SSRed styles out of the way of React's hydration
+
+// global state associated with the provider first.
+
+// grid
+
+// handle first and last key separately, for better readability
+
+// handling of the PRELOAD cache happens there.
+
+// horizontal(-)tb
+
+// https://esbench.com/bench/5b809c2cf2949800a0f61fb5
+
+// https://github.com/sindresorhus/is-plain-obj/blob/main/index.js
+
+// https://github.com/vercel/swr/issues/1680.
+
+// https://github.com/vercel/swr/issues/1832
+
+// https://m2.material.io/design/layout/understanding-layout.html
+
+// https://www.wolframalpha.com/input/?i=(4+%2B+15+*+(x+%2F+36+)+**+0.25+%2B+(x+%2F+36)+%2F+5)+*+10
+
+// if a key already has revalidators and also has error, we should not trigger revalidation
+
+// if it's not there yet.
+
+// if this is an implicitly inserted rule (the one eagerly inserted at the each new nested level)
+
+// it doesn't actually matter though since it's only on the server
+
+// it'll be the correct reference.
+
+// it's 1 in dev because we insert source maps that map a single rule to a location
+
+// it's doesn't worth the bundle size.
+
+// it's very unlikely for this sequence to actually appear in a different context, so we just leverage this fact here
+
+// just return the data.
+
+// justify-content
+
+// key is breakpoint
+
+// key is the value of the data-emotion attribute, it's used to identify different sheets
+
+// listeners for `focus` and `reconnect` actions.
+
+// loose mode is safe if we're concatenating primitives
+
+// mask, mask-image, mask-(mode|clip|size), mask-(repeat|origin), mask-position, mask-composite,
+
+// means that the style elements we're looking at are only Emotion 11 server-rendered style elements
+
+// meanwhile, a new revalidation should be triggered when the mutation ends.
+
+// might use a different theme context in the future anyway
+
+// most basic recommended timing
+
+// must return a function for the private theme to NOT merge with the upper theme.
+
+// negative .length indicates that this rule has been already prefixed
+
+// new mutate function.
+
+// new request should be initiated.
+
+// not an optimistic value anymore.
+
+// not the most efficient thing ever but this is a pretty rare case
+
+// note this very very intentionally targets all style elements regardless of the key to ensure
+
+// nothing to revalidate, just update the status
+
+// order
+
+// palette
+
+// parsable.
+
+// phone
+
+// position: sticky
+
+// positions
+
+// positive .length indicates that this rule contains pseudo
+
+// pretend we've started with a comma
+
+// prettier-ignore
+
+// prevent mutable object.
+
+// providers
+
+// px
+
+// recommended when something is entering screen
+
+// recommended when something is leaving screen
+
+// recursive `stableHash` calls.
+
+// refocusing or reconnecting.
+
+// rendering.
+
+// requests and store listeners. As well as a mutate function that is bound to
+
+// requests will not be deduped.
+
+// rest params over-transpile for this case
+
+// revalidate on reconnected
+
+// revalidation from the outside.
+
+// revalidation.
+
+// see https://babeljs.io/docs/en/babel-plugin-transform-template-literals#loose
+
+// see the test case "use provided theme from a callback" in ThemeProvider.test.js
+
+// shadows
+
+// short-circuit for the simplest case
+
+// simply because we didn't track them.
+
+// sizing
+
+// slowly decelerate to a resting point.
+
+// small laptop
+
+// so the objects can be garbage collected.
+
+// so there will only every be a single render
+
+// spacing
+
+// stale data so no need to revalidate immediately mount it again.
+
+// stic(k)y
+
+// storage too because it's a side-effect. Otherwise, when re-mounting we
+
+// stretch, max-content, min-content, fill-available
+
+// stylis inserts \f after & to know when & where it should replace this sequence with the context selector
+
+// such as key serialization, auto GC, etc.
+
+// switches
+
+// tablet
+
+// text-decoration, filter, clip-path, backface-visibility, column, box-decoration-break
+
+// that could change in the future because of suspense and etc. but for now,
+
+// that creating a cache works inside of render of a React component
+
+// the background and the text.
+
+// the big drawback is that the css won't be editable in devtools
+
+// the cache will never be null in the browser
+
+// the cache.
+
+// the deps array.
+
+// the max length is how many rules we have per style tag, it's 65000 in speedy mode
+
+// the request that fired later will always be kept.
+
+// the selected fields are changed.
+
+// the suspense boundary.
+
+// the values of the unselected fields might be changed. That's
+
+// then the props has already been manipulated beforehand as they that array is shared between it and its "rule parent"
+
+// this ignores label
+
+// this is not 100% correct, we don't account for literal sequences here - like for example quoted strings
+
+// this is the ultrafast version, works across browsers
+
+// this is to be used in complex animations
+
+// this means we will ignore elements which don't have a space in them which
+
+// this weirdness brought to you by firefox
+
+// this works and i don't want to optimise for a future thing that we aren't sure about
+
+// timeouts
+
+// to ensure that tsc doesn't remove the __NOINLINE__ comment.
+
+// to learn the context in which each easing should be used.
+
+// transforming the data.
+
+// transition
+
+// two indexes within its tonal palette.
+
+// typography
+
+// unnecessary re-renders, we keep the previous snapshot and use deep
+
+// use WeakMap to store the object->key mapping
+
+// use web preset by default
+
+// useLayoutEffect in the browser.
+
+// using a global regex with .exec is stateful so lastIndex has to be reset each time
+
+// value
+
+// vertical-l(r)
+
+// vertical-r(l)
+
+// we have to ignore the revalidation result (res) because it's no longer fresh.
+
+// we intentionally put a delay (setTimeout) here to make sure they are
+
+// we need to ignore the current one to avoid possible race conditions:
+
+// we need to update these fields in the `memorizedSnapshot` too
+
+// we start at 1 since we've already handled the first arg
+
+// we trigger the loading slow event.
+
+// we want the infinite fetcher to be called.
+
+// we're doing this to avoid preconstruct's dead code elimination in this one case
+
+// webpackRuntimeModules
+
+// will not re-register those event listeners.
+
+// with direct mutations to ensure the snapshot is always up-to-date
+
+// without providing any initial data. See:
+
+// writing-mode
+
+// yes, we're potentially creating this on every render
+
+// {
+
+// { rule/at-rule
+
+// } ; \0
+
+//# sourceMappingURL=index.js.map
+
+/// <reference types="react/experimental" />

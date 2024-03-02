@@ -6,6 +6,18 @@
  * see: http://github.com/jrburke/requirejs for details
  */
 
+/*
+styles = []
+for (var i = 1; i < 16; i++) {
+    styles.push(".ace_br" + i + "{" + (
+        ["top-left", "top-right", "bottom-right", "bottom-left"]
+    ).map(function(x, j) {
+        return i & (1<<j) ? "border-" + x + "-radius: 3px;" : ""
+    }).filter(Boolean).join(" ") + "}")
+}
+styles.join("\\n")
+*/
+
 /* ***** BEGIN LICENSE BLOCK *****
  * Distributed under the BSD license:
  *
@@ -70,6 +82,12 @@ For more information about SproutCore, visit http://www.sproutcore.com
 @license */
 
 /**
+ * @typedef {import("./anchor").Anchor} Anchor
+ * @typedef {import("../ace-internal").Ace.Point} Point
+ * @typedef {import("../ace-internal").Ace.ScreenCoordinates} ScreenCoordinates
+ */
+
+/**
  * Define a module along with a payload
  * @param module a name for the payload
  * @param payload a function to call with (require, exports, module) params
@@ -82,10 +100,37 @@ For more information about SproutCore, visit http://www.sproutcore.com
 /**
  * The main class required to set up an Ace instance in the browser.
  *
- * @class Ace
+ * @namespace Ace
  **/
 
+/**
+ * commands to enter multiselect mode
+ * @type {import("../../ace-internal").Ace.Command[]}
+ */
+
+/** @class */
+
 /***/
+
+/**@this{Cursor}*/
+
+/**@type{EditSession}*/
+
+/**@type{Editor}*/
+
+/**@type{Element}*/
+
+/**@type{Point}*/
+
+/**@type{Range}*/
+
+/**@type{any?}*/
+
+/**@type{number}*/
+
+/**@type{string}*/
+
+// @ts-nocheck
 
 // Backwards-compatibility
 
@@ -94,6 +139,8 @@ For more information about SproutCore, visit http://www.sproutcore.com
 // Collapse insert range.
 
 // JSON.stringify doesn't hanle Infinity
+
+// Tokens for which Ace just uses a simple TextNode and does not add any special className.
 
 // Transform relative to the current column
 
@@ -105,7 +152,9 @@ For more information about SproutCore, visit http://www.sproutcore.com
 
 // before or after alphanumeric
 
-// commands to enter multiselect mode
+// can happen in strict mode
+
+// can happen in webworker
 
 // do not pair quotes inside strings
 
@@ -115,8 +164,6 @@ For more information about SproutCore, visit http://www.sproutcore.com
 
 // for ie
 
-// milliseconds
-
 // mode doesn't support folding
 
 // needed to compensate for hor scollbar
@@ -124,6 +171,8 @@ For more information about SproutCore, visit http://www.sproutcore.com
 // normalize plugin requires
 
 // normalize relative requires
+
+// prevent memory leak on old ie
 
 // previous insertion was of same type
 
@@ -143,6 +192,8 @@ For more information about SproutCore, visit http://www.sproutcore.com
 
 //"\u21E5";
 
+//@ts-expect-error TODO: seems mistyping - should be boolean
+
 //Range for <
 
 //Range for </
@@ -158,3 +209,5 @@ For more information about SproutCore, visit http://www.sproutcore.com
 //found opening tag
 
 //found self-closing tag end
+
+//left for backward compatibility with previous versions for cases like /ab\{2}/gu

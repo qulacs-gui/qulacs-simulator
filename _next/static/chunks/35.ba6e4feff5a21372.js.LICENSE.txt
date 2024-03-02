@@ -1555,6 +1555,10 @@
 
 //  PATCH FUNCTIONS
 
+// " string
+
+// ' string
+
 // '\x00' is a valid character, but various debuggers don't like it.
 
 // 'this' becomes 'window' in a closure.
@@ -2031,6 +2035,8 @@
 
 // error level.
 
+// float
+
 // for more details.
 
 // get a list of possible options to avoid 'misspelled option errors'
@@ -2041,6 +2047,8 @@
 
 // if the value or annotations changed, set the annotations
 
+// imaginary
+
 // in Safari 8-9 which returns 'object' for typed array and other constructors.
 
 // in Safari 9 which returns 'object' for typed arrays and other constructors.
@@ -2049,11 +2057,25 @@
 
 // indices.
 
+// integer
+
 // integers and undefined.
 
 // just completed patch.
 
+// long integer
+
 // matches are found, increase the pattern length.
+
+// method
+
+// multi line """ string end
+
+// multi line """ string start
+
+// multi line ''' string end
+
+// multi line ''' string start
 
 // number of diffs equals number of characters, no commonality at all.
 
