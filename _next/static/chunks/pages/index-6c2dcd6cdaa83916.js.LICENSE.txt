@@ -116,8 +116,6 @@
 
 // CONCATENATED MODULE: ../simulator/lib/common/codeTextGenerator/circuit/qasm3/qasm3CircuitCodeGenerator.js
 
-// CONCATENATED MODULE: ../simulator/lib/common/utils/api/apiHelper.js
-
 // CONCATENATED MODULE: ../simulator/lib/common/utils/api/apiUtil.js
 
 // CONCATENATED MODULE: ../simulator/lib/common/utils/api/type.js
@@ -212,6 +210,8 @@
 
 // CONCATENATED MODULE: ./src/ts/tabs/runOnCloudTab/organisms/CloudActions/index.tsx
 
+// CONCATENATED MODULE: ./src/ts/tabs/runOnCloudTab/organisms/CloudResult/CloudResultExpectationValue/index.tsx
+
 // CONCATENATED MODULE: ./src/ts/tabs/runOnCloudTab/organisms/CloudResult/CloudResultInfo/index.tsx
 
 // CONCATENATED MODULE: ./src/ts/tabs/runOnCloudTab/organisms/CloudResult/CloudResultList/index.tsx
@@ -240,6 +240,8 @@
 
 // EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+icons-material@5.15.4_@mui+material@5.15.4_@types+react@18.2.47_react@18.2.0/node_modules/@mui/icons-material/AddRounded.js
 
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+icons-material@5.15.4_@mui+material@5.15.4_@types+react@18.2.47_react@18.2.0/node_modules/@mui/icons-material/CheckCircleRounded.js
+
 // EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+icons-material@5.15.4_@mui+material@5.15.4_@types+react@18.2.47_react@18.2.0/node_modules/@mui/icons-material/CodeRounded.js
 
 // EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+icons-material@5.15.4_@mui+material@5.15.4_@types+react@18.2.47_react@18.2.0/node_modules/@mui/icons-material/ContentCutOutlined.js
@@ -247,6 +249,8 @@
 // EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+icons-material@5.15.4_@mui+material@5.15.4_@types+react@18.2.47_react@18.2.0/node_modules/@mui/icons-material/DeleteOutlineRounded.js
 
 // EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+icons-material@5.15.4_@mui+material@5.15.4_@types+react@18.2.47_react@18.2.0/node_modules/@mui/icons-material/DeleteRounded.js
+
+// EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+icons-material@5.15.4_@mui+material@5.15.4_@types+react@18.2.47_react@18.2.0/node_modules/@mui/icons-material/ErrorRounded.js
 
 // EXTERNAL MODULE: ../../node_modules/.pnpm/@mui+icons-material@5.15.4_@mui+material@5.15.4_@types+react@18.2.47_react@18.2.0/node_modules/@mui/icons-material/HelpOutlineRounded.js
 
@@ -402,7 +406,7 @@
 
 // NOTE: 文字列の先頭が+であれば除去する
 
-// NOTE: 末尾スラッシュを除去したうえで `/api` を付与する
+// NOTE: 末尾スラッシュを除去する
 
 // NOTE: 現在の結果を保持したままキューを開放する
 

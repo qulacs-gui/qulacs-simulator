@@ -31,7 +31,7 @@
 .SnackbarProvider_wrapper__zQTyg{font-size:1.4rem !important}
 .CloudActions_wrapper__fEV9d{display:flex;gap:8px}
 .CloudResultInfo_wrapper__jGfeF{display:flex;align-items:baseline;gap:8px}.CloudResultInfo_status___kRm7{margin-left:-4px}
-.CloudResultList_wrapper___uHW_{display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));grid-gap:8px;gap:8px}.CloudResultList_item__NuDSb{padding:8px 16px}
+.CloudResultList_wrapper___uHW_{display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));grid-gap:8px;gap:8px}.CloudResultList_item__NuDSb{padding:8px 16px}.CloudResultList_formula__Iduen{margin:-4px 0 4px}
 .CloudResult_wrapper__nfxJJ{display:flex;flex-direction:column}.CloudResult_list__o3huD{margin-top:8px}
 .APISelect_wrapper___AXgp{display:flex;align-items:flex-start}.APISelect_select__yMJTN{flex-grow:1}
 .CloudSettingsForm_wrapper__sw9ty{position:relative;margin-left:-8px;max-width:min(100%,720px)}.CloudSettingsForm_container__v7Tf0{display:flex;align-items:flex-start}.CloudSettingsForm_label__YRtXZ{display:flex;flex-direction:column;max-width:100%;margin:8px}.CloudSettingsForm_select__LK_Jt{flex-grow:1}.CloudSettingsForm_submitButton__JutOt{padding:8px 8px 4px 0;text-align:right}
