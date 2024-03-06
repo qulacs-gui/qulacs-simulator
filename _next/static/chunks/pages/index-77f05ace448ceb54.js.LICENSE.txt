@@ -1,3 +1,12 @@
+/*
+    if (isEmptyObservable({ observable: observableData })) {
+      observableData = createMinObservable(
+        uiState.circuitInformation.size,
+        0
+      ).observable;
+    }
+    */
+
 /* Bar */
 
 /* BarChart */
@@ -382,11 +391,21 @@
 
 // GetJobsResponseResult
 
+// NOTE: JobResultのグラフはprobabilityVectorを表示しない
+
 // NOTE: MultiGateとControllQubitの間には置けない
 
 // NOTE: QuantumCircuitではこのゲートが挿入されることを想定していない
 
 // NOTE: ciruict側の量子ビット数を合わせる（減算はuseEffectで行われる）
+
+// NOTE: coefficientが0であれば無視する
+
+// NOTE: coefficientが0であれば表示しない
+
+// NOTE: coefficientが1,-1の場合は係数を省略する
+
+// NOTE: coefficientが全て0であれば0を返す
 
 // NOTE: controllQubitの始点から終点までを消す
 
@@ -399,6 +418,10 @@
 // NOTE: observable側の量子ビット数を合わせる（減算はuseEffectで行われる）
 
 // NOTE: qubitを消す場合、再帰的にmultigateを消す
+
+// NOTE: ゲートが配置されていない or Iのみの場合 `${coefficient}I` の形
+
+// NOTE: ゲートが配置されている場合 `${coefficient}${...gate}` の形
 
 // NOTE: 上/下方向（ccnotは両方向）のいずれかに配置できるか確認する
 
@@ -415,8 +438,6 @@
 // PhyIndexQasmRelationMapのインデックスキーがcounts表記の物理インデックスに対応し、値がqasmのインデックスを指す
 
 // RX(-pi/2)でもよい?
-
-// TODO: バグっている。rxとhの2ステップを追加する必要があるケースで2つめのゲートのインデックスが正しくない。またそれが複数ある場合のスタック戦略がない
 
 // TODO: 現状のGUIでは起動時に自動でwasmDriverをロードする
 
@@ -442,8 +463,6 @@
 
 // eslint-disable-next-line no-param-reassign
 
-// eslint-disable-next-line no-unused-expressions
-
 // eslint-disable-next-line react-hooks/exhaustive-deps
 
 // eslint-disable-next-line react/no-array-index-key
@@ -460,9 +479,11 @@
 
 // qasmBasisCountsのキーは値が0の場合省略されることがあるが、expectationValueへの加算が0なので導出には影響しない
 
+// requestsが0にならないよう、1つだけの場合はそのまま返す
+
 // step.push(undefined);
 
-// undefined 以外を持つ配列の場合、偽
+// ただし I ゲートは無視される
 
 // 右から数え上げと配列インデックス順が逆なので反転
 
