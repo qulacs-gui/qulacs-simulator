@@ -1,12 +1,3 @@
-/*
-    if (isEmptyObservable({ observable: observableData })) {
-      observableData = createMinObservable(
-        uiState.circuitInformation.size,
-        0
-      ).observable;
-    }
-    */
-
 /* Bar */
 
 /* BarChart */
@@ -478,8 +469,6 @@
 // q_xの数が変化したらObservable側も変更する
 
 // qasmBasisCountsのキーは値が0の場合省略されることがあるが、expectationValueへの加算が0なので導出には影響しない
-
-// requestsが0にならないよう、1つだけの場合はそのまま返す
 
 // step.push(undefined);
 
