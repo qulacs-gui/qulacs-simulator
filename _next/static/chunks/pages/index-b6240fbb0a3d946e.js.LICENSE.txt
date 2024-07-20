@@ -144,6 +144,8 @@
 
 // CONCATENATED MODULE: ./src/ts/shared/organisms/APISettingsDialog/CloudAPIList/index.tsx
 
+// CONCATENATED MODULE: ./src/ts/shared/organisms/AppFooter/index.tsx
+
 // CONCATENATED MODULE: ./src/ts/shared/organisms/AppHeader/index.tsx
 
 // CONCATENATED MODULE: ./src/ts/shared/organisms/ChartTabContainer/index.tsx
@@ -325,6 +327,8 @@
 // EXTERNAL MODULE: ./src/ts/shared/molecules/GateLabels/GateLabels.module.scss
 
 // EXTERNAL MODULE: ./src/ts/shared/organisms/APISettingsDialog/CloudAPIForm/CloudAPIForm.module.scss
+
+// EXTERNAL MODULE: ./src/ts/shared/organisms/AppFooter/AppFooter.module.scss
 
 // EXTERNAL MODULE: ./src/ts/shared/organisms/ChartTabContainer/ChartTabContainer.module.scss
 

@@ -1,6 +1,7 @@
 .CloudAPIForm_wrapper__BSO_w{position:relative;border-radius:8px;border:1px solid #ccc;padding:8px}.CloudAPIForm_container__h35aU{display:flex;align-items:flex-start}.CloudAPIForm_label__8yaBz{flex-grow:1;display:flex;flex-direction:column;margin:8px}.CloudAPIForm_submitButton__UqXzX{padding:8px 8px 4px 0;text-align:right}
 .CloudAPIList_wrapper__x85Q2{position:relative;border-radius:8px;border:1px solid #ccc}.CloudAPIList_empty__19l03{padding:16px;color:#999}.CloudAPIList_list__bIcdB{list-style:none;max-height:200px;overflow-y:auto;margin:0;padding:0}.CloudAPIList_list__bIcdB>li:not(:first-of-type){border-top:1px solid #ccc}.CloudAPIList_listItem__VY5AJ{display:flex;align-items:center;justify-content:space-between;padding:8px 16px}
-.AppHeader_heading__hBCZP{flex-grow:1}
+.AppFooter_footer__OMY8S{text-align:center;padding-bottom:10px;color:#666}
+.AppHeader_heading__hBCZP{display:flex;align-items:baseline;flex-grow:1}.AppHeader_heading__hBCZP>h6{margin-right:8px}
 .AmplitudesChart_tooltipWrapper__bRsRH{margin:0;padding:10px;background-color:#fff;border:1px solid #ccc;white-space:nowrap}.AmplitudesChart_tooltipLabel__cQQ2D{margin:0}.AmplitudesChart_tooltipValue__xv_va{color:#666}
 .HelpPopover_wrapper__vehEf{padding:16px}.HelpPopover_phase__4c2M8{width:300px;height:30px;background:linear-gradient(90deg, hsl(0, 100%, 70%), hsl(60, 100%, 70%), hsl(120, 100%, 70%), hsl(180, 100%, 70%), hsl(240, 100%, 70%), hsl(300, 100%, 70%), hsl(0, 100%, 70%))}.HelpPopover_caption__q01kK{display:flex;justify-content:space-between}
 .ComplexAmplitudesTab_wrapper__InvSB{position:relative;height:100%}.ComplexAmplitudesTab_popover__DaEbT{position:absolute;top:0;left:0;z-index:1}
