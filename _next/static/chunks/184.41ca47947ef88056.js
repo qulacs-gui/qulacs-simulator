@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[184],{51184:(e,t,s)=>{s.r(t),s.d(t,{CodeEditor:()=>o});var h=s(23798);s(76185),s(44838),s(87079),s(21462);var i=s(98008);let o=e=>(0,h.jsx)(i.Ay,{mode:"python",theme:"monokai",width:"100%",height:"500px",fontSize:14,style:{minWidth:"400px"},...e,setOptions:{useWorker:!1}})}}]);
